@@ -3,27 +3,21 @@ import * as path from 'path';
 
 const rootPath = path.resolve('src');
 
-const getPathnames = async (currentPath) => {
+const getPathnames = async (pathname = rootPath) => {
   const pathnames = [];
-  const basenames = await fs.readdir(currentPath);
+  const basenames = await fs.readdir(pathname);
 
   for (const basename of basenames) {
-    const entity = await fs.lstat(path.resolve(currentPath, basename));
+    const entity = await fs.lstat(path.resolve(pathname, basename));
 
     if (!entity.isDirectory()) {
-      pathnames.push(path.resolve(currentPath, basename));
+      pathnames.push(path.resolve(pathname, basename));
     } else {
-      pathnames.push(
-        ...(await getPathnames(path.resolve(currentPath, basename)))
-      );
+      pathnames.push(...(await getPathnames(path.resolve(pathname, basename))));
     }
   }
 
   return pathnames;
 };
-
-const pathnames = await getPathnames(rootPath);
-
-console.log(pathnames);
 
 export default getPathnames;
