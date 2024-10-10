@@ -1,7 +1,7 @@
 const convertToRelative = (pathnames) => {
   const imagesIndex = pathnames[0]
     .split('/')
-    .findIndex((name) => name === 'images');
+    .findIndex((dirname) => dirname === 'images');
 
   return pathnames.map((pathname) => {
     const relativePath = pathname
@@ -15,10 +15,10 @@ const convertToRelative = (pathnames) => {
 
 console.log(
   convertToRelative([
-    '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/imgA@1x.webp',
-    '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/imgA@2x.webp',
-    '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/imgB@1x.webp',
-    '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/imgB@2x.webp',
+    '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/first-img-example@1x.webp',
+    '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/first-img-example@2x.webp',
+    '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/second-img-example@1x.webp',
+    '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/second-img-example@2x.webp',
   ])
 );
 
