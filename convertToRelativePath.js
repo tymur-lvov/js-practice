@@ -13,6 +13,4 @@ const convertToRelativePath = (pathname, relativeDirName) => {
   return relativePath;
 };
 
-//./imgA/first-img-example@1x.webp
-
 export default convertToRelativePath;
