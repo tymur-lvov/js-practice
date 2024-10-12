@@ -20,4 +20,11 @@ const getPathnames = async (pathname = rootPath) => {
   return pathnames;
 };
 
+//[
+//  '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/first-img-example@1x.webp',
+//  '/Users/tymur/GitHub/node-practice/src/assets/images/imgA/first-img-example@2x.webp',
+//  '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/second-img-example@1x.webp',
+//  '/Users/tymur/GitHub/node-practice/src/assets/images/imgB/second-img-example@2x.webp'
+//]
+
 export default getPathnames;
