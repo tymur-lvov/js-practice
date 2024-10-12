@@ -11,7 +11,9 @@ const getPathnames = async (pathname = rootPath) => {
     const entity = await fs.lstat(path.resolve(pathname, basename));
 
     if (!entity.isDirectory()) {
-      pathnames.push(path.resolve(pathname, basename));
+      basename === 'index.js'
+        ? null
+        : pathnames.push(path.resolve(pathname, basename));
     } else {
       pathnames.push(...(await getPathnames(path.resolve(pathname, basename))));
     }
