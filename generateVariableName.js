@@ -6,9 +6,9 @@ const generateVariableName = (pathname) => {
 
   const basename = pathname.slice(slashIndex + 1, dotIndex);
 
-  const camelCasedBasename = convertToCamelCase(basename);
+  const variableName = convertToCamelCase(basename);
 
-  return camelCasedBasename;
+  return variableName;
 };
 
 export default generateVariableName;
