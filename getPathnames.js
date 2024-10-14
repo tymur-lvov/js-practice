@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
 
+import pathnameStoreCreator from './pathnameStoreCreator.js';
+
 const rootPath = path.resolve('src');
 
 const getPathnames = async (pathname = rootPath) => {
@@ -16,6 +18,14 @@ const getPathnames = async (pathname = rootPath) => {
         : pathnames.push(path.resolve(pathname, basename));
     } else {
       pathnames.push(...(await getPathnames(path.resolve(pathname, basename))));
+    }
+
+    if (pathnames.length === 1) {
+      const pathnameStore = pathnameStoreCreator();
+
+      pathnameStore.savePathname(pathnames[0]);
+
+      console.log('result:', pathnameStore.getSavedPathname());
     }
   }
 
