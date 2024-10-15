@@ -1,31 +1,28 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
 
-import pathnameStoreCreator from './pathnameStoreCreator.js';
+import pathnameStore from './pathnameStoreCreator.js';
 
 const rootPath = path.resolve('src');
 
-const getPathnames = async (pathname = rootPath) => {
+const getPathnames = async (dirPath = rootPath) => {
+  const subDirs = await fs.readdir(dirPath);
+
   const pathnames = [];
-  const basenames = await fs.readdir(pathname);
 
-  for (const basename of basenames) {
-    const entity = await fs.lstat(path.resolve(pathname, basename));
+  for (const subDir of subDirs) {
+    const subDirPath = path.resolve(dirPath, subDir);
 
-    if (!entity.isDirectory()) {
-      basename === 'index.js'
-        ? null
-        : pathnames.push(path.resolve(pathname, basename));
+    const subDirInfo = await fs.lstat(subDirPath);
+
+    if (!subDirInfo.isDirectory()) {
+      subDir === 'index.js' ? null : pathnames.push(subDirPath);
     } else {
-      pathnames.push(...(await getPathnames(path.resolve(pathname, basename))));
+      pathnames.push(...(await getPathnames(subDirPath)));
     }
 
     if (pathnames.length === 1) {
-      const pathnameStore = pathnameStoreCreator();
-
-      pathnameStore.savePathname(pathnames[0]);
-
-      console.log('result:', pathnameStore.getSavedPathname());
+      pathnameStore.storePathname(pathnames[0]);
     }
   }
 
