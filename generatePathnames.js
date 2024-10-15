@@ -9,7 +9,7 @@ const generatePathnames = async (dirPath = rootPath) => {
   const subDirs = await fs.readdir(dirPath);
 
   const pathnames = await Promise.all(
-    subDirs.flatMap(async (subDir) => {
+    subDirs.map(async (subDir) => {
       const subDirPath = path.resolve(dirPath, subDir);
       const subDirInfo = await fs.lstat(subDirPath);
 
