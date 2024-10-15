@@ -6,11 +6,11 @@ import generateReExports from './generateReExports.js';
 const generateBarrelFile = async () => {
   const [scriptArg] = process.argv.slice(2);
 
-  const relativeDirName = scriptArg === 'i' ? 'images' : 'components';
+  const relativeDir = scriptArg === 'i' ? 'images' : 'components';
 
-  const reExports = await generateReExports(relativeDirName);
+  const reExports = await generateReExports(relativeDir);
 
-  injectReExports(reExports, relativeDirName);
+  injectReExports(reExports, relativeDir);
 };
 
 generateBarrelFile();
