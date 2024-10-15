@@ -1,9 +1,9 @@
-import getPathnames from './getPathnames.js';
+import generatePathnames from './generatePathnames.js';
 import generateVariableName from './generateVariableName.js';
 import convertToRelativePath from './convertToRelativePath.js';
 
 const generateReExports = async (relativeDir) => {
-  const pathnames = await getPathnames();
+  const pathnames = await generatePathnames();
 
   const reExports = pathnames.map((pathname) => {
     const reExport = {};
