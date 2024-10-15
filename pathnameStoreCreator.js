@@ -1,10 +1,12 @@
 const pathnameStoreCreator = () => {
-  let savedPathname;
+  let storedPathname;
 
-  const savePathname = (pathname) => (savedPathname = pathname);
-  const getSavedPathname = () => savedPathname;
+  const storePathname = (pathname) => (storedPathname = pathname);
+  const getStoredPathname = () => storedPathname;
 
-  return { savePathname, getSavedPathname };
+  return { storePathname, getStoredPathname };
 };
 
-export default pathnameStoreCreator;
+const pathnameStore = pathnameStoreCreator();
+
+export default pathnameStore;
