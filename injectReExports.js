@@ -4,18 +4,17 @@ import * as path from 'path';
 import pathnameStore from './pathnameStoreCreator.js';
 import concatReExports from './concatReExports.js';
 
-const injectReExports = async (reExports, relativeDirName) => {
-  const storedPathname = pathnameStore.getStoredPathname();
-  console.log(storedPathname);
+const injectReExports = async (reExports, relativeDir) => {
+  const storedPathname = pathnameStore.getStoredPathname().split('/');
 
-  const relativePath = path.resolve(
-    'src',
-    'assets',
-    relativeDirName,
-    'index.js'
-  );
+  const rootDirIndex = storedPathname.indexOf('src');
+  const relativeDirIndex = storedPathname.indexOf(relativeDir);
 
-  fs.writeFile(relativePath, concatReExports(reExports));
+  const subDirs = storedPathname.slice(rootDirIndex + 1, relativeDirIndex + 1);
+
+  const reExportsFilePathname = path.resolve('src', ...subDirs, 'index.js');
+
+  fs.writeFile(reExportsFilePathname, concatReExports(reExports));
 };
 
 export default injectReExports;
