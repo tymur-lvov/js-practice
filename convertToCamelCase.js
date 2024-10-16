@@ -1,4 +1,4 @@
-const convertToCamelCase = (basename) => {
+const convertToCamelCase = (basename, relativeDir) => {
   const camelCasedBasename = basename
     .split('-')
     .map((namePart, namePartIndex) => {
@@ -6,7 +6,7 @@ const convertToCamelCase = (basename) => {
         return `@${namePart}`;
       }
 
-      if (namePartIndex === 0) {
+      if (namePartIndex === 0 && relativeDir !== 'components') {
         return namePart;
       } else {
         return namePart.replace(namePart[0], namePart[0].toUpperCase());

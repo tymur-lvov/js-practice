@@ -3,9 +3,7 @@ import * as path from 'path';
 
 import pathnameStore from './pathnameStoreCreator.js';
 
-const rootPath = path.resolve('src');
-
-const generatePathnames = async (dirPath = rootPath) => {
+const generatePathnames = async (dirPath, relativeDir) => {
   const subDirs = await fs.readdir(dirPath);
 
   const pathnames = await Promise.all(
@@ -13,14 +11,18 @@ const generatePathnames = async (dirPath = rootPath) => {
       const subDirPath = path.resolve(dirPath, subDir);
       const subDirInfo = await fs.lstat(subDirPath);
 
-      if (!pathnameStore.getStoredPathname() && !subDirInfo.isDirectory()) {
+      if (
+        !pathnameStore.getStoredPathname() &&
+        !subDirInfo.isDirectory() &&
+        subDirPath.includes(relativeDir)
+      ) {
         pathnameStore.storePathname(subDirPath);
       }
 
       if (!subDirInfo.isDirectory()) {
         return subDir === 'index.js' ? [] : subDirPath;
       } else {
-        return await generatePathnames(subDirPath);
+        return await generatePathnames(subDirPath, relativeDir);
       }
     })
   );
