@@ -4,8 +4,8 @@
   "main": "node-fs.js",
   "type": "module",
   "scripts": {
-    "bar": "node generateBarrelFile.js",
-    "bari": "node generateBarrelFile.js i"
+    "bar": "node generateBarrelFile.js components",
+    "bari": "node generateBarrelFile.js images"
   },
   "keywords": [],
   "author": "",

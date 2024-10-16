@@ -7,9 +7,7 @@ import generateReExports from './generateReExports.js';
 const rootPath = path.resolve('src');
 
 const generateBarrelFile = async () => {
-  const [scriptArg] = process.argv.slice(2);
-
-  const relativeDir = scriptArg === 'i' ? 'images' : 'components';
+  const [relativeDir] = process.argv.slice(2);
 
   const reExports = await generateReExports(rootPath, relativeDir);
 
