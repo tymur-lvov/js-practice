@@ -12,7 +12,7 @@ const generatePathnames = async (dirPath, relativeDir) => {
       const subDirInfo = await fs.lstat(subDirPath);
 
       if (
-        !pathnameStore.getStoredPathname() &&
+        !pathnameStore.isPathnameStored() &&
         !subDirInfo.isDirectory() &&
         subDirPath.includes(relativeDir)
       ) {

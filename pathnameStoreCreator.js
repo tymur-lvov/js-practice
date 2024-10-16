@@ -3,8 +3,9 @@ const pathnameStoreCreator = () => {
 
   const storePathname = (pathname) => (storedPathname = pathname);
   const getStoredPathname = () => storedPathname;
+  const isPathnameStored = () => Boolean(storedPathname);
 
-  return { storePathname, getStoredPathname };
+  return { storePathname, getStoredPathname, isPathnameStored };
 };
 
 const pathnameStore = pathnameStoreCreator();
