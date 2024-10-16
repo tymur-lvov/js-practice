@@ -120,7 +120,7 @@ dist
 .tern-port
 
 # VSCode
-.vscode
+.vscode/
 
 # yarn v2
 .yarn/cache
