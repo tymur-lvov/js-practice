@@ -11,15 +11,15 @@ const generatePathnames = async (dirPath, relativeDir) => {
       const subDirPath = path.resolve(dirPath, subDir);
       const subDirInfo = await fs.lstat(subDirPath);
 
-      if (
-        !pathnameStore.isPathnameStored() &&
-        !subDirInfo.isDirectory() &&
-        subDirPath.includes(relativeDir)
-      ) {
+      const isDirDirectory = subDirInfo.isDirectory();
+      const isPathnameStored = pathnameStore.isPathnameStored();
+      const isIncludesRelativeDir = subDirPath.includes(relativeDir);
+
+      if (!isDirDirectory && !isPathnameStored && isIncludesRelativeDir) {
         pathnameStore.storePathname(subDirPath);
       }
 
-      if (!subDirInfo.isDirectory()) {
+      if (!isDirDirectory) {
         return subDir === 'index.js' ? [] : subDirPath;
       } else {
         return await generatePathnames(subDirPath, relativeDir);
