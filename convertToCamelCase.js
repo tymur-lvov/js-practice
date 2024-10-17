@@ -1,5 +1,5 @@
 const convertToCamelCase = (basename, relativeDir) => {
-  const camelCasedBasename = basename
+  return basename
     .split('-')
     .map((namePart, namePartIndex) => {
       if (namePart === '1x' || namePart === '2x') {
@@ -11,9 +11,9 @@ const convertToCamelCase = (basename, relativeDir) => {
       } else {
         return namePart.replace(namePart[0], namePart[0].toUpperCase());
       }
-    });
-
-  return camelCasedBasename.join('').replace(/[@]/g, '_');
+    })
+    .join('')
+    .replace(/[@]/g, '_');
 };
 
 export default convertToCamelCase;
