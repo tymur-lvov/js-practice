@@ -23,6 +23,4 @@ const generateBarrelFile = async () => {
   injectReExports(reExports, relativeDir);
 };
 
-const decoratedGenerateBarrelFile = errorHandleDecor(generateBarrelFile);
-
-decoratedGenerateBarrelFile();
+errorHandleDecor(generateBarrelFile)();
