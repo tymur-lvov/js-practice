@@ -8,9 +8,7 @@ const convertToRelativePath = (pathname, relativeDir) => {
     .slice(relativeDirIndex + 1)
     .join('/');
 
-  const relativePath = slicedPath.padStart(slicedPath.length + 2, './');
-
-  return relativePath;
+  return slicedPath.padStart(slicedPath.length + 2, './');
 };
 
 export default convertToRelativePath;
