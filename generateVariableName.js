@@ -8,9 +8,9 @@ const generateVariableName = (pathname, relativeDir) => {
 
   if (relativeDir === 'components') {
     return basename;
+  } else {
+    return convertToCamelCase(basename, relativeDir);
   }
-
-  return convertToCamelCase(basename, relativeDir);
 };
 
 export default generateVariableName;
