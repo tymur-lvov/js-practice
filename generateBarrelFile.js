@@ -4,6 +4,7 @@ import process from 'process';
 import injectReExports from './injectReExports.js';
 import errorHandleDecor from './errorHandleDecor.js';
 import generateReExports from './generateReExports.js';
+import injectCustomTypes from './injectCustomTypes.js';
 
 const generateBarrelFile = async () => {
   const rootPath = path.resolve('src');
@@ -21,6 +22,8 @@ const generateBarrelFile = async () => {
   const reExports = await generateReExports(rootPath, relativeDir);
 
   injectReExports(reExports, relativeDir);
+
+  injectCustomTypes(reExports, relativeDir);
 };
 
 errorHandleDecor(generateBarrelFile)();
