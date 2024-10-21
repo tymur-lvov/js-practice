@@ -2,7 +2,8 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
-import generateCustomTypeString from './generateCustomTypeString.js';
+import generateCustomTypeString from './generateCustomTypeExport.js';
+import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
 const injectCustomTypes = async (reExports, relativeDir) => {
   const targetPath = path.resolve('@types', 'custom.d.ts');
@@ -26,22 +27,15 @@ const injectCustomTypes = async (reExports, relativeDir) => {
     .join('\n');
   console.log(unchangedContent);
 
-  //  const newContent = reExports
-  //    .map((reExport) => {
-  //      const customTypeString = generateCustomTypeString(
-  //        reExport.variableName,
-  //        relativeDir
-  //      );
+  const newContent = generateCustomTypeDeclaration(reExports, relativeDir);
+  //console.log(newContent);
 
-  //      return enhanceCustomTypeString(customTypeString);
-  //    })
-  //    .join('\n');
-  //  console.log('newContent:\n', newContent);
+  const enhancedNewContent = enhanceCustomTypeString(newContent);
+  //console.log(enhancedNewContent);
 
-  //  const finalContent = unchangedContent.concat('\n', newContent);
-  //  //  console.log('finalContent:\n', finalContent);
+  //await fs.writeFile(targetPath, unchangedContent);
 
-  //  //  await fs.writeFile(targetPath, finalContent);
+  //await fs.appendFile(targetPath, enhancedNewContent);
 };
 
 export default injectCustomTypes;
