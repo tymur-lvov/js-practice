@@ -20,7 +20,7 @@ const generatePathnames = async (dirPath, relativeDir) => {
       }
 
       if (!isDirectory) {
-        return subDir === 'index.js' ? [] : subDirPath;
+        return subDir === 'index.ts' ? [] : subDirPath;
       } else {
         return await generatePathnames(subDirPath, relativeDir);
       }

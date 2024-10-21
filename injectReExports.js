@@ -13,7 +13,7 @@ const injectReExports = async (reExports, relativeDir) => {
 
   const subDirs = storedPathname.slice(rootDirIndex + 1, relativeDirIndex + 1);
 
-  const reExportsFilePathname = path.resolve('src', ...subDirs, 'index.js');
+  const reExportsFilePathname = path.resolve('src', ...subDirs, 'index.ts');
 
   await fs.writeFile(reExportsFilePathname, concatReExports(reExports));
 };
