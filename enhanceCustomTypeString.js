@@ -1,5 +1,5 @@
-const enhanceCustomTypeString = (string) => {
-  const separatedString = string.trim().split('\n');
+const enhanceCustomTypeString = (declarationString) => {
+  const separatedString = declarationString.trim().split('\n');
 
   return separatedString
     .map((stringPart, partIndex) => {
