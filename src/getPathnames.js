@@ -3,9 +3,9 @@ import * as fs from 'fs/promises';
 
 import pathnameStore from './pathnameStoreCreator.js';
 
-const rootPath = path.resolve('src');
+const srcPath = path.resolve('src');
 
-const getPathnames = async (dirPath = rootPath) => {
+const getPathnames = async (dirPath = srcPath) => {
   const subDirs = await fs.readdir(dirPath);
 
   const pathnames = [];

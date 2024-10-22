@@ -1,14 +1,14 @@
-import errorHandleDecor from './errorHandleDecor.js';
+import errorCathingDecor from './errorCathingDecor.js';
 import generatePathnames from './generatePathnames.js';
-import insertErrorMessage from './insertErrorMessage.js';
+import produceErrorMessage from './produceErrorMessage.js';
 import generateVariableName from './generateVariableName.js';
 import convertToRelativePath from './convertToRelativePath.js';
 
-const generateReExports = async (rootPath, relativeDir) => {
-  const pathnames = await generatePathnames(rootPath, relativeDir);
+const generateReExports = async (srcPath, relativeDir) => {
+  const pathnames = await generatePathnames(srcPath, relativeDir);
 
   if (!pathnames.length) {
-    throw new Error(insertErrorMessage('!pathnames.length'));
+    throw new Error(produceErrorMessage('!pathnames.length'));
   }
 
   const filteredPathnames = pathnames.filter((pathname) => {
@@ -29,4 +29,4 @@ const generateReExports = async (rootPath, relativeDir) => {
   });
 };
 
-export default errorHandleDecor(generateReExports);
+export default errorCathingDecor(generateReExports);

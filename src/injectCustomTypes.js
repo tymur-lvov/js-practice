@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import errorHandleDecor from './errorHandleDecor.js';
+import errorCathingDecor from './errorCathingDecor.js';
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
@@ -51,4 +51,4 @@ const injectCustomTypes = async (reExports, relativeDir) => {
   await fs.writeFile(customTypesFilePath, finalUpdatedContent);
 };
 
-export default errorHandleDecor(injectCustomTypes);
+export default errorCathingDecor(injectCustomTypes);

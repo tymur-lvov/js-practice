@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import pathnameStore from './pathnameStoreCreator.js';
 import concatReExports from './concatReExports.js';
-import errorHandleDecor from './errorHandleDecor.js';
+import errorCathingDecor from './errorCathingDecor.js';
 
 const injectReExports = async (reExports, relativeDir) => {
   const storedPathname = pathnameStore.getStoredPathname().split('/');
@@ -18,4 +18,4 @@ const injectReExports = async (reExports, relativeDir) => {
   await fs.writeFile(reExportsFilePathname, concatReExports(reExports));
 };
 
-export default errorHandleDecor(injectReExports);
+export default errorCathingDecor(injectReExports);

@@ -6,7 +6,8 @@
   "scripts": {
     "bar": "node src/generateBarrelFile.js components",
     "baru": "node src/ generateBarrelFile.js utils",
-    "bari": "node src/generateBarrelFile.js images"
+    "bari": "node src/generateBarrelFile.js images",
+    "baro": "node src/generateBarrelFile.js icons"
   },
   "keywords": [],
   "author": "",
