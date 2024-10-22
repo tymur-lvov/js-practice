@@ -1,8 +1,17 @@
 const generateCustomTypeExport = (variableName, relativeDir) => {
-  if (relativeDir === 'components') {
-    return `export const ${variableName}: FunctionComponent<any>;`;
-  } else {
-    return `export const ${variableName}: string;`;
+  switch (relativeDir) {
+    case 'components': {
+      return `export const ${variableName}: FunctionComponent<any>;`;
+    }
+    case 'utils': {
+      return `export function ${variableName}(...args: any[]): any;`;
+    }
+    case 'images': {
+      return `export const ${variableName}: string;`;
+    }
+    default: {
+      return null;
+    }
   }
 };
 

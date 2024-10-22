@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
+import errorHandleDecor from './errorHandleDecor.js';
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
@@ -15,9 +16,7 @@ const injectCustomTypes = async (reExports, relativeDir) => {
   //console.log(dirContentRows);
 
   const startIndexOfDeclaration = dirContentRows.findIndex((row) => {
-    return row.includes(
-      relativeDir === 'components' ? '@components' : 'images'
-    );
+    return row.includes(relativeDir);
   });
   //console.log(startIndexOfDeclaration);
 
@@ -52,4 +51,4 @@ const injectCustomTypes = async (reExports, relativeDir) => {
   await fs.writeFile(customTypesFilePath, finalUpdatedContent);
 };
 
-export default injectCustomTypes;
+export default errorHandleDecor(injectCustomTypes);

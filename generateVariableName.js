@@ -6,11 +6,11 @@ const generateVariableName = (pathname, relativeDir) => {
 
   const basename = pathname.slice(slashIndex + 1, dotIndex);
 
-  if (relativeDir === 'components') {
-    return basename;
-  } else {
+  if (relativeDir === 'images') {
     return convertToCamelCase(basename, relativeDir);
   }
+
+  return basename;
 };
 
 export default generateVariableName;

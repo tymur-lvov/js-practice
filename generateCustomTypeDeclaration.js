@@ -1,10 +1,11 @@
 import generateCustomTypeExport from './generateCustomTypeExport.js';
 
 const generateCustomTypeDeclaration = (reExports, relativeDir) => {
-  if (relativeDir === 'components') {
-    return `
-        declare module "@components" {
-          import { FunctionComponent } from "react";
+  switch (relativeDir) {
+    case 'components': {
+      return `
+        declare module '@components' {
+          import { FunctionComponent } from 'react';
           ${reExports
             .map(({ variableName }) => {
               return generateCustomTypeExport(variableName, relativeDir);
@@ -12,16 +13,32 @@ const generateCustomTypeDeclaration = (reExports, relativeDir) => {
             .join('\n')
             .trim()}
         }`;
-  } else {
-    return `
-        declare module "@images" {
-          ${reExports
-            .map(({ variableName }) => {
-              return generateCustomTypeExport(variableName, relativeDir);
-            })
-            .join('\n')
-            .trim()}
-        }`;
+    }
+    case 'utils': {
+      return `
+      declare module '@utils' {
+        ${reExports
+          .map(({ variableName }) => {
+            return generateCustomTypeExport(variableName, relativeDir);
+          })
+          .join('\n')
+          .trim()}
+      }`;
+    }
+    case 'images': {
+      return `
+      declare module '@images' {
+        ${reExports
+          .map(({ variableName }) => {
+            return generateCustomTypeExport(variableName, relativeDir);
+          })
+          .join('\n')
+          .trim()}
+      }`;
+    }
+    default: {
+      return null;
+    }
   }
 };
 
