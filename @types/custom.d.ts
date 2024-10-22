@@ -1,18 +1,11 @@
-declare module '1' {
+declare module '*.svg' {
   const content: string;
   export default content;
 }
 
-declare module '2' {
+declare module '*.webp' {
   const content: string;
   export default content;
-}
-
-declare module '@images' {
-  export const firstImgExample_1x: string;
-  export const firstImgExample_2x: string;
-  export const secondImgExample_1x: string;
-  export const secondImgExample_2x: string;
 }
 
 declare module '@components' {
@@ -20,4 +13,16 @@ declare module '@components' {
   export const TestComponentA: FunctionComponent<any>;
   export const TestComponentB: FunctionComponent<any>;
   export const TestComponentC: FunctionComponent<any>;
+}
+
+declare module '@utils' {
+  export function helperA(...args: any[]): any;
+  export function helperB(...args: any[]): any;
+}
+
+declare module '@images' {
+  export const firstImgExample_1x: string;
+  export const firstImgExample_2x: string;
+  export const secondImgExample_1x: string;
+  export const secondImgExample_2x: string;
 }

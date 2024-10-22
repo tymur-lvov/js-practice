@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "bar": "node generateBarrelFile.js components",
+    "baru": "node generateBarrelFile.js utils",
     "bari": "node generateBarrelFile.js images"
   },
   "keywords": [],
