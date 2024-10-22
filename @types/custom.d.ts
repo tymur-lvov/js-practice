@@ -8,8 +8,15 @@ declare module '2' {
   export default content;
 }
 
-declare module "@components" {
-  import { FunctionComponent } from "react";
+declare module '@images' {
+  export const firstImgExample_1x: string;
+  export const firstImgExample_2x: string;
+  export const secondImgExample_1x: string;
+  export const secondImgExample_2x: string;
+}
+
+declare module '@components' {
+  import { FunctionComponent } from 'react';
   export const TestComponentA: FunctionComponent<any>;
   export const TestComponentB: FunctionComponent<any>;
   export const TestComponentC: FunctionComponent<any>;

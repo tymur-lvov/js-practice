@@ -2,7 +2,6 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
-import generateCustomTypeString from './generateCustomTypeExport.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
 const injectCustomTypes = async (reExports, relativeDir) => {
@@ -16,7 +15,9 @@ const injectCustomTypes = async (reExports, relativeDir) => {
   //console.log(dirContentRows);
 
   const startIndexOfDeclaration = dirContentRows.findIndex((row) => {
-    return row.includes('@components');
+    return row.includes(
+      relativeDir === 'components' ? '@components' : 'images'
+    );
   });
   //console.log(startIndexOfDeclaration);
 
@@ -28,7 +29,11 @@ const injectCustomTypes = async (reExports, relativeDir) => {
 
   const contentToBeKept = dirContentRows
     .slice(0, startIndexOfDeclaration)
-    .concat(dirContentRows.slice(endIndexOfDeclaration + 2))
+    .concat(
+      startIndexOfDeclaration > 0
+        ? dirContentRows.slice(endIndexOfDeclaration + 2)
+        : null
+    )
     .join('\n');
   //console.log(contentToBeKept);
 
