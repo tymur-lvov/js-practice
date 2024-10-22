@@ -13,7 +13,9 @@ const generateReExports = async (rootPath, relativeDir) => {
 
   const filteredPathnames = pathnames.filter((pathname) => {
     return (
-      pathname.includes(relativeDir) && !pathname.includes('generateBarrelFile')
+      pathname.includes(relativeDir) &&
+      !pathname.includes('generateBarrelFile') &&
+      !pathname.includes('.DS_Store')
     );
   });
 
