@@ -6,7 +6,7 @@ const produceErrorMessage = (reason) => {
     case '!isValidRelativeDir': {
       return 'Relative directory name must be "components", "utils" or "images".';
     }
-    case '!pathnames.length': {
+    case '!paths.length': {
       return 'All directories are empty. Nothing to re-export.';
     }
     default: {

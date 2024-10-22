@@ -1,29 +1,24 @@
+import createError from './createError.js';
+import generatePaths from './generatePaths.js';
 import errorCathingDecor from './errorCathingDecor.js';
-import generatePathnames from './generatePathnames.js';
-import produceErrorMessage from './produceErrorMessage.js';
+import checkForConditions from './checkForConditions.js';
 import generateVariableName from './generateVariableName.js';
 import convertToRelativePath from './convertToRelativePath.js';
 
 const generateReExports = async (srcPath, relativeDir) => {
-  const pathnames = await generatePathnames(srcPath, relativeDir);
+  const paths = await generatePaths(srcPath, relativeDir); // To be done ...
 
-  if (!pathnames.length) {
-    throw new Error(produceErrorMessage('!pathnames.length'));
+  if (!paths.length) {
+    throw createError('!paths.length');
   }
 
-  const filteredPathnames = pathnames.filter((pathname) => {
-    return (
-      pathname.includes(relativeDir) &&
-      !pathname.includes('generateBarrelFile') &&
-      !pathname.includes('.DS_Store')
-    );
-  });
+  const filteredPaths = paths.filter((path) => checkForConditions(path)); // Refactoring ...
 
-  return filteredPathnames.map((pathname) => {
+  return filteredPaths.map((path) => {
     const reExport = {};
 
-    reExport.relativePath = convertToRelativePath(pathname, relativeDir);
-    reExport.variableName = generateVariableName(pathname, relativeDir);
+    reExport.relativePath = convertToRelativePath(path, relativeDir);
+    reExport.variableName = generateVariableName(path, relativeDir);
 
     return reExport;
   });

@@ -1,9 +1,9 @@
-const convertToRelativePath = (pathname, relativeDir) => {
-  const relativeDirIndex = pathname
+const convertToRelativePath = (path, relativeDir) => {
+  const relativeDirIndex = path
     .split('/')
     .findIndex((dir) => dir === relativeDir);
 
-  const slicedPath = pathname
+  const slicedPath = path
     .split('/')
     .slice(relativeDirIndex + 1)
     .join('/');

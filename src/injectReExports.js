@@ -1,17 +1,17 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import pathnameStore from './pathnameStoreCreator.js';
+import pathStore from './pathStoreCreator.js';
 import concatReExports from './concatReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
 const injectReExports = async (reExports, relativeDir) => {
-  const storedPathname = pathnameStore.getStoredPathname().split('/');
+  const storedPath = pathStore.getStoredPath().split('/');
 
-  const rootDirIndex = storedPathname.indexOf('src');
-  const relativeDirIndex = storedPathname.indexOf(relativeDir);
+  const rootDirIndex = storedPath.indexOf('src');
+  const relativeDirIndex = storedPath.indexOf(relativeDir);
 
-  const subDirs = storedPathname.slice(rootDirIndex + 1, relativeDirIndex + 1);
+  const subDirs = storedPath.slice(rootDirIndex + 1, relativeDirIndex + 1);
 
   const reExportsFilePathname = path.resolve('src', ...subDirs, 'index.ts');
 
