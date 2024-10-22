@@ -12,7 +12,9 @@ const generateReExports = async (rootPath, relativeDir) => {
   }
 
   const filteredPathnames = pathnames.filter((pathname) => {
-    return pathname.includes(relativeDir);
+    return (
+      pathname.includes(relativeDir) && !pathname.includes('generateBarrelFile')
+    );
   });
 
   return filteredPathnames.map((pathname) => {
