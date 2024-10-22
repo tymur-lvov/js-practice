@@ -5,6 +5,7 @@ import injectReExports from './injectReExports.js';
 import errorHandleDecor from './errorHandleDecor.js';
 import generateReExports from './generateReExports.js';
 import injectCustomTypes from './injectCustomTypes.js';
+import insertErrorMessage from './insertErrorMessage.js';
 
 const generateBarrelFile = async () => {
   const rootPath = path.resolve('src');
@@ -12,17 +13,21 @@ const generateBarrelFile = async () => {
   const [relativeDir] = process.argv.slice(2);
 
   if (!relativeDir) {
-    throw new Error('Relative directory name as an argument is required.');
+    throw new Error(insertErrorMessage('!relativeDir'));
   }
 
-  if (relativeDir !== 'images' && relativeDir !== 'components') {
-    throw new Error('Relative directory name must be "images" or "components"');
+  const isCorrectRelativeDir =
+    relativeDir === 'components' ||
+    relativeDir === 'utils' ||
+    relativeDir === 'images';
+
+  if (!isCorrectRelativeDir) {
+    throw new Error(insertErrorMessage('!isCorrectRelativeDir'));
   }
 
   const reExports = await generateReExports(rootPath, relativeDir);
 
   injectReExports(reExports, relativeDir);
-
   injectCustomTypes(reExports, relativeDir);
 };
 
