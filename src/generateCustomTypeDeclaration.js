@@ -36,6 +36,17 @@ const generateCustomTypeDeclaration = (reExports, relativeDir) => {
           .trim()}
       }`;
     }
+    case 'icons': {
+      return `
+      declare module '@icons' {
+        ${reExports
+          .map(({ variableName }) => {
+            return generateCustomTypeExport(variableName, relativeDir);
+          })
+          .join('\n')
+          .trim()}
+      }`;
+    }
     default: {
       return null;
     }

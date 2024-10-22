@@ -19,7 +19,8 @@ const generateBarrelFile = async () => {
   const isCorrectRelativeDir =
     relativeDir === 'components' ||
     relativeDir === 'utils' ||
-    relativeDir === 'images';
+    relativeDir === 'images' ||
+    relativeDir === 'icons';
 
   if (!isCorrectRelativeDir) {
     throw new Error(insertErrorMessage('!isCorrectRelativeDir'));

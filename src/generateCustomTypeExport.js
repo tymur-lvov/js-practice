@@ -9,6 +9,9 @@ const generateCustomTypeExport = (variableName, relativeDir) => {
     case 'images': {
       return `export const ${variableName}: string;`;
     }
+    case 'icons': {
+      return `export const ${variableName}: string;`;
+    }
     default: {
       return null;
     }
