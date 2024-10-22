@@ -6,36 +6,45 @@ import generateCustomTypeString from './generateCustomTypeExport.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
 const injectCustomTypes = async (reExports, relativeDir) => {
-  const targetPath = path.resolve('@types', 'custom.d.ts');
+  const customTypesFilePath = path.resolve('@types', 'custom.d.ts');
 
-  const dirContent = await fs.readFile(targetPath, { encoding: 'UTF-8' });
-
-  const dirContentLines = dirContent.split('\n');
-
-  const indexOfTargetLine = dirContentLines.findIndex((line) => {
-    return line.includes('@components');
+  const dirContent = await fs.readFile(customTypesFilePath, {
+    encoding: 'UTF-8',
   });
 
-  const indexOfClosingBracket =
-    dirContentLines.slice(indexOfTargetLine).findIndex((line) => {
+  const dirContentRows = dirContent.split('\n');
+  //console.log(dirContentRows);
+
+  const startIndexOfDeclaration = dirContentRows.findIndex((row) => {
+    return row.includes('@components');
+  });
+  //console.log(startIndexOfDeclaration);
+
+  const endIndexOfDeclaration =
+    dirContentRows.slice(startIndexOfDeclaration).findIndex((line) => {
       return line === '}';
-    }) + indexOfTargetLine;
+    }) + startIndexOfDeclaration;
+  //console.log(endIndexOfDeclaration);
 
-  const unchangedContent = dirContentLines
-    .slice(0, indexOfTargetLine)
-    .concat(dirContentLines.slice(indexOfClosingBracket + 2))
+  const contentToBeKept = dirContentRows
+    .slice(0, startIndexOfDeclaration)
+    .concat(dirContentRows.slice(endIndexOfDeclaration + 2))
     .join('\n');
-  console.log(unchangedContent);
+  //console.log(contentToBeKept);
 
-  const newContent = generateCustomTypeDeclaration(reExports, relativeDir);
-  //console.log(newContent);
+  const contentToReplace = generateCustomTypeDeclaration(
+    reExports,
+    relativeDir
+  );
+  //console.log(contentToReplace);
 
-  const enhancedNewContent = enhanceCustomTypeString(newContent);
+  const enhancedContentToReplace = enhanceCustomTypeString(contentToReplace);
   //console.log(enhancedNewContent);
 
-  //await fs.writeFile(targetPath, unchangedContent);
+  const finalUpdatedContent = contentToBeKept + '\n' + enhancedContentToReplace;
+  //console.log(finalUpdatedContent);
 
-  //await fs.appendFile(targetPath, enhancedNewContent);
+  await fs.writeFile(customTypesFilePath, finalUpdatedContent);
 };
 
 export default injectCustomTypes;
