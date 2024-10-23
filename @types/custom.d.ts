@@ -15,11 +15,6 @@ declare module '@components' {
   export const TestComponentC: FunctionComponent<any>;
 }
 
-declare module '@utils' {
-  export function helperA(...args: any[]): any;
-  export function helperB(...args: any[]): any;
-}
-
 declare module '@images' {
   export const firstImgExample_1x: string;
   export const firstImgExample_2x: string;
@@ -29,4 +24,9 @@ declare module '@images' {
 
 declare module '@icons' {
   export const icons: string;
+}
+
+declare module '@utils' {
+  export function helperA(...args: any[]): any;
+  export function helperB(...args: any[]): any;
 }

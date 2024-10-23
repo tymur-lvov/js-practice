@@ -1,9 +1,8 @@
 import createError from './createError.js';
 import validatePath from './validatePath.js';
 import generatePaths from './generatePaths.js';
+import createReExport from './createReExport.js';
 import errorCathingDecor from './errorCathingDecor.js';
-import generateVariableName from './generateVariableName.js';
-import convertToRelativePath from './convertToRelativePath.js';
 
 const generateReExports = async (srcPath, relativeDir) => {
   const paths = await generatePaths(srcPath, relativeDir); // To be done ...
@@ -12,16 +11,9 @@ const generateReExports = async (srcPath, relativeDir) => {
     throw createError('!paths.length');
   }
 
-  const filteredPaths = paths.filter((path) => validatePath(path, relativeDir)); // Refactoring ...
+  const filteredPaths = paths.filter((path) => validatePath(path, relativeDir));
 
-  return filteredPaths.map((path) => {
-    const reExport = {};
-
-    reExport.relativePath = convertToRelativePath(path, relativeDir);
-    reExport.variableName = generateVariableName(path, relativeDir);
-
-    return reExport;
-  });
+  return filteredPaths.map((path) => createReExport(path, relativeDir)); // Refactoring ...
 };
 
 export default errorCathingDecor(generateReExports);
