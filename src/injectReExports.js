@@ -6,16 +6,17 @@ import concatReExports from './concatReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
 const injectReExports = async (reExports, relativeDir) => {
-  const storedPath = pathStore.getStoredPath().split('/');
+  const splittedPath = pathStore.getStoredPath().split('/');
 
-  const rootDirIndex = storedPath.indexOf('src');
-  const relativeDirIndex = storedPath.indexOf(relativeDir);
+  const srcDirIndex = splittedPath.indexOf('src');
 
-  const subDirs = storedPath.slice(rootDirIndex + 1, relativeDirIndex + 1);
+  const relativeDirIndex = splittedPath.indexOf(relativeDir);
 
-  const reExportsFilePathname = path.resolve('src', ...subDirs, 'index.ts');
+  const subDirs = splittedPath.slice(srcDirIndex + 1, relativeDirIndex + 1);
 
-  await fs.writeFile(reExportsFilePathname, concatReExports(reExports));
+  const barrelFilePath = path.resolve('src', ...subDirs, 'index.ts');
+
+  await fs.writeFile(barrelFilePath, concatReExports(reExports));
 };
 
 export default errorCathingDecor(injectReExports);
