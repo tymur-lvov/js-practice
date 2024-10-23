@@ -8,8 +8,11 @@ declare module '*.webp' {
   export default content;
 }
 
-declare module '@images' {
-  
+declare module '@components' {
+  import { FunctionComponent } from 'react';
+  export const TestComponentA: FunctionComponent<any>;
+  export const TestComponentB: FunctionComponent<any>;
+  export const TestComponentC: FunctionComponent<any>;
 }
 
 declare module '@utils' {
@@ -17,9 +20,13 @@ declare module '@utils' {
   export function helperB(...args: any[]): any;
 }
 
-declare module '@components' {
-  import { FunctionComponent } from 'react';
-  export const TestComponentA: FunctionComponent<any>;
-  export const TestComponentB: FunctionComponent<any>;
-  export const TestComponentC: FunctionComponent<any>;
+declare module '@images' {
+  export const firstImgExample_1x: string;
+  export const firstImgExample_2x: string;
+  export const secondImgExample_1x: string;
+  export const secondImgExample_2x: string;
+}
+
+declare module '@icons' {
+  export const icons: string;
 }

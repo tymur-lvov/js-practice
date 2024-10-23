@@ -1,7 +1,7 @@
 import createError from './createError.js';
+import validatePath from './validatePath.js';
 import generatePaths from './generatePaths.js';
 import errorCathingDecor from './errorCathingDecor.js';
-import checkForConditions from './checkForConditions.js';
 import generateVariableName from './generateVariableName.js';
 import convertToRelativePath from './convertToRelativePath.js';
 
@@ -12,7 +12,7 @@ const generateReExports = async (srcPath, relativeDir) => {
     throw createError('!paths.length');
   }
 
-  const filteredPaths = paths.filter((path) => checkForConditions(path)); // Refactoring ...
+  const filteredPaths = paths.filter((path) => validatePath(path, relativeDir)); // Refactoring ...
 
   return filteredPaths.map((path) => {
     const reExport = {};

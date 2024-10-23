@@ -18,7 +18,6 @@ const generateBarrelFile = async () => {
   }
 
   const isValidRelativeDir = validateRelativeDir(relativeDir);
-  console.log(isValidRelativeDir);
 
   if (!isValidRelativeDir) {
     throw createError('!isValidRelativeDir');
