@@ -1,12 +1,11 @@
 const concatReExports = (reExports) => {
-  const barrelFileContent = reExports.reduce(
-    (content, { variableName, relativePath }) => {
-      const reExportTemplate = `export { default as ${variableName} } from '${relativePath}';\n`;
+  const barrelFileContent = reExports.reduce((content, reExport) => {
+    const { variableName, relativePath } = reExport;
 
-      return content.concat(reExportTemplate);
-    },
-    ''
-  );
+    const reExportTemplate = `export { default as ${variableName} } from '${relativePath}';\n`;
+
+    return content.concat(reExportTemplate);
+  }, '');
 
   return barrelFileContent;
 };
