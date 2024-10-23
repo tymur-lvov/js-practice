@@ -6,6 +6,7 @@ import injectReExports from './injectReExports.js';
 import injectCustomTypes from './injectCustomTypes.js';
 import generateReExports from './generateReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
+import validateRelativeDir from './validateRelativeDir.js';
 
 const generateBarrelFile = async () => {
   const srcPath = path.resolve('src');
@@ -16,11 +17,8 @@ const generateBarrelFile = async () => {
     throw createError('!relativeDir');
   }
 
-  const isValidRelativeDir = // To be done ...
-    relativeDir === 'components' ||
-    relativeDir === 'utils' ||
-    relativeDir === 'images' ||
-    relativeDir === 'icons';
+  const isValidRelativeDir = validateRelativeDir(relativeDir);
+  console.log(isValidRelativeDir);
 
   if (!isValidRelativeDir) {
     throw createError('!isValidRelativeDir');
