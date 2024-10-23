@@ -1,4 +1,4 @@
-import pathStore from './pathStoreCreator.js';
+import pathStore from './createPathStore.js';
 
 const validateToStorePath = (subDirPath, subDirInfo, relativeDir) => {
   const isDirectory = subDirInfo.isDirectory();

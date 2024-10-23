@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import pathStore from './pathStoreCreator.js';
+import pathStore from './createPathStore.js';
 import concatReExports from './concatReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
 

@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
 
-import pathStore from './pathStoreCreator.js';
+import pathStore from './createPathStore.js';
 
 const srcPath = path.resolve('src');
 

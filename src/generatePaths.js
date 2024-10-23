@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import pathStore from './pathStoreCreator.js';
+import pathStore from './createPathStore.js';
 import errorCathingDecor from './errorCathingDecor.js';
 import validateToStorePath from './validateToStorePath.js';
 
@@ -11,15 +11,14 @@ const generatePaths = async (dirPath, relativeDir) => {
   const paths = await Promise.all(
     subDirs.map(async (subDir) => {
       const subDirPath = path.resolve(dirPath, subDir);
+
       const subDirInfo = await fs.lstat(subDirPath);
+
+      const paramsForValidation = [subDirPath, subDirInfo, relativeDir];
 
       const isSubDirDirectory = subDirInfo.isDirectory();
 
-      const isValidToStorePath = validateToStorePath(
-        subDirPath,
-        subDirInfo,
-        relativeDir
-      );
+      const isValidToStorePath = validateToStorePath(...paramsForValidation);
 
       if (isValidToStorePath) {
         pathStore.storePath(subDirPath);
