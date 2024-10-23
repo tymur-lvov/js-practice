@@ -16,7 +16,9 @@ const injectReExports = async (reExports, relativeDir) => {
 
   const barrelFilePath = path.resolve('src', ...subDirs, 'index.ts');
 
-  await fs.writeFile(barrelFilePath, concatReExports(reExports));
+  const barrelFileContent = concatReExports(reExports);
+
+  await fs.writeFile(barrelFilePath, barrelFileContent);
 };
 
 export default errorCathingDecor(injectReExports);
