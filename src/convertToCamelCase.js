@@ -1,7 +1,7 @@
 const convertToCamelCase = (basename, relativeDir) => {
-  const splittedBasename = basename.split('-');
+  const basenameParts = basename.split('-');
 
-  const camelCasedBasename = splittedBasename.map((namePart, namePartIndex) => {
+  const camelCasedBasename = basenameParts.map((namePart, namePartIndex) => {
     const isFirstNamePart = namePartIndex === 0 && relativeDir !== 'components';
 
     if (isFirstNamePart) {

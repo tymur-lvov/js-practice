@@ -1,11 +1,11 @@
 import generateVariableName from './generateVariableName.js';
-import convertToRelativePath from './convertToRelativePath.js';
+import convertToRelativePathname from './convertToRelativePathname.js';
 
-const createReExport = (path, relativeDir) => {
+const createReExport = (pathname, relativeDir) => {
   return {
-    relativePath: convertToRelativePath(path, relativeDir),
+    relativePathname: convertToRelativePathname(pathname, relativeDir),
 
-    variableName: generateVariableName(path, relativeDir),
+    variableName: generateVariableName(pathname, relativeDir),
   };
 };
 

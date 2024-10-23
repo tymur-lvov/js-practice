@@ -3,10 +3,10 @@ import * as path from 'path';
 
 import readFileOptions from './readFileOptions.js';
 import errorCathingDecor from './errorCathingDecor.js';
-import findEndIndexOfDeclar from './findEndIndexOfDeclar.js';
 import sliceUnchangedContent from './sliceUnchangedContent.js';
-import findStartIndexOfDeclar from './findStartIndexOfDeclar.js';
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
+import findEndIndexOfDeclaration from './findEndIndexOfDeclaration.js';
+import findStartIndexOfDeclaration from './findStartIndexOfDeclaration.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
 const injectCustomTypes = async (reExports, relativeDir) => {
@@ -16,12 +16,12 @@ const injectCustomTypes = async (reExports, relativeDir) => {
 
   const contentLines = fileContent.split('\n');
 
-  const startIndexOfDeclaration = findStartIndexOfDeclar(
+  const startIndexOfDeclaration = findStartIndexOfDeclaration(
     contentLines,
     relativeDir
   );
 
-  const endIndexOfDeclaration = findEndIndexOfDeclar(
+  const endIndexOfDeclaration = findEndIndexOfDeclaration(
     contentLines,
     startIndexOfDeclaration
   );

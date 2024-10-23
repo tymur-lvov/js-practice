@@ -8,7 +8,7 @@ const produceErrorMessage = (reason) => {
       return 'Relative directory name must be "components", "utils" or "images".';
     }
 
-    case '!paths.length': {
+    case '!pathnames.length': {
       return 'All directories are empty. Nothing to re-export.';
     }
 

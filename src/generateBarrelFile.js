@@ -9,7 +9,7 @@ import errorCathingDecor from './errorCathingDecor.js';
 import validateRelativeDir from './validateRelativeDir.js';
 
 const generateBarrelFile = async () => {
-  const srcPath = path.resolve('src');
+  const srcPathname = path.resolve('src');
 
   const [relativeDir] = process.argv.slice(2);
 
@@ -23,7 +23,7 @@ const generateBarrelFile = async () => {
     throw createError('!isValidRelativeDir');
   }
 
-  const reExports = await generateReExports(srcPath, relativeDir);
+  const reExports = await generateReExports(srcPathname, relativeDir);
 
   injectReExports(reExports, relativeDir);
 
