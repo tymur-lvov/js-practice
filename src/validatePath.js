@@ -1,13 +1,13 @@
 const validatePath = (path, relativeDir) => {
   const conditionValidator = {
-    validateConditionA(p) {
-      return p.includes(relativeDir);
+    validateConditionA(path) {
+      return path.includes(relativeDir);
     },
-    validateConditionB(p) {
-      return !p.includes('generateBarrelFile');
+    validateConditionB(path) {
+      return !path.includes('generateBarrelFile');
     },
-    validateConditionC(p) {
-      return !p.includes('.DS_Store');
+    validateConditionC(path) {
+      return !path.includes('.DS_Store');
     },
   };
 

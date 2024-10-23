@@ -1,16 +1,16 @@
 const validateRelativeDir = (relativeDir) => {
   const conditionValidator = {
-    validateConditionA(r) {
-      return r === 'components';
+    validateConditionA(relativeDir) {
+      return relativeDir === 'components';
     },
-    validateConditionB(r) {
-      return r === 'utils';
+    validateConditionB(relativeDir) {
+      return relativeDir === 'utils';
     },
-    validateConditionC(r) {
-      return r === 'images';
+    validateConditionC(relativeDir) {
+      return relativeDir === 'images';
     },
-    validateConditionD(r) {
-      return r === 'icons';
+    validateConditionD(relativeDir) {
+      return relativeDir === 'icons';
     },
   };
 

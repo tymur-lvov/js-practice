@@ -13,7 +13,7 @@ const generateReExports = async (srcPath, relativeDir) => {
 
   const filteredPaths = paths.filter((path) => validatePath(path, relativeDir));
 
-  return filteredPaths.map((path) => createReExport(path, relativeDir)); // Refactoring ...
+  return filteredPaths.map((path) => createReExport(path, relativeDir));
 };
 
 export default errorCathingDecor(generateReExports);
