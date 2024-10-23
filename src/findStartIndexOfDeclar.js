@@ -1,9 +1,9 @@
 const findStartIndexOfDeclar = (contentLines, relativeDir) => {
-  const startIndexOfDeclar = contentLines.findIndex((line) => {
+  const startIndexOfDeclaration = contentLines.findIndex((line) => {
     return line.includes(relativeDir);
   });
 
-  return startIndexOfDeclar;
+  return startIndexOfDeclaration;
 };
 
 export default findStartIndexOfDeclar;

@@ -1,35 +1,37 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
+import readFileOptions from './readFileOptions.js';
 import errorCathingDecor from './errorCathingDecor.js';
 import findEndIndexOfDeclar from './findEndIndexOfDeclar.js';
-import findStartIndexOfDeclar from './findStartIndexOfDeclar.js';
 import sliceUnchangedContent from './sliceUnchangedContent.js';
+import findStartIndexOfDeclar from './findStartIndexOfDeclar.js';
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
 import generateCustomTypeDeclaration from './generateCustomTypeDeclaration.js';
 
 const injectCustomTypes = async (reExports, relativeDir) => {
   const customTypesFilePath = path.resolve('@types', 'custom.d.ts');
 
-  const fileContent = await fs.readFile(customTypesFilePath, {
-    encoding: 'UTF-8',
-  });
+  const fileContent = await fs.readFile(customTypesFilePath, readFileOptions);
 
   const contentLines = fileContent.split('\n');
 
-  const startIndexOfDeclar = findStartIndexOfDeclar(contentLines, relativeDir);
-
-  const endIndexOfDeclar = findEndIndexOfDeclar(
+  const startIndexOfDeclaration = findStartIndexOfDeclar(
     contentLines,
-    startIndexOfDeclar
+    relativeDir
+  );
+
+  const endIndexOfDeclaration = findEndIndexOfDeclar(
+    contentLines,
+    startIndexOfDeclaration
   );
 
   const unchangedContent = sliceUnchangedContent(
     contentLines,
-    startIndexOfDeclar,
-    endIndexOfDeclar
+    startIndexOfDeclaration,
+    endIndexOfDeclaration
   );
-  console.log(unchangedContent);
+  console.log(unchangedContent); // Refactoring ...
 
   const newContent = generateCustomTypeDeclaration(reExports, relativeDir);
   //console.log(newContent);

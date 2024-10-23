@@ -1,13 +1,13 @@
 const sliceUnchangedContent = (...args) => {
-  const [contentLines, startIndexOfDeclar, endIndexOfDeclar] = args;
+  const [contentLines, startIndexOfDeclaration, endIndexOfDeclaration] = args;
 
-  if (startIndexOfDeclar < 0) {
+  if (startIndexOfDeclaration < 0) {
     return contentLines;
   }
 
-  const sliceBeforeDeclaration = contentLines.slice(0, startIndexOfDeclar);
+  const sliceBeforeDeclaration = contentLines.slice(0, startIndexOfDeclaration);
 
-  const sliceAfterDeclaration = contentLines.slice(endIndexOfDeclar + 2);
+  const sliceAfterDeclaration = contentLines.slice(endIndexOfDeclaration + 2);
 
   return sliceBeforeDeclaration.concat(sliceAfterDeclaration);
 };

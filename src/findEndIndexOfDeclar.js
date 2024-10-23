@@ -1,9 +1,9 @@
-const findEndIndexOfDeclar = (contentLines, startIndexOfDeclar) => {
-  const slicedLines = contentLines.slice(startIndexOfDeclar);
+const findEndIndexOfDeclar = (contentLines, startIndexOfDeclaration) => {
+  const slicedLines = contentLines.slice(startIndexOfDeclaration);
 
   const indexOfClosingBracket = slicedLines.findIndex((line) => line === '}');
 
-  return startIndexOfDeclar + indexOfClosingBracket;
+  return startIndexOfDeclaration + indexOfClosingBracket;
 };
 
 export default findEndIndexOfDeclar;
