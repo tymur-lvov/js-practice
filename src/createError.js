@@ -1,9 +1,4 @@
 import produceErrorMessage from './produceErrorMessage.js';
 
-const createError = (reason) => {
-  const errorMessage = produceErrorMessage(reason);
-
-  return new Error(errorMessage);
-};
-
+const createError = (reason) => new Error(produceErrorMessage(reason));
 export default createError;
