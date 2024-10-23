@@ -26,6 +26,7 @@ const generateBarrelFile = async () => {
   const reExports = await generateReExports(srcPath, relativeDir);
 
   injectReExports(reExports, relativeDir);
+
   injectCustomTypes(reExports, relativeDir);
 };
 

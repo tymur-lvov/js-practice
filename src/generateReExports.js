@@ -5,7 +5,7 @@ import createReExport from './createReExport.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
 const generateReExports = async (srcPath, relativeDir) => {
-  const paths = await generatePaths(srcPath, relativeDir); // To be done ...
+  const paths = await generatePaths(srcPath, relativeDir);
 
   if (!paths.length) {
     throw createError('!paths.length');
