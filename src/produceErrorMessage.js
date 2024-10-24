@@ -1,13 +1,13 @@
 const produceErrorMessage = (reason) => {
   switch (reason) {
     case '!isArgumentProvided':
-      return 'Relative directory name as an argument is required.';
+      return 'Re-exports file directory name as an argument is required.';
 
     case '!isArgumentValid':
-      return 'Relative directory name must be "components", "utils" or "images".';
+      return 'Re-exports file directory name must be "components", "utils", "images" or "icons".';
 
     case '!isAnyPathname':
-      return 'All directories are empty. Nothing to re-export.';
+      return 'Target directories are empty. Nothing to re-export.';
 
     default:
       return 'Unexpected error occured.';

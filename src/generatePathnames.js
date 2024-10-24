@@ -20,9 +20,9 @@ const generatePathnames = async (dirPathname, reExportsFileDir) => {
 
       const isSubDirDirectory = subDirInfo.isDirectory();
 
-      const isReExportsFile = subDir === 'index.ts';
+      const isFileOfReExports = subDir === 'index.ts';
 
-      if (!isSubDirDirectory) return isReExportsFile ? [] : subDirPathname;
+      if (!isSubDirDirectory) return isFileOfReExports ? [] : subDirPathname;
 
       return await generatePathnames(subDirPathname, reExportsFileDir);
     })

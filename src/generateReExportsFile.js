@@ -8,7 +8,7 @@ import injectCustomTypes from './injectCustomTypes.js';
 import generateReExports from './generateReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
-const generateBarrelFile = async () => {
+const generateReExportsFile = async () => {
   const [argument] = process.argv.slice(2);
 
   const isArgumentProvided = !!argument;
@@ -30,4 +30,4 @@ const generateBarrelFile = async () => {
   injectCustomTypes(reExports, reExportsFileDir);
 };
 
-errorCathingDecor(generateBarrelFile)();
+errorCathingDecor(generateReExportsFile)();

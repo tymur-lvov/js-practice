@@ -4,10 +4,10 @@
   "main": "node-fs.js",
   "type": "module",
   "scripts": {
-    "bar": "node src/generateBarrelFile.js components",
-    "baru": "node src/ generateBarrelFile.js utils",
-    "bari": "node src/generateBarrelFile.js images",
-    "baro": "node src/generateBarrelFile.js icons"
+    "bar": "node src/generateReExportsFile.js components",
+    "baru": "node src/ generateReExportsFile.js utils",
+    "bari": "node src/generateReExportsFile.js images",
+    "baro": "node src/generateReExportsFile.js icons"
   },
   "keywords": [],
   "author": "",
