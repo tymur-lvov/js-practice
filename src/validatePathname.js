@@ -1,7 +1,7 @@
-const validatePathname = (pathname, relativeDir) => {
+const validatePathname = (pathname, reExportsFileDir) => {
   const validator = {
     validateConditionA(pathname) {
-      return pathname.includes(relativeDir);
+      return pathname.includes(reExportsFileDir);
     },
 
     validateConditionB(pathname) {

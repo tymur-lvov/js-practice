@@ -1,14 +1,14 @@
 import generateCustomTypeExport from './generateCustomTypeExport.js';
 
-const generateCustomTypeDeclaration = (reExports, relativeDir) => {
-  switch (relativeDir) {
+const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
+  switch (reExportsFileDir) {
     case 'components': {
       return `
         declare module '@components' {
           import { FunctionComponent } from 'react';
           ${reExports
             .map(({ variableName }) => {
-              return generateCustomTypeExport(variableName, relativeDir);
+              return generateCustomTypeExport(variableName, reExportsFileDir);
             })
             .join('\n')
             .trim()}
@@ -19,7 +19,7 @@ const generateCustomTypeDeclaration = (reExports, relativeDir) => {
       declare module '@utils' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, relativeDir);
+            return generateCustomTypeExport(variableName, reExportsFileDir);
           })
           .join('\n')
           .trim()}
@@ -30,7 +30,7 @@ const generateCustomTypeDeclaration = (reExports, relativeDir) => {
       declare module '@images' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, relativeDir);
+            return generateCustomTypeExport(variableName, reExportsFileDir);
           })
           .join('\n')
           .trim()}
@@ -41,7 +41,7 @@ const generateCustomTypeDeclaration = (reExports, relativeDir) => {
       declare module '@icons' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, relativeDir);
+            return generateCustomTypeExport(variableName, reExportsFileDir);
           })
           .join('\n')
           .trim()}

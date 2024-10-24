@@ -1,8 +1,8 @@
-const convertToCamelCase = (basename, relativeDir) => {
+const convertToCamelCase = (basename, reExportsFileDir) => {
   const basenameParts = basename.split('-');
 
   const camelCasedBasename = basenameParts.map((namePart, namePartIndex) => {
-    const isFirstNamePart = namePartIndex === 0 && relativeDir !== 'components';
+    const isFirstNamePart = namePartIndex === 0 && reExportsFileDir !== 'components';
 
     if (isFirstNamePart) {
       return namePart;

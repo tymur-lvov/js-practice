@@ -5,14 +5,14 @@ import pathnameStore from './createPathnameStore.js';
 import concatReExports from './concatReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
-const injectReExports = async (reExports, relativeDir) => {
+const injectReExports = async (reExports, reExportsFileDir) => {
   const pathname = pathnameStore.getStoredPathname();
 
   const dirs = pathname.split('/');
 
   const srcDirIndex = dirs.indexOf('src');
 
-  const relativeDirIndex = dirs.indexOf(relativeDir);
+  const relativeDirIndex = dirs.indexOf(reExportsFileDir);
 
   const subDirs = dirs.slice(srcDirIndex + 1, relativeDirIndex + 1);
 

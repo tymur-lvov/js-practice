@@ -1,23 +1,21 @@
 import createError from './createError.js';
-import createReExport from './createReExport.js';
 import validatePathname from './validatePathname.js';
+import generateReExport from './generateReExport.js';
 import generatePathnames from './generatePathnames.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
-const generateReExports = async (srcPathname, relativeDir) => {
-  const pathnames = await generatePathnames(srcPathname, relativeDir);
+const generateReExports = async (srcPathname, reExportsFileDir) => {
+  const pathnames = await generatePathnames(srcPathname, reExportsFileDir);
 
-  if (!pathnames.length) {
-    throw createError('!pathnames.length');
-  }
+  const isAnyPathname = !!pathnames.length;
 
-  const filteredPathnames = pathnames.filter((pathname) => {
-    return validatePathname(pathname, relativeDir);
-  });
+  if (!isAnyPathname) throw createError('!isAnyPathname');
 
-  return filteredPathnames.map((pathname) => {
-    return createReExport(pathname, relativeDir);
-  });
+  const filteredPathnames = pathnames.filter((pathname) => validatePathname(pathname, reExportsFileDir));
+
+  const generatedReExports = filteredPathnames.map((pathname) => generateReExport(pathname, reExportsFileDir));
+
+  return generatedReExports;
 };
 
 export default errorCathingDecor(generateReExports);

@@ -1,6 +1,6 @@
-const findStartIndexOfDeclaration = (contentLines, relativeDir) => {
+const findStartIndexOfDeclaration = (contentLines, reExportsFileDir) => {
   const startIndexOfDeclaration = contentLines.findIndex((line) => {
-    return line.includes(relativeDir);
+    return line.includes(reExportsFileDir);
   });
 
   return startIndexOfDeclaration;

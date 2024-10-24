@@ -1,14 +1,14 @@
 import convertToCamelCase from './convertToCamelCase.js';
 
-const generateVariableName = (pathname, relativeDir) => {
+const generateVariableName = (pathname, reExportsFileDir) => {
   const slashIndex = pathname.lastIndexOf('/');
 
   const dotIndex = pathname.lastIndexOf('.');
 
   const basename = pathname.slice(slashIndex + 1, dotIndex);
 
-  if (relativeDir === 'images') {
-    return convertToCamelCase(basename, relativeDir);
+  if (reExportsFileDir === 'images') {
+    return convertToCamelCase(basename, reExportsFileDir);
   }
 
   return basename;

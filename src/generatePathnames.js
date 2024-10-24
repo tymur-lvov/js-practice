@@ -3,9 +3,9 @@ import * as path from 'path';
 
 import pathnameStore from './createPathnameStore.js';
 import errorCathingDecor from './errorCathingDecor.js';
-import validateTostorePathname from './validateTostorePathname.js';
+import allowToStorePathname from './allowToStorePathname.js';
 
-const generatePathnames = async (dirPathname, relativeDir) => {
+const generatePathnames = async (dirPathname, reExportsFileDir) => {
   const subDirs = await fs.readdir(dirPathname);
 
   const pathnames = await Promise.all(
@@ -14,23 +14,17 @@ const generatePathnames = async (dirPathname, relativeDir) => {
 
       const subDirInfo = await fs.lstat(subDirPathname);
 
+      const isAllowedToStorePathname = allowToStorePathname(subDirInfo, subDirPathname, reExportsFileDir);
+
+      if (isAllowedToStorePathname) pathnameStore.storePathname(subDirPathname);
+
       const isSubDirDirectory = subDirInfo.isDirectory();
 
-      const isValidTostorePathname = validateTostorePathname(
-        subDirPathname,
-        subDirInfo,
-        relativeDir
-      );
+      const isReExportsFile = subDir === 'index.ts';
 
-      if (isValidTostorePathname) {
-        pathnameStore.storePathname(subDirPathname);
-      }
+      if (!isSubDirDirectory) return isReExportsFile ? [] : subDirPathname;
 
-      if (!isSubDirDirectory) {
-        return subDir === 'index.ts' ? [] : subDirPathname;
-      }
-
-      return await generatePathnames(subDirPathname, relativeDir);
+      if (!isSubDirDirectory) return await generatePathnames(subDirPathname, reExportsFileDir);
     })
   );
 
