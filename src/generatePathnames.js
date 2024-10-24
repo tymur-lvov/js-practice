@@ -24,7 +24,7 @@ const generatePathnames = async (dirPathname, reExportsFileDir) => {
 
       if (!isSubDirDirectory) return isReExportsFile ? [] : subDirPathname;
 
-      if (!isSubDirDirectory) return await generatePathnames(subDirPathname, reExportsFileDir);
+      return await generatePathnames(subDirPathname, reExportsFileDir);
     })
   );
 

@@ -23,7 +23,7 @@ const generateBarrelFile = async () => {
 
   const reExportsFileDir = argument;
 
-  const reExports = await generateReExports(srcPathname, reExportsFileDir);
+  const reExports = await generateReExports(srcPathname, reExportsFileDir); //
 
   injectReExports(reExports, reExportsFileDir);
 

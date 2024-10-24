@@ -10,7 +10,7 @@ const produceErrorMessage = (reason) => {
       return 'All directories are empty. Nothing to re-export.';
 
     default:
-      return null;
+      return 'Unexpected error occured.';
   }
 };
 

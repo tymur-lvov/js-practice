@@ -21,7 +21,7 @@ const injectCustomTypes = async (reExports, reExportsFileDir) => {
   const endIndexOfDeclaration = findEndIndexOfDeclaration(contentLines, startIndexOfDeclaration);
 
   const unchangedContent = sliceUnchangedContent(contentLines, startIndexOfDeclaration, endIndexOfDeclaration);
-  console.log(unchangedContent); // Refactoring ...
+  //console.log(unchangedContent); // Refactoring ...
 
   const newContent = generateCustomTypeDeclaration(reExports, reExportsFileDir);
   //console.log(newContent);
