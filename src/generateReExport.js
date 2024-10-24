@@ -5,7 +5,7 @@ const generateReExport = (pathname, reExportsFileDir) => {
   return {
     relativePathname: convertToRelativePathname(pathname, reExportsFileDir),
 
-    variableName: generateVariableName(pathname, reExportsFileDir),
+    variableName: generateVariableName(pathname),
   };
 };
 

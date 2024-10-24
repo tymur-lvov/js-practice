@@ -13,7 +13,7 @@ const generateReExports = async (srcPathname, reExportsFileDir) => {
 
   const filteredPathnames = pathnames.filter((pathname) => filterPathname(pathname, reExportsFileDir));
 
-  return filteredPathnames.map((pathname) => generateReExport(pathname, reExportsFileDir)); //
+  return filteredPathnames.map((pathname) => generateReExport(pathname, reExportsFileDir));
 };
 
 export default errorCathingDecor(generateReExports);

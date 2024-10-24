@@ -1,17 +1,11 @@
-import convertToCamelCase from './convertToCamelCase.js';
-
-const generateVariableName = (pathname, reExportsFileDir) => {
+const generateVariableName = (pathname) => {
   const slashIndex = pathname.lastIndexOf('/');
 
   const dotIndex = pathname.lastIndexOf('.');
 
   const basename = pathname.slice(slashIndex + 1, dotIndex);
 
-  if (reExportsFileDir === 'images') {
-    return convertToCamelCase(basename, reExportsFileDir);
-  }
-
-  return basename;
+  return basename.replace(/[^a-zA-Z0-9_$]/g, '');
 };
 
 export default generateVariableName;
