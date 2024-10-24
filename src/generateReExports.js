@@ -1,7 +1,7 @@
 import createError from './createError.js';
+import createReExport from './createReExport.js';
 import validatePathname from './validatePathname.js';
 import generatePathnames from './generatePathnames.js';
-import createReExport from './createReExport.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
 const generateReExports = async (srcPathname, relativeDir) => {
@@ -11,13 +11,13 @@ const generateReExports = async (srcPathname, relativeDir) => {
     throw createError('!pathnames.length');
   }
 
-  const filteredPathnames = pathnames.filter((pathname) =>
-    validatePathname(pathname, relativeDir)
-  );
+  const filteredPathnames = pathnames.filter((pathname) => {
+    return validatePathname(pathname, relativeDir);
+  });
 
-  return filteredPathnames.map((pathname) =>
-    createReExport(pathname, relativeDir)
-  );
+  return filteredPathnames.map((pathname) => {
+    return createReExport(pathname, relativeDir);
+  });
 };
 
 export default errorCathingDecor(generateReExports);

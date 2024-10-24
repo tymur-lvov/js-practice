@@ -1,29 +1,7 @@
-const validateRelativeDir = (relativeDir) => {
-  const validator = {
-    validateConditionA(relativeDir) {
-      return relativeDir === 'components';
-    },
+const validateArgument = argument => {
+  const validValues = ['components', 'utils', 'images', 'icons'];
 
-    validateConditionB(relativeDir) {
-      return relativeDir === 'utils';
-    },
+  const isArgumentValid = validValues.some(value => value === argument);
 
-    validateConditionC(relativeDir) {
-      return relativeDir === 'images';
-    },
-
-    validateConditionD(relativeDir) {
-      return relativeDir === 'icons';
-    },
-  };
-
-  const validators = Object.entries(validator);
-
-  const results = validators.map(([_, validate]) => validate(relativeDir));
-
-  if (results.includes(true)) {
-    return true;
-  }
+  if (isArgumentValid) return true;
 };
-
-export default validateRelativeDir;

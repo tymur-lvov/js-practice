@@ -9,19 +9,19 @@ import errorCathingDecor from './errorCathingDecor.js';
 import validateRelativeDir from './validateRelativeDir.js';
 
 const generateBarrelFile = async () => {
+  const [argument] = process.argv.slice(2);
+
+  const isArgumentProvided = !!argument;
+
+  if (!isArgumentProvided) throw createError('!isArgumentProvided');
+
+  const isArgumentValid = validateArgument(argument); //
+
+  if (!isArgumentValid) throw createError('!isArgumentValid');
+
   const srcPathname = path.resolve('src');
 
-  const [relativeDir] = process.argv.slice(2);
-
-  if (!relativeDir) {
-    throw createError('!relativeDir');
-  }
-
-  const isValidRelativeDir = validateRelativeDir(relativeDir);
-
-  if (!isValidRelativeDir) {
-    throw createError('!isValidRelativeDir');
-  }
+  const relativeDir = argument;
 
   const reExports = await generateReExports(srcPathname, relativeDir);
 

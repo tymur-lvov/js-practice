@@ -1,20 +1,16 @@
 const produceErrorMessage = (reason) => {
   switch (reason) {
-    case '!relativeDir': {
+    case '!isArgumentProvided':
       return 'Relative directory name as an argument is required.';
-    }
 
-    case '!isValidRelativeDir': {
+    case '!isArgumentValid':
       return 'Relative directory name must be "components", "utils" or "images".';
-    }
 
-    case '!pathnames.length': {
+    case '!pathnames.length':
       return 'All directories are empty. Nothing to re-export.';
-    }
 
-    default: {
+    default:
       return null;
-    }
   }
 };
 
