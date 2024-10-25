@@ -5,30 +5,24 @@ import pathnameStore from './producePathnameStore.js';
 import errorCathingDecor from './errorCathingDecor.js';
 import allowToStorePathname from './allowToStorePathname.js';
 
-const produceReExportsPaths = async (dirPathname, reExportsDirPath) => {
-  const subDirs = await fs.readdir(dirPathname);
+const produceReExportsPaths = async (reExportsDirPath) => {
+  const dirsContent = await fs.readdir(reExportsDirPath, { recursive: true });
 
-  const pathnames = await Promise.all(
-    subDirs.map(async (subDir) => {
-      const subDirPathname = path.resolve(dirPathname, subDir);
+  const segregatedEntities = await Promise.all(
+    dirsContent.map(async (entity) => {
+      const entityPath = path.resolve(reExportsDirPath, entity);
 
-      const subDirInfo = await fs.lstat(subDirPathname);
+      const entityInfo = await fs.lstat(entityPath);
 
-      const isAllowedToStorePathname = allowToStorePathname(subDirInfo, subDirPathname, reExportsDirPath);
+      const isEntityDirectory = entityInfo.isDirectory();
 
-      if (isAllowedToStorePathname) pathnameStore.storePathname(subDirPathname);
+      const isEntityReExportsFile = entity === 'index.ts';
 
-      const isSubDirDirectory = subDirInfo.isDirectory();
-
-      const isFileOfReExports = subDir === 'index.ts';
-
-      if (!isSubDirDirectory) return isFileOfReExports ? [] : subDirPathname;
-
-      return await produceReExportsPaths(subDirPathname, reExportsDirPath);
+      if (!isEntityDirectory && !isEntityReExportsFile) return entity;
     })
   );
 
-  return pathnames.flat();
+  return segregatedEntities.filter((entity) => !!entity);
 };
 
 export default errorCathingDecor(produceReExportsPaths);

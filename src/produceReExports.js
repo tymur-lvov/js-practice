@@ -4,16 +4,16 @@ import produceReExport from './produceReExport.js';
 import produceReExportsPaths from './produceReExportsPaths.js';
 import errorCathingDecor from './errorCathingDecor.js';
 
-const produceReExports = async (srcPathname, reExportsDirPath) => {
-  const pathnames = await produceReExportsPaths(srcPathname, reExportsDirPath);
+const produceReExports = async (reExportsDirPath) => {
+  const reExportsPaths = await produceReExportsPaths(reExportsDirPath);
 
-  const isAnyPathname = !!pathnames.length;
+  //const isAnyPathname = !!reExportsPaths.length;
 
-  if (!isAnyPathname) throw produceError('!isAnyPathname');
+  //if (!isAnyPathname) throw produceError('!isAnyPathname');
 
-  const filteredPathnames = pathnames.filter((pathname) => filterPathname(pathname, reExportsDirPath));
+  //const filteredPathnames = reExportsPaths.filter((pathname) => filterPathname(pathname, reExportsDirPath));
 
-  return filteredPathnames.map((pathname) => produceReExport(pathname, reExportsDirPath));
+  //return filteredPathnames.map((pathname) => produceReExport(pathname, reExportsDirPath));
 };
 
 export default errorCathingDecor(produceReExports);
