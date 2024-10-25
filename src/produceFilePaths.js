@@ -1,12 +1,12 @@
 import * as fs from 'fs/promises';
 
 import errorCathingDecor from './errorCathingDecor.js';
-import segregateFilesFromDirs from './segregateFilesFromDirs.js';
+import filterFilesFromDirs from './filterFilesFromDirs.js';
 
 const produceFilePaths = async (sourceFilePath) => {
   const dirContent = await fs.readdir(sourceFilePath, { recursive: true });
 
-  const filePaths = await segregateFilesFromDirs(dirContent, sourceFilePath);
+  const filePaths = await filterFilesFromDirs(dirContent, sourceFilePath);
 
   return filePaths.map((filePath) => './' + filePath);
 };

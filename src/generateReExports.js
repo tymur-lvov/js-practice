@@ -17,7 +17,6 @@ const generateReExports = async () => {
   const sourceFilePath = path.resolve(argument);
 
   const reExports = await produceReExports(sourceFilePath);
-  console.log(await reExports);
 
   //injectReExports();
 

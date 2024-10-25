@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import errorCathingDecor from './errorCathingDecor.js';
 
-const segregateFilesFromDirs = async (dirContent, sourceFilePath) => {
+const filterFilesFromDirs = async (dirContent, sourceFilePath) => {
   const segregatedEntities = await Promise.all(
     dirContent.map(async (entity) => {
       const entityPath = path.resolve(sourceFilePath, entity);
@@ -12,13 +12,13 @@ const segregateFilesFromDirs = async (dirContent, sourceFilePath) => {
 
       const isEntityDirectory = entityInfo.isDirectory();
 
-      const isEntitySrcFile = entity === 'index.ts';
+      const isEntitySourceFile = entity === 'index.ts';
 
-      return !isEntityDirectory && !isEntitySrcFile ? entity : 'entityMarkedAsDir';
+      return !isEntityDirectory && !isEntitySourceFile ? entity : 'entityMarkedAsDir';
     })
   );
 
   return segregatedEntities.filter((entity) => entity !== 'entityMarkedAsDir');
 };
 
-export default errorCathingDecor(segregateFilesFromDirs);
+export default errorCathingDecor(filterFilesFromDirs);
