@@ -1,14 +1,14 @@
-import generateCustomTypeExport from './generateCustomTypeExport.js';
+import produceTypeExport from './produceTypeExport.js';
 
-const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
-  switch (reExportsFileDir) {
+const produceTypeDeclaration = (reExports, reExportsDirPath) => {
+  switch (reExportsDirPath) {
     case 'components': {
       return `
         declare module '@components' {
           import { FunctionComponent } from 'react';
           ${reExports
             .map(({ variableName }) => {
-              return generateCustomTypeExport(variableName, reExportsFileDir);
+              return produceTypeExport(variableName, reExportsDirPath);
             })
             .join('\n')
             .trim()}
@@ -19,7 +19,7 @@ const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
       declare module '@utils' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, reExportsFileDir);
+            return produceTypeExport(variableName, reExportsDirPath);
           })
           .join('\n')
           .trim()}
@@ -30,7 +30,7 @@ const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
       declare module '@images' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, reExportsFileDir);
+            return produceTypeExport(variableName, reExportsDirPath);
           })
           .join('\n')
           .trim()}
@@ -41,7 +41,7 @@ const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
       declare module '@icons' {
         ${reExports
           .map(({ variableName }) => {
-            return generateCustomTypeExport(variableName, reExportsFileDir);
+            return produceTypeExport(variableName, reExportsDirPath);
           })
           .join('\n')
           .trim()}
@@ -53,4 +53,4 @@ const generateCustomTypeDeclaration = (reExports, reExportsFileDir) => {
   }
 };
 
-export default generateCustomTypeDeclaration;
+export default produceTypeDeclaration;

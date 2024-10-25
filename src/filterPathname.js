@@ -1,11 +1,11 @@
-const filterPathname = (pathname, reExportsFileDir) => {
+const filterPathname = (pathname, reExportsDirPath) => {
   const invalidBasenames = ['generateBarrelFile', 'DS_Store'];
 
   const isPathnameIncludesInvalidBasename = invalidBasenames.some((invalidBasename) =>
     pathname.includes(invalidBasename)
   );
 
-  const isPathnameIncludesReExportsFileDir = pathname.includes(reExportsFileDir);
+  const isPathnameIncludesReExportsFileDir = pathname.includes(reExportsDirPath);
 
   if (!isPathnameIncludesInvalidBasename && isPathnameIncludesReExportsFileDir) return true;
 };

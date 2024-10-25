@@ -1,11 +1,11 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import pathnameStore from './createPathnameStore.js';
+import pathnameStore from './producePathnameStore.js';
 import errorCathingDecor from './errorCathingDecor.js';
 import allowToStorePathname from './allowToStorePathname.js';
 
-const generatePathnames = async (dirPathname, reExportsFileDir) => {
+const produceReExportsPaths = async (dirPathname, reExportsDirPath) => {
   const subDirs = await fs.readdir(dirPathname);
 
   const pathnames = await Promise.all(
@@ -14,7 +14,7 @@ const generatePathnames = async (dirPathname, reExportsFileDir) => {
 
       const subDirInfo = await fs.lstat(subDirPathname);
 
-      const isAllowedToStorePathname = allowToStorePathname(subDirInfo, subDirPathname, reExportsFileDir);
+      const isAllowedToStorePathname = allowToStorePathname(subDirInfo, subDirPathname, reExportsDirPath);
 
       if (isAllowedToStorePathname) pathnameStore.storePathname(subDirPathname);
 
@@ -24,11 +24,11 @@ const generatePathnames = async (dirPathname, reExportsFileDir) => {
 
       if (!isSubDirDirectory) return isFileOfReExports ? [] : subDirPathname;
 
-      return await generatePathnames(subDirPathname, reExportsFileDir);
+      return await produceReExportsPaths(subDirPathname, reExportsDirPath);
     })
   );
 
   return pathnames.flat();
 };
 
-export default errorCathingDecor(generatePathnames);
+export default errorCathingDecor(produceReExportsPaths);

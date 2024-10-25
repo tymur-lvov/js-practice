@@ -1,5 +1,5 @@
-const generateCustomTypeExport = (variableName, reExportsFileDir) => {
-  switch (reExportsFileDir) {
+const produceTypeExport = (variableName, reExportsDirPath) => {
+  switch (reExportsDirPath) {
     case 'components': {
       return `export const ${variableName}: FunctionComponent<any>;`;
     }
@@ -18,4 +18,4 @@ const generateCustomTypeExport = (variableName, reExportsFileDir) => {
   }
 };
 
-export default generateCustomTypeExport;
+export default produceTypeExport;

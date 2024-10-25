@@ -1,4 +1,4 @@
-const createPathnameStore = () => {
+const producePathnameStore = () => {
   let storedPathname = null;
 
   return {
@@ -8,6 +8,6 @@ const createPathnameStore = () => {
   };
 };
 
-const pathnameStore = createPathnameStore();
+const pathnameStore = producePathnameStore();
 
 export default pathnameStore;
