@@ -4,7 +4,7 @@ import process from 'process';
 import produceError from './produceError.js';
 import injectReExports from './injectReExports.js';
 import produceReExports from './produceReExports.js';
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 import injectTypeDeclarations from './injectTypeDeclarations.js';
 
 const generateReExports = async () => {
@@ -23,4 +23,4 @@ const generateReExports = async () => {
   //injectTypeDeclarations();
 };
 
-errorCathingDecor(generateReExports)();
+errorCathingDecorator(generateReExports)();

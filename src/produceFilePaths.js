@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises';
 
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 import filterFilesFromDirs from './filterFilesFromDirs.js';
 
 const produceFilePaths = async (sourceFilePath) => {
@@ -11,4 +11,4 @@ const produceFilePaths = async (sourceFilePath) => {
   return filePaths.map((filePath) => './' + filePath);
 };
 
-export default errorCathingDecor(produceFilePaths);
+export default errorCathingDecorator(produceFilePaths);

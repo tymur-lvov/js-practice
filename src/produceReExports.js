@@ -1,6 +1,6 @@
 import produceError from './produceError.js';
 import produceFilePaths from './produceFilePaths.js';
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 import produceVariableNames from './produceVariableName.js';
 
 const produceReExports = async (sourceFilePath) => {
@@ -15,4 +15,4 @@ const produceReExports = async (sourceFilePath) => {
   return { filePaths, variableNames };
 };
 
-export default errorCathingDecor(produceReExports);
+export default errorCathingDecorator(produceReExports);

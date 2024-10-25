@@ -2,7 +2,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 import fsReadFileOptions from './fsReadFileOptions.js';
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 import sliceUnchangedContent from './sliceUnchangedContent.js';
 import enhanceCustomTypeString from './enhanceCustomTypeString.js';
 import findEndIndexOfDeclaration from './findEndIndexOfDeclaration.js';
@@ -35,4 +35,4 @@ const injectTypeDeclarations = async (reExports, sourceFilePath) => {
   //await fs.writeFile(customTypesFilePath, finalUpdatedContent);
 };
 
-export default errorCathingDecor(injectTypeDeclarations);
+export default errorCathingDecorator(injectTypeDeclarations);

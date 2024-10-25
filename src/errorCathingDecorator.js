@@ -1,4 +1,4 @@
-const errorCathingDecor = (callback) => {
+const errorCathingDecorator = (callback) => {
   return async (...args) => {
     try {
       return await callback(...args);
@@ -8,4 +8,4 @@ const errorCathingDecor = (callback) => {
   };
 };
 
-export default errorCathingDecor;
+export default errorCathingDecorator;

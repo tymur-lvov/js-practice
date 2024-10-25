@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import pathnameStore from './producePathnameStore.js';
 import concatReExports from './concatReExports.js';
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 
 const injectReExports = async (reExports, sourceFilePath) => {
   const pathname = pathnameStore.getStoredPathname();
@@ -23,4 +23,4 @@ const injectReExports = async (reExports, sourceFilePath) => {
   await fs.writeFile(barrelFilePath, barrelFileContent);
 };
 
-export default errorCathingDecor(injectReExports);
+export default errorCathingDecorator(injectReExports);

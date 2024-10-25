@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import errorCathingDecor from './errorCathingDecor.js';
+import errorCathingDecorator from './errorCathingDecorator.js';
 
 const filterFilesFromDirs = async (dirContent, sourceFilePath) => {
   const segregatedEntities = await Promise.all(
@@ -21,4 +21,4 @@ const filterFilesFromDirs = async (dirContent, sourceFilePath) => {
   return segregatedEntities.filter((entity) => entity !== 'entityMarkedAsDir');
 };
 
-export default errorCathingDecor(filterFilesFromDirs);
+export default errorCathingDecorator(filterFilesFromDirs);
