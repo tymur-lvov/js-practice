@@ -9,21 +9,21 @@ import findEndIndexOfDeclaration from './findEndIndexOfDeclaration.js';
 import findStartIndexOfDeclaration from './findStartIndexOfDeclaration.js';
 import produceTypeDeclaration from './produceTypeDeclaration.js';
 
-const injectCustomTypes = async (reExports, reExportsDirPath) => {
+const injectCustomTypes = async (reExports, srcFileDirPath) => {
   const customTypesFilePath = path.resolve('@types', 'custom.d.ts');
 
   const fileContent = await fs.readFile(customTypesFilePath, fsReadFileOptions);
 
   const contentLines = fileContent.split('\n');
 
-  const startIndexOfDeclaration = findStartIndexOfDeclaration(contentLines, reExportsDirPath);
+  const startIndexOfDeclaration = findStartIndexOfDeclaration(contentLines, srcFileDirPath);
 
   const endIndexOfDeclaration = findEndIndexOfDeclaration(contentLines, startIndexOfDeclaration);
 
   const unchangedContent = sliceUnchangedContent(contentLines, startIndexOfDeclaration, endIndexOfDeclaration);
   //console.log(unchangedContent); // Refactoring ...
 
-  const newContent = produceTypeDeclaration(reExports, reExportsDirPath);
+  const newContent = produceTypeDeclaration(reExports, srcFileDirPath);
   //console.log(newContent);
 
   const enhancedContentToReplace = enhanceCustomTypeString(newContent);

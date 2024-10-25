@@ -4,10 +4,10 @@
   "main": "node-fs.js",
   "type": "module",
   "scripts": {
-    "bar": "node src/generateReExportsFile.js src/components",
-    "baru": "node src/ generateReExportsFile.js src/utils",
-    "bari": "node src/generateReExportsFile.js src/assets/images",
-    "baro": "node src/generateReExportsFile.js src/assets/icons"
+    "bar": "node src/generateReExports.js src/components",
+    "baru": "node src/ generateReExports.js src/utils",
+    "bari": "node src/generateReExports.js src/assets/images",
+    "baro": "node src/generateReExports.js src/assets/icons"
   },
   "keywords": [],
   "author": "",

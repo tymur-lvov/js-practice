@@ -1,7 +1,7 @@
-const convertToRelativePathname = (pathname, reExportsDirPath) => {
+const convertToRelativePathname = (pathname, srcFileDirPath) => {
   const dirs = pathname.split('/');
 
-  const reExportsFileDirIndex = dirs.findIndex((dir) => dir === reExportsDirPath);
+  const reExportsFileDirIndex = dirs.findIndex((dir) => dir === srcFileDirPath);
 
   const relativePathnameWithoutDotAndSlash = dirs.slice(reExportsFileDirIndex + 1).join('/');
 

@@ -1,14 +1,14 @@
 import produceTypeExport from './produceTypeExport.js';
 
-const produceTypeDeclaration = (reExports, reExportsDirPath) => {
-  switch (reExportsDirPath) {
+const produceTypeDeclaration = (reExports, srcFileDirPath) => {
+  switch (srcFileDirPath) {
     case 'components': {
       return `
         declare module '@components' {
           import { FunctionComponent } from 'react';
           ${reExports
             .map(({ variableName }) => {
-              return produceTypeExport(variableName, reExportsDirPath);
+              return produceTypeExport(variableName, srcFileDirPath);
             })
             .join('\n')
             .trim()}
@@ -19,7 +19,7 @@ const produceTypeDeclaration = (reExports, reExportsDirPath) => {
       declare module '@utils' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, reExportsDirPath);
+            return produceTypeExport(variableName, srcFileDirPath);
           })
           .join('\n')
           .trim()}
@@ -30,7 +30,7 @@ const produceTypeDeclaration = (reExports, reExportsDirPath) => {
       declare module '@images' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, reExportsDirPath);
+            return produceTypeExport(variableName, srcFileDirPath);
           })
           .join('\n')
           .trim()}
@@ -41,7 +41,7 @@ const produceTypeDeclaration = (reExports, reExportsDirPath) => {
       declare module '@icons' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, reExportsDirPath);
+            return produceTypeExport(variableName, srcFileDirPath);
           })
           .join('\n')
           .trim()}
