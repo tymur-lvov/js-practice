@@ -3,7 +3,7 @@ const produceErrorMessage = (reason) => {
     case '!isArgumentProvided':
       return 'Source file path is required. Nowhere to re-export.';
 
-    case '!isAnyPath':
+    case '!isAnyFilePath':
       return 'Target directories are empty. Nothing to re-export.';
 
     default:
