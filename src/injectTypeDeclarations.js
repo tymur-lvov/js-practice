@@ -9,21 +9,21 @@ import findEndIndexOfDeclaration from './findEndIndexOfDeclaration.js';
 import findStartIndexOfDeclaration from './findStartIndexOfDeclaration.js';
 import produceTypeDeclaration from './produceTypeDeclaration.js';
 
-const injectCustomTypes = async (reExports, srcFileDirPath) => {
+const injectTypeDeclarations = async (reExports, sourceFilePath) => {
   const customTypesFilePath = path.resolve('@types', 'custom.d.ts');
 
   const fileContent = await fs.readFile(customTypesFilePath, fsReadFileOptions);
 
   const contentLines = fileContent.split('\n');
 
-  const startIndexOfDeclaration = findStartIndexOfDeclaration(contentLines, srcFileDirPath);
+  const startIndexOfDeclaration = findStartIndexOfDeclaration(contentLines, sourceFilePath);
 
   const endIndexOfDeclaration = findEndIndexOfDeclaration(contentLines, startIndexOfDeclaration);
 
   const unchangedContent = sliceUnchangedContent(contentLines, startIndexOfDeclaration, endIndexOfDeclaration);
   //console.log(unchangedContent); // Refactoring ...
 
-  const newContent = produceTypeDeclaration(reExports, srcFileDirPath);
+  const newContent = produceTypeDeclaration(reExports, sourceFilePath);
   //console.log(newContent);
 
   const enhancedContentToReplace = enhanceCustomTypeString(newContent);
@@ -35,4 +35,4 @@ const injectCustomTypes = async (reExports, srcFileDirPath) => {
   //await fs.writeFile(customTypesFilePath, finalUpdatedContent);
 };
 
-export default errorCathingDecor(injectCustomTypes);
+export default errorCathingDecor(injectTypeDeclarations);

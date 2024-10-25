@@ -1,9 +1,19 @@
-import { basename } from 'path';
+import * as path from 'path';
 
-const produceVariableName = (pathname) => {
-  const basenameWithoutExtension = basename(pathname).replace(/\.[^./]+$/, '');
+const produceVariableNames = (filePaths) => {
+  const removeExtension = (basename) => basename.replace(/\.[^./]+$/, '');
 
-  return basenameWithoutExtension.replace(/[^a-zA-Z0-9_$]/g, '');
+  const removeInvalidSymbols = (basename) => basename.replace(/[^a-zA-Z0-9_$]/g, '');
+
+  const composeFunctions = (fnA, fnB) => (argA) => fnB(fnA(argA));
+
+  const normalizeBasename = composeFunctions(removeExtension, removeInvalidSymbols);
+
+  return filePaths.map((filePath) => {
+    const basename = path.basename(filePath);
+
+    return normalizeBasename(basename);
+  });
 };
 
-export default produceVariableName;
+export default produceVariableNames;

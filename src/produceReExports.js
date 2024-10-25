@@ -1,22 +1,18 @@
 import produceError from './produceError.js';
-import filterPathname from './filterPathname.js';
-import produceReExport from './produceReExport.js';
 import produceFilePaths from './produceFilePaths.js';
 import errorCathingDecor from './errorCathingDecor.js';
+import produceVariableNames from './produceVariableName.js';
 
-const produceReExports = async (srcFileDirPath) => {
-  const filePaths = await produceFilePaths(srcFileDirPath);
-  console.log(filePaths);
+const produceReExports = async (sourceFilePath) => {
+  const filePaths = await produceFilePaths(sourceFilePath);
 
-  //const variableNames = await produceReExports(srcFileDirPath);
+  const isAnyPath = Boolean(filePaths.length);
 
-  //const isAnyPathname = !!reExportsPaths.length;
+  if (!isAnyPath) throw produceError('!isAnyPath');
 
-  //if (!isAnyPathname) throw produceError('!isAnyPathname');
+  const variableNames = produceVariableNames(filePaths);
 
-  //const filteredPathnames = reExportsPaths.filter((pathname) => filterPathname(pathname, srcFileDirPath));
-
-  //return filteredPathnames.map((pathname) => produceReExport(pathname, srcFileDirPath));
+  return { filePaths, variableNames };
 };
 
 export default errorCathingDecor(produceReExports);

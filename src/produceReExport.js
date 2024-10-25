@@ -1,9 +1,9 @@
 import produceVariableName from './produceVariableName.js';
 import convertToRelativePathname from './convertToRelativePathname.js';
 
-const produceReExport = (pathname, srcFileDirPath) => {
+const produceReExport = (pathname, sourceFilePath) => {
   return {
-    relativePathname: convertToRelativePathname(pathname, srcFileDirPath),
+    relativePathname: convertToRelativePathname(pathname, sourceFilePath),
 
     variableName: produceVariableName(pathname),
   };

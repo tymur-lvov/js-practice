@@ -1,5 +1,5 @@
-const produceTypeExport = (variableName, srcFileDirPath) => {
-  switch (srcFileDirPath) {
+const produceTypeExport = (variableName, sourceFilePath) => {
+  switch (sourceFilePath) {
     case 'components': {
       return `export const ${variableName}: FunctionComponent<any>;`;
     }

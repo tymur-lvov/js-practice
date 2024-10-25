@@ -3,33 +3,25 @@ import process from 'process';
 
 import produceError from './produceError.js';
 import injectReExports from './injectReExports.js';
-import validateArgument from './validateArgument.js';
-import injectCustomTypes from './injectCustomTypes.js';
 import produceReExports from './produceReExports.js';
 import errorCathingDecor from './errorCathingDecor.js';
+import injectTypeDeclarations from './injectTypeDeclarations.js';
 
 const generateReExports = async () => {
   const [argument] = process.argv.slice(2);
 
-  const isArgumentProvided = !!argument;
+  const isArgumentProvided = Boolean(argument);
 
   if (!isArgumentProvided) throw produceError('!isArgumentProvided');
 
-  const srcFileDirPath = path.resolve(argument);
+  const sourceFilePath = path.resolve(argument);
 
-  const reExports = produceReExports(srcFileDirPath);
+  const reExports = await produceReExports(sourceFilePath);
+  console.log(await reExports);
 
-  //injectReExports(reExports, srcFileDirPath); //
+  //injectReExports();
 
-  //injectCustomTypes(reExports, srcFileDirPath);
-
-  //const isArgumentValid = validateArgument(argument);
-
-  //if (!isArgumentValid) throw produceError('!isArgumentValid');
-
-  //const srcPathname = path.resolve('src');
-
-  //const srcFileDirPath = argument;
+  //injectTypeDeclarations();
 };
 
 errorCathingDecor(generateReExports)();
