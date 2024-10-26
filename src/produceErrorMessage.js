@@ -1,10 +1,10 @@
 const produceErrorMessage = (reason) => {
   switch (reason) {
     case '!isArgumentProvided':
-      return 'Source file path is required. Nowhere to re-export.';
+      return 'Source file directory path as an argument is required.';
 
     case '!isAnyFilePath':
-      return 'Target directories are empty. Nothing to re-export.';
+      return 'Target directories are empty.';
 
     default:
       return 'Unexpected error occured.';

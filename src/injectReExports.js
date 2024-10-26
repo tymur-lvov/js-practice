@@ -1,20 +1,15 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+import produceFileData from './produceFileData.js';
 import errorCathingDecorator from './errorCathingDecorator.js';
 
-const injectReExports = async (reExports, sourceFileDirPath) => {
-  const sourceFilePath = path.resolve(sourceFileDirPath, 'index.ts');
+const injectReExports = async (reExports, srcFileDirPath) => {
+  const srcFilePath = path.resolve(srcFileDirPath, 'index.ts');
 
-  const produceFileData = ({ filePaths, variableNames }) => {
-    return filePaths.reduce((accumString, filePath, filePathIndex) => {
-      const reExportTemplate = `import { default as ${variableNames[filePathIndex]} } from '${filePath}'\n`;
+  const fileData = produceFileData(reExports);
 
-      return accumString.concat(reExportTemplate);
-    }, '');
-  };
-
-  await fs.writeFile(sourceFilePath, produceFileData(reExports));
+  await fs.writeFile(srcFilePath, fileData);
 };
 
 export default errorCathingDecorator(injectReExports);

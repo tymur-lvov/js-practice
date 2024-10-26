@@ -5,7 +5,6 @@ import produceError from './produceError.js';
 import injectReExports from './injectReExports.js';
 import produceReExports from './produceReExports.js';
 import errorCathingDecorator from './errorCathingDecorator.js';
-import injectTypeDeclarations from './injectTypeDeclarations.js';
 
 const generateReExports = async () => {
   const [argument] = process.argv.slice(2);
@@ -14,13 +13,11 @@ const generateReExports = async () => {
 
   if (!isArgumentProvided) throw produceError('!isArgumentProvided');
 
-  const sourceFileDirPath = path.resolve(argument);
+  const srcFileDirPath = path.resolve(argument);
 
-  const reExports = await produceReExports(sourceFileDirPath);
+  const reExports = await produceReExports(srcFileDirPath);
 
-  injectReExports(reExports, sourceFileDirPath);
-
-  //injectTypeDeclarations();
+  injectReExports(reExports, srcFileDirPath);
 };
 
 errorCathingDecorator(generateReExports)();
