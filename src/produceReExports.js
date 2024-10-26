@@ -3,8 +3,8 @@ import produceFilePaths from './produceFilePaths.js';
 import produceVariableNames from './produceVariableName.js';
 import errorCathingDecorator from './errorCathingDecorator.js';
 
-const produceReExports = async (sourceFilePath) => {
-  const filePaths = await produceFilePaths(sourceFilePath);
+const produceReExports = async (sourceFileDirPath) => {
+  const filePaths = await produceFilePaths(sourceFileDirPath);
 
   const isAnyFilePath = Boolean(filePaths.length);
 

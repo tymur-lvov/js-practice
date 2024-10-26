@@ -14,11 +14,11 @@ const generateReExports = async () => {
 
   if (!isArgumentProvided) throw produceError('!isArgumentProvided');
 
-  const sourceFilePath = path.resolve(argument);
+  const sourceFileDirPath = path.resolve(argument);
 
-  const reExports = await produceReExports(sourceFilePath);
+  const reExports = await produceReExports(sourceFileDirPath);
 
-  //injectReExports();
+  injectReExports(reExports, sourceFileDirPath);
 
   //injectTypeDeclarations();
 };

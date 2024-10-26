@@ -1,14 +1,14 @@
 import produceTypeExport from './produceTypeExport.js';
 
-const produceTypeDeclaration = (reExports, sourceFilePath) => {
-  switch (sourceFilePath) {
+const produceTypeDeclaration = (reExports, sourceFileDirPath) => {
+  switch (sourceFileDirPath) {
     case 'components': {
       return `
         declare module '@components' {
           import { FunctionComponent } from 'react';
           ${reExports
             .map(({ variableName }) => {
-              return produceTypeExport(variableName, sourceFilePath);
+              return produceTypeExport(variableName, sourceFileDirPath);
             })
             .join('\n')
             .trim()}
@@ -19,7 +19,7 @@ const produceTypeDeclaration = (reExports, sourceFilePath) => {
       declare module '@utils' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, sourceFilePath);
+            return produceTypeExport(variableName, sourceFileDirPath);
           })
           .join('\n')
           .trim()}
@@ -30,7 +30,7 @@ const produceTypeDeclaration = (reExports, sourceFilePath) => {
       declare module '@images' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, sourceFilePath);
+            return produceTypeExport(variableName, sourceFileDirPath);
           })
           .join('\n')
           .trim()}
@@ -41,7 +41,7 @@ const produceTypeDeclaration = (reExports, sourceFilePath) => {
       declare module '@icons' {
         ${reExports
           .map(({ variableName }) => {
-            return produceTypeExport(variableName, sourceFilePath);
+            return produceTypeExport(variableName, sourceFileDirPath);
           })
           .join('\n')
           .trim()}
