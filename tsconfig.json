@@ -17,7 +17,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Paths */
+    "paths": {
+      "@types": ["./@types/index.types.ts"],
+      "@scripts": ["./scripts/index.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["scripts"]
 }
