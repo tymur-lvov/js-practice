@@ -1,6 +1,6 @@
 import * as process from 'process';
 
-import { produceError, tryCatchDecorator } from '@scripts';
+import { produceError, produceTargetPaths, tryCatchDecorator } from '@scripts';
 
 const generateReExports = async () => {
   const targetDirs = process.argv.slice(2);
@@ -8,6 +8,8 @@ const generateReExports = async () => {
   if (targetDirs.length === 0) {
     throw produceError('!targetDirs');
   }
+
+  const targetPaths = await produceTargetPaths(targetDirs);
 };
 
 tryCatchDecorator(generateReExports)();
