@@ -8,13 +8,13 @@ import {
 } from '@scripts';
 
 const generateReExports = async () => {
-  const indexFileDirs = process.argv.slice(2);
+  const dirsForIndexFile = process.argv.slice(2);
 
-  if (indexFileDirs.length === 0) {
-    throw produceError('!indexFileDirs');
+  if (dirsForIndexFile.length === 0) {
+    throw produceError('!dirsForIndexFile');
   }
 
-  const dirPathsForIndexFile = await produceDirPathsForIndexFile(indexFileDirs);
+  const dirPathsForIndexFile = await produceDirPathsForIndexFile(dirsForIndexFile);
 
   const filePathsForReExport = await produceFilePathsForReExport(dirPathsForIndexFile);
 };

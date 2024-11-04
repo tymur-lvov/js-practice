@@ -4,7 +4,7 @@ import * as path from 'path';
 import { tryCatchDecorator } from '@scripts';
 
 const produceDirPathsForIndexFile = async (indexFileDirsArray: string[]): Promise<string[]> => {
-  const indexFileDirs = new Set(indexFileDirsArray);
+  const dirsForIndexFile = new Set(indexFileDirsArray);
 
   const ignoredEntities = new Set(['.git', 'node_modules']);
 
@@ -23,7 +23,7 @@ const produceDirPathsForIndexFile = async (indexFileDirsArray: string[]): Promis
           return;
         }
 
-        if (indexFileDirs.has(entity)) {
+        if (dirsForIndexFile.has(entity)) {
           return entityPath;
         }
 
