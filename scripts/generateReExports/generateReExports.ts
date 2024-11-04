@@ -1,15 +1,22 @@
 import * as process from 'process';
 
-import { produceError, produceTargetPaths, tryCatchDecorator } from '@scripts';
+import {
+  tryCatchDecorator,
+  produceError,
+  produceDirPathsForIndexFile,
+  produceFilePathsForReExport,
+} from '@scripts';
 
 const generateReExports = async () => {
-  const targetDirs = process.argv.slice(2);
+  const indexFileDirs = process.argv.slice(2);
 
-  if (targetDirs.length === 0) {
-    throw produceError('!targetDirs');
+  if (indexFileDirs.length === 0) {
+    throw produceError('!indexFileDirs');
   }
 
-  const targetPaths = await produceTargetPaths(targetDirs);
+  const dirPathsForIndexFile = await produceDirPathsForIndexFile(indexFileDirs);
+
+  const filePathsForReExport = await produceFilePathsForReExport(dirPathsForIndexFile);
 };
 
 tryCatchDecorator(generateReExports)();

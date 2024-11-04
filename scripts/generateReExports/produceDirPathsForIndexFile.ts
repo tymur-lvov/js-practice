@@ -3,8 +3,8 @@ import * as path from 'path';
 
 import { tryCatchDecorator } from '@scripts';
 
-const produceTargetPaths = async (targetDirsArray: string[]): Promise<string[]> => {
-  const targetDirs = new Set(targetDirsArray);
+const produceDirPathsForIndexFile = async (indexFileDirsArray: string[]): Promise<string[]> => {
+  const indexFileDirs = new Set(indexFileDirsArray);
 
   const ignoredEntities = new Set(['.git', 'node_modules']);
 
@@ -23,7 +23,7 @@ const produceTargetPaths = async (targetDirsArray: string[]): Promise<string[]> 
           return;
         }
 
-        if (targetDirs.has(entity)) {
+        if (indexFileDirs.has(entity)) {
           return entityPath;
         }
 
@@ -39,4 +39,4 @@ const produceTargetPaths = async (targetDirsArray: string[]): Promise<string[]> 
   return await findTargetPaths();
 };
 
-export default tryCatchDecorator(produceTargetPaths);
+export default tryCatchDecorator(produceDirPathsForIndexFile);
