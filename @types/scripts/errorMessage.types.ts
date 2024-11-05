@@ -1,3 +1,3 @@
-type ErrorMessage = 'Dirs for re-export as an arguments are required.';
+type ErrorMessage = '';
 
 export default ErrorMessage;
