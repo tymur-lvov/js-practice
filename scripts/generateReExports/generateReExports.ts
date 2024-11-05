@@ -3,20 +3,21 @@ import * as process from 'process';
 import {
   tryCatchDecorator,
   produceError,
-  produceDirPathsForIndexFile,
-  produceFilePathsForReExport,
+  produceIndexFileDirPaths,
+  produceReExportFilePaths,
 } from '@scripts';
 
 const generateReExports = async () => {
-  const dirsForIndexFile = process.argv.slice(2);
+  const indexFileDirs = process.argv.slice(2);
 
-  if (dirsForIndexFile.length === 0) {
-    throw produceError('!dirsForIndexFile');
+  if (indexFileDirs.length === 0) {
+    throw produceError('!indexFileDirs');
   }
 
-  const dirPathsForIndexFile = await produceDirPathsForIndexFile(dirsForIndexFile);
+  const indexFileDirPaths = await produceIndexFileDirPaths(indexFileDirs);
 
-  const filePathsForReExport = await produceFilePathsForReExport(dirPathsForIndexFile);
+  const reExportFilePaths = await produceReExportFilePaths(indexFileDirPaths);
+  console.log(reExportFilePaths);
 };
 
 tryCatchDecorator(generateReExports)();

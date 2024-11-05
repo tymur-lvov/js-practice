@@ -1,3 +1,3 @@
-type Reason = '!dirsForIndexFile';
+type Reason = '!indexFileDirs';
 
 export default Reason;
