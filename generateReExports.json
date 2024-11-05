@@ -1,0 +1,10 @@
+{
+  "srcFileDirs": [
+    "./@types",
+    "./scripts",
+    "./src/assets/icons",
+    "./src/assets/images",
+    "./src/components",
+    "./src/utils"
+  ]
+}
