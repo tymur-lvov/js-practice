@@ -5,7 +5,7 @@ const generateReExports = async () => {
 
   const reExports = produceReExports(srcFileDirs);
 
-  //  console.log(reExports);
+  //console.log(reExports);
 };
 
 tryCatchDecorator(generateReExports)();
