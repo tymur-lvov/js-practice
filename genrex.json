@@ -1,5 +1,5 @@
 {
-  "srcFileDirs": [
+  "srcDirPaths": [
     "./@types",
     "./scripts",
     "./src/assets/icons",
@@ -7,5 +7,5 @@
     "./src/components",
     "./src/utils"
   ],
-  "ignoredFiles": ["index.ts", "index.types.ts", ".DS_Store"]
+  "excludedFiles": ["index.ts", "index.types.ts", ".DS_Store"]
 }
