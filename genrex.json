@@ -6,5 +6,6 @@
     "./src/assets/images",
     "./src/components",
     "./src/utils"
-  ]
+  ],
+  "ignoredFiles": ["index.ts", "index.types.ts", ".DS_Store"]
 }
