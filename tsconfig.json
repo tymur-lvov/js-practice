@@ -10,6 +10,8 @@
     "moduleResolution": "Node",
     "isolatedModules": true,
     "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
 
     /* Linting */
@@ -22,7 +24,8 @@
     /* Paths */
     "paths": {
       "@types": ["./@types/index.types.ts"],
-      "@scripts": ["./scripts/index.ts"]
+      "@scripts": ["./scripts/index.ts"],
+      "@config": ["./genrex.json"]
     }
   },
   "include": ["scripts"]
