@@ -1,7 +1,9 @@
-import { produceReExports, readConfig, tryCatchDecorator } from '@scripts';
+import genrexConfig from '@config';
+
+import { produceReExports, tryCatchDecorator } from '@scripts';
 
 const generateReExports = async () => {
-  const { srcFileDirs } = await readConfig();
+  const { srcFileDirs } = genrexConfig;
 
   const reExports = produceReExports(srcFileDirs);
 
