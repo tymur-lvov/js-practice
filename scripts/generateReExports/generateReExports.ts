@@ -1,11 +1,23 @@
+import path from 'path';
+
 import genrexConfig from '@config';
 
-import { produceReExports, tryCatchDecorator } from '@scripts';
+import { getSrcDir, tryCatchDecorator } from '@scripts';
 
 const generateReExports = async () => {
-  const { srcFileDirs } = genrexConfig;
+  const { srcDirPaths: relativePaths } = genrexConfig;
 
-  const reExports = produceReExports(srcFileDirs);
+  const srcDirPaths = relativePaths.map((srcDirPath) => path.resolve(srcDirPath));
+
+  const reExports = await Promise.all(
+    srcDirPaths.map(async (srcDirPath) => {
+      return {
+        srcDir: getSrcDir(srcDirPath),
+
+        //statements: getStatements(srcDirPath),
+      };
+    })
+  );
 
   //console.log(reExports);
 };
