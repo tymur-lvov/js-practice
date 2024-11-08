@@ -15,9 +15,10 @@ const generateReExports = async () => {
 
       const statements = await getStatements(srcDir, srcDirPath);
 
-      //return new ReExport(srcDir, statements);
+      return new ReExport(srcDir, statements);
     })
   );
+  console.log(reExports);
 };
 
 tryCatchDecorator(generateReExports)();
