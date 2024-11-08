@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import genrexConfig from '@config';
 
-import { processFilePath } from '@scripts';
+import { processFilePath, tryCatchDecorator } from '@scripts';
 
 const getFilePaths = async (srcDir: string, srcDirPath: string): Promise<string[]> => {
   const { excludedFiles: excludedFilesArray } = genrexConfig;
@@ -20,4 +20,4 @@ const getFilePaths = async (srcDir: string, srcDirPath: string): Promise<string[
   return filePaths.map((filePath) => processFilePath(srcDir, filePath));
 };
 
-export default getFilePaths;
+export default tryCatchDecorator(getFilePaths);
