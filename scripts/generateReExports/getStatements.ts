@@ -1,11 +1,11 @@
-import { getFilePaths, getVariableNames, produceStatementsFromTemplate } from '@scripts';
+import { getFilePaths, getVariableNames, produceStatements } from '@scripts';
 
 const getStatements = async (srcDir: string, srcDirPath: string): Promise<string[]> => {
   const filePaths = await getFilePaths(srcDir, srcDirPath);
 
-  const variableNames = getVariableNames(filePaths);
+  const varNames = getVariableNames(filePaths);
 
-  return produceStatementsFromTemplate(filePaths, variableNames);
+  return produceStatements(filePaths, varNames);
 };
 
 export default getStatements;

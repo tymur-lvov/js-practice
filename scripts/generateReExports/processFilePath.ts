@@ -1,7 +1,7 @@
-import { convertToRelativePath, removeExtension } from '@scripts';
+import { getRelativePath, removeExtension } from '@scripts';
 
 const processFilePath = (srcDir: string, filePath: string): string => {
-  return removeExtension(convertToRelativePath(srcDir, filePath));
+  return removeExtension(getRelativePath(srcDir, filePath));
 };
 
 export default processFilePath;

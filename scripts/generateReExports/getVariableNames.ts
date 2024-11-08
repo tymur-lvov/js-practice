@@ -1,10 +1,12 @@
-import normalizeBasename from './normalizeBasename';
+import * as path from 'path';
+
+import { normalizeVarName } from '@scripts';
 
 const getVariableNames = (filePaths: string[]): string[] => {
   return filePaths.map((filePath) => {
-    const basename = filePath.slice(filePath.lastIndexOf('/') + 1);
+    const varName = path.basename(filePath);
 
-    return normalizeBasename(basename);
+    return normalizeVarName(varName);
   });
 };
 

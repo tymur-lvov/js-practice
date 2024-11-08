@@ -1,4 +1,4 @@
-const convertToRelativePath = (srcDir: string, filePath: string): string => {
+const getRelativePath = (srcDir: string, filePath: string): string => {
   const pathParts = filePath.split('/');
 
   const indexOfSrcDir = pathParts.indexOf(srcDir);
@@ -6,4 +6,4 @@ const convertToRelativePath = (srcDir: string, filePath: string): string => {
   return './' + pathParts.slice(indexOfSrcDir + 1).join('/');
 };
 
-export default convertToRelativePath;
+export default getRelativePath;

@@ -2,7 +2,7 @@ import path from 'path';
 
 import genrexConfig from '@config';
 
-import { getSrcDir, getStatements, ReExport, tryCatchDecorator } from '@scripts';
+import { getStatements, ReExport, tryCatchDecorator } from '@scripts';
 
 const generateReExports = async () => {
   const { srcDirPaths: relativePaths } = genrexConfig;
@@ -11,7 +11,7 @@ const generateReExports = async () => {
 
   const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {
-      const srcDir = getSrcDir(srcDirPath);
+      const srcDir = path.basename(srcDirPath);
 
       const statements = await getStatements(srcDir, srcDirPath);
 

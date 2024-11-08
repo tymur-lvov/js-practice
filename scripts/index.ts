@@ -1,11 +1,10 @@
 export { default as ReExport } from './classes/ReExport';
 export { default as tryCatchDecorator } from './generateReExports/tryCatchDecorator';
-export { default as getSrcDir } from './generateReExports/getSrcDir';
 export { default as getStatements } from './generateReExports/getStatements';
 export { default as getFilePaths } from './generateReExports/getFilePaths';
-export { default as convertToRelativePath } from './generateReExports/convertToRelativePath';
+export { default as getRelativePath } from './generateReExports/getRelativePath';
 export { default as processFilePath } from './generateReExports/processFilePath';
 export { default as removeExtension } from './generateReExports/removeExtension';
 export { default as getVariableNames } from './generateReExports/getVariableNames';
-export { default as normalizeBasename } from './generateReExports/normalizeBasename';
-export { default as produceStatementsFromTemplate } from './generateReExports/produceStatementsFromTemplate';
+export { default as normalizeVarName } from './generateReExports/normalizeVarName';
+export { default as produceStatements } from './generateReExports/produceStatements';
