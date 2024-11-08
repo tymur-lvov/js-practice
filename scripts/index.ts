@@ -7,4 +7,5 @@ export { default as convertToRelativePath } from './generateReExports/convertToR
 export { default as processFilePath } from './generateReExports/processFilePath';
 export { default as removeExtension } from './generateReExports/removeExtension';
 export { default as getVariableNames } from './generateReExports/getVariableNames';
+export { default as normalizeBasename } from './generateReExports/normalizeBasename';
 export { default as produceStatementsFromTemplate } from './generateReExports/produceStatementsFromTemplate';
