@@ -1,5 +1,5 @@
 interface IReExport {
-  srcDir: string;
+  srcFilePath: string;
   statements: string[];
 }
 
