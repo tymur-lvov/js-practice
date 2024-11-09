@@ -1,14 +1,13 @@
+export { default as tryCatchDecor } from './tryCatchDecor';
 export { default as utilA } from './utilA';
 export { default as utilB } from './utilB';
 export { default as getFilePaths } from './reExports/getFilePaths';
 export { default as getRelativePath } from './reExports/getRelativePath';
 export { default as getStatements } from './reExports/getStatements';
-export { default as getVariableNames } from './reExports/getVariableNames';
+export { default as getVarNames } from './reExports/getVarNames';
 export { default as processFilePath } from './reExports/processFilePath';
 export { default as produceStatements } from './reExports/produceStatements';
 export { default as produceTypeVarName } from './reExports/produceTypeVarName';
-export { default as produceVarName } from './reExports/produceVarName';
 export { default as removeExtension } from './reExports/removeExtension';
 export { default as replaceInvalidSymbols } from './reExports/replaceInvalidSymbols';
-export { default as tryCatchDecor } from './reExports/tryCatchDecor';
 export { default as ReExport } from './classes/ReExport';
