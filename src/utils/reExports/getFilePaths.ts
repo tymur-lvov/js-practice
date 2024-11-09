@@ -12,9 +12,9 @@ const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
 
   const srcDir = path.basename(srcDirPath);
 
-  const entities = await fs.readdir(srcDirPath, { withFileTypes: true, recursive: true });
+  const dirEntities = await fs.readdir(srcDirPath, { withFileTypes: true, recursive: true });
 
-  const filePaths = entities
+  const filePaths = dirEntities
     .filter((entity) => entity.isFile() && !excludedFiles.has(entity.name))
 
     .map((file) => path.resolve(file.parentPath, file.name));
