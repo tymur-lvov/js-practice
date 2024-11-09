@@ -1,12 +1,12 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import genrexConfig from '@config';
+import reExportsConfig from '@config';
 
-import { getStatements, ReExport, tryCatchDecor } from '@scripts';
+import { getStatements, ReExport, tryCatchDecor } from '@utils';
 
 const generateReExports = async () => {
-  const { srcDirPaths: relativePaths } = genrexConfig;
+  const { srcDirPaths: relativePaths } = reExportsConfig;
 
   const srcDirPaths = relativePaths.map((srcDirPath) => path.resolve(srcDirPath));
 

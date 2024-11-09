@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { produceVarName } from '@scripts';
+import { produceVarName } from '@utils';
 
 const getVariableNames = (filePaths: string[]): string[] => {
   return filePaths.map((filePath) => {

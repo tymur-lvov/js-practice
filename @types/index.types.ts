@@ -1,2 +1,2 @@
-export type { default as IAsyncFunc } from './scripts/asyncFunc.types';
-export type { default as IReExport } from './scripts/reExport.types';
+export type { default as IAsyncFunc } from './utils/asyncFunc.types';
+export type { default as IReExport } from './utils/reExport.types';

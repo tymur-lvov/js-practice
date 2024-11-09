@@ -24,9 +24,9 @@
     /* Paths */
     "paths": {
       "@types": ["./@types/index.types.ts"],
-      "@scripts": ["./scripts/index.ts"],
-      "@config": ["./genrex.json"]
+      "@utils": ["./src/utils/index.ts"],
+      "@config": ["./reExports.json"]
     }
   },
-  "include": ["scripts"]
+  "include": ["utils", "src/utils/reExports", "src/utils/classes"]
 }

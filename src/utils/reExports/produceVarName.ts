@@ -1,4 +1,4 @@
-import { produceTypeVarName, replaceInvalidSymbols } from '@scripts';
+import { produceTypeVarName, replaceInvalidSymbols } from '@utils';
 
 const produceVarName = (basename: string): string => {
   const varName = replaceInvalidSymbols(basename);
