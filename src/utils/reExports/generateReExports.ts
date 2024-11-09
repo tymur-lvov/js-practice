@@ -8,7 +8,7 @@ import { getStatements, ReExport, tryCatchDecor } from '@utils';
 const generateReExports = async () => {
   const { srcDirPaths: relativePaths } = reExportsConfig;
 
-  const srcDirPaths = relativePaths.map((srcDirPath) => path.resolve(srcDirPath));
+  const srcDirPaths = relativePaths.map((relativePath) => path.resolve(relativePath));
 
   const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {

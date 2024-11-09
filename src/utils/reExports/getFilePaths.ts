@@ -3,9 +3,7 @@ import * as path from 'path';
 
 import reExportsConfig from '@config';
 
-import { processFilePath } from '@utils';
-
-import tryCatchDecor from './tryCatchDecor';
+import { tryCatchDecor, processFilePath } from '@utils';
 
 const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
   const { excludedFiles: excludedFilesArray } = reExportsConfig;
