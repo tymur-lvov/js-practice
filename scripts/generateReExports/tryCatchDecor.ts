@@ -1,8 +1,6 @@
 import { IAsyncFunc } from '@types';
 
-const errorCatchingDecorator = <T extends any[], R>(
-  asyncFunc: IAsyncFunc<T, R>
-): IAsyncFunc<T, R> => {
+const tryCatchDecor = <T extends any[], R>(asyncFunc: IAsyncFunc<T, R>): IAsyncFunc<T, R> => {
   return async (...args: T): Promise<R> => {
     try {
       return await asyncFunc(...args);
@@ -12,4 +10,4 @@ const errorCatchingDecorator = <T extends any[], R>(
   };
 };
 
-export default errorCatchingDecorator;
+export default tryCatchDecor;

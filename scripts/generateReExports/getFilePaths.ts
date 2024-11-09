@@ -3,12 +3,16 @@ import * as path from 'path';
 
 import genrexConfig from '@config';
 
-import { processFilePath, tryCatchDecorator } from '@scripts';
+import { processFilePath } from '@scripts';
 
-const getFilePaths = async (srcDir: string, srcDirPath: string): Promise<string[]> => {
+import tryCatchDecor from './tryCatchDecor';
+
+const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
   const { excludedFiles: excludedFilesArray } = genrexConfig;
 
   const excludedFiles = new Set(excludedFilesArray);
+
+  const srcDir = path.basename(srcDirPath);
 
   const entities = await fs.readdir(srcDirPath, { withFileTypes: true, recursive: true });
 
@@ -20,4 +24,4 @@ const getFilePaths = async (srcDir: string, srcDirPath: string): Promise<string[
   return filePaths.map((filePath) => processFilePath(srcDir, filePath));
 };
 
-export default tryCatchDecorator(getFilePaths);
+export default tryCatchDecor(getFilePaths);
