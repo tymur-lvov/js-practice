@@ -1,11 +1,11 @@
-import { getFilePaths, getVariableNames, produceStatements, tryCatchDecorator } from '@scripts';
+import { getFilePaths, getVariableNames, produceStatements, tryCatchDecor } from '@scripts';
 
-const getStatements = async (srcDir: string, srcDirPath: string): Promise<string[]> => {
-  const filePaths = await getFilePaths(srcDir, srcDirPath);
+const getStatements = async (srcDirPath: string): Promise<string[]> => {
+  const filePaths = await getFilePaths(srcDirPath);
 
   const varNames = getVariableNames(filePaths);
 
   return produceStatements(filePaths, varNames);
 };
 
-export default tryCatchDecorator(getStatements);
+export default tryCatchDecor(getStatements);
