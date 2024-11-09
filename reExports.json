@@ -1,7 +1,7 @@
 {
   "srcDirPaths": [
     "./@types",
-    "./scripts",
+    "./src/utils",
     "./src/assets/icons",
     "./src/assets/images",
     "./src/components",
