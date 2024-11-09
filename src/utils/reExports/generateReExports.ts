@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import reExportsConfig from '@config';
 
-import { getStatements, ReExport, tryCatchDecor } from '@utils';
+import { getStatements, ReExport, errorHandleDecor } from '@utils';
 
 const generateReExports = async () => {
   const { srcDirPaths: relativePaths } = reExportsConfig;
@@ -27,4 +27,4 @@ const generateReExports = async () => {
   });
 };
 
-tryCatchDecor(generateReExports)();
+errorHandleDecor(generateReExports)();

@@ -1,4 +1,4 @@
-export { default as tryCatchDecor } from './tryCatchDecor';
+export { default as errorHandleDecor } from './errorHandleDecor';
 export { default as utilA } from './utilA';
 export { default as utilB } from './utilB';
 export { default as getFilePaths } from './reExports/getFilePaths';

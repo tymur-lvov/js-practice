@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import reExportsConfig from '@config';
 
-import { tryCatchDecor, processFilePath } from '@utils';
+import { errorHandleDecor, processFilePath } from '@utils';
 
 const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
   const { excludedFiles: excludedFilesArray } = reExportsConfig;
@@ -22,4 +22,4 @@ const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
   return filePaths.map((filePath) => processFilePath(srcDir, filePath));
 };
 
-export default tryCatchDecor(getFilePaths);
+export default errorHandleDecor(getFilePaths);
