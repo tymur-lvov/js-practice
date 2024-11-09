@@ -7,5 +7,5 @@
     "./src/components",
     "./src/utils"
   ],
-  "excludedFiles": ["index.ts", "index.types.ts", ".DS_Store"]
+  "excludedFiles": ["generateReExports.ts", "index.ts", "index.types.ts", ".DS_Store"]
 }
