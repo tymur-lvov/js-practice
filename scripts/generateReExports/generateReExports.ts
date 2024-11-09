@@ -1,8 +1,9 @@
-import path from 'path';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 
 import genrexConfig from '@config';
 
-import { getStatements, ReExport, tryCatchDecorator } from '@scripts';
+import { getStatements, ReExport, tryCatchDecor } from '@scripts';
 
 const generateReExports = async () => {
   const { srcDirPaths: relativePaths } = genrexConfig;
@@ -11,14 +12,19 @@ const generateReExports = async () => {
 
   const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {
-      const srcDir = path.basename(srcDirPath);
+      const srcFile = srcDirPath.includes('@types') ? 'index.types.ts' : 'index.ts';
 
-      const statements = await getStatements(srcDir, srcDirPath);
+      const srcFilePath = path.resolve(srcDirPath, srcFile);
 
-      return new ReExport(srcDir, statements);
+      const statements = await getStatements(srcDirPath);
+
+      return new ReExport(srcFilePath, statements);
     })
   );
-  console.log(reExports);
+
+  reExports.forEach(({ srcFilePath, statements }) => {
+    fs.writeFile(srcFilePath, statements.join('\n'));
+  });
 };
 
-tryCatchDecorator(generateReExports)();
+tryCatchDecor(generateReExports)();
