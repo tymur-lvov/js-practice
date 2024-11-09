@@ -1,12 +1,12 @@
 import * as path from 'path';
 
-import { normalizeVarName } from '@scripts';
+import { produceVarName } from '@scripts';
 
 const getVariableNames = (filePaths: string[]): string[] => {
   return filePaths.map((filePath) => {
-    const varName = path.basename(filePath);
+    const basename = path.basename(filePath);
 
-    return normalizeVarName(varName);
+    return produceVarName(basename);
   });
 };
 
