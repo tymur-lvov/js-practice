@@ -1,4 +1,4 @@
-import { getFilePaths, getVarNames, produceStatements, decorErrorHandle } from '@utils';
+import { getFilePaths, getVarNames, produceStatements, decorAsyncFunc } from '@utils';
 
 const getStatements = async (srcDirPath: string): Promise<string[]> => {
   const filePaths = await getFilePaths(srcDirPath);
@@ -8,4 +8,4 @@ const getStatements = async (srcDirPath: string): Promise<string[]> => {
   return produceStatements(filePaths, varNames);
 };
 
-export default decorErrorHandle(getStatements);
+export default decorAsyncFunc(getStatements);
