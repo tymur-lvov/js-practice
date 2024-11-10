@@ -1,6 +1,6 @@
 import { IAsyncFunc } from '@types';
 
-const errorHandleDecor = <T extends any[], R>(asyncFunc: IAsyncFunc<T, R>): IAsyncFunc<T, R> => {
+const decorErrorHandle = <T extends any[], R>(asyncFunc: IAsyncFunc<T, R>): IAsyncFunc<T, R> => {
   return async (...args: T): Promise<R> => {
     try {
       return await asyncFunc(...args);
@@ -10,4 +10,4 @@ const errorHandleDecor = <T extends any[], R>(asyncFunc: IAsyncFunc<T, R>): IAsy
   };
 };
 
-export default errorHandleDecor;
+export default decorErrorHandle;
