@@ -1,12 +1,12 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import reExportsConfig from '@config';
+import genrexConfig from '@config';
 
 import { decorAsyncFunc, processFilePath } from '@utils';
 
 const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
-  const { excludedFiles: excludedFilesArray } = reExportsConfig;
+  const { excludedFiles: excludedFilesArray } = genrexConfig;
 
   const excludedFiles = new Set(excludedFilesArray);
 
