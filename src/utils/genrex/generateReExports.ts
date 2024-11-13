@@ -10,7 +10,7 @@ const generateReExports = async () => {
 
   const srcDirPaths = relativePaths.map((relativePath) => path.resolve(relativePath));
 
-  const genrex = await Promise.all(
+  const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {
       const srcFile = srcDirPath.includes('@types') ? 'index.types.ts' : 'index.ts';
 
@@ -22,7 +22,7 @@ const generateReExports = async () => {
     })
   );
 
-  genrex.forEach(({ srcFilePath, statements }) => {
+  reExports.forEach(({ srcFilePath, statements }) => {
     fs.writeFile(srcFilePath, statements.join('\n'));
   });
 };
