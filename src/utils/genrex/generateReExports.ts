@@ -3,12 +3,12 @@ import * as path from 'path';
 
 import genrexConfig from '@config';
 
-import { getStatements, ReExport, decorAsyncFunc } from '@utils';
+import { getStatements, ReExport, decorAsyncFunc, resolvePath } from '@utils';
 
 const generateReExports = async () => {
   const { srcDirPaths: relativePaths } = genrexConfig;
 
-  const srcDirPaths = relativePaths.map((relativePath) => path.resolve(relativePath));
+  const srcDirPaths = relativePaths.map(resolvePath);
 
   const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {

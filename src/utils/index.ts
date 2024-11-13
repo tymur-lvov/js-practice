@@ -16,5 +16,6 @@ export { default as processFilePath } from './genrex/processFilePath';
 export { default as produceStatements } from './genrex/produceStatements';
 export { default as produceTypeVarName } from './genrex/produceTypeVarName';
 export { default as removeExtension } from './genrex/removeExtension';
+export { default as resolvePath } from './genrex/resolvePath';
 export { default as replaceInvalidSymbols } from './genrex/replaceInvalidSymbols';
 export { default as ReExport } from './classes/ReExport';
