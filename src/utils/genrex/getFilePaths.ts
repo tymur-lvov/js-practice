@@ -1,25 +1,28 @@
-import * as fs from 'fs/promises';
-import * as path from 'path';
-
-import genrexConfig from '@config';
-
-import { decorAsyncFunc, processFilePath } from '@utils';
+import {
+  decorAsyncFunc,
+  processFilePath,
+  filterFile,
+  markExportedFile,
+  getEntityPath,
+  filterExportedFile,
+  getEntities,
+  getBasename,
+} from '@utils';
 
 const getFilePaths = async (srcDirPath: string): Promise<string[]> => {
-  const { excludedFiles: excludedFilesArray } = genrexConfig;
+  const srcDir = getBasename(srcDirPath);
 
-  const excludedFiles = new Set(excludedFilesArray);
+  const dirEntities = await getEntities(srcDirPath, 'recursive');
 
-  const srcDir = path.basename(srcDirPath);
+  const files = dirEntities.filter(filterFile);
 
-  const dirEntities = await fs.readdir(srcDirPath, { withFileTypes: true, recursive: true });
+  const markedFiles = await Promise.all(files.map(markExportedFile));
 
-  const filePaths = dirEntities
-    .filter((entity) => entity.isFile() && !excludedFiles.has(entity.name))
+  const exportedFiles = markedFiles.filter(filterExportedFile);
 
-    .map((file) => path.resolve(file.parentPath, file.name));
+  const exportedFilePaths = exportedFiles.map(getEntityPath);
 
-  return filePaths.map((filePath) => processFilePath(srcDir, filePath));
+  return exportedFilePaths.map((filePath) => processFilePath(srcDir, filePath));
 };
 
 export default decorAsyncFunc(getFilePaths);
