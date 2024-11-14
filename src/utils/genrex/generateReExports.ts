@@ -1,20 +1,24 @@
-import * as fs from 'fs/promises';
-import * as path from 'path';
-
-import genrexConfig from '@config';
-
-import { getStatements, ReExport, decorAsyncFunc, resolvePath } from '@utils';
+import {
+  getStatements,
+  ReExport,
+  decorAsyncFunc,
+  resolvePath,
+  resolvePaths,
+  getSrcFileName,
+  writeReExportFiles,
+  genrexConfig,
+} from '@utils';
 
 const generateReExports = async () => {
-  const { srcDirPaths: relativePaths } = genrexConfig;
+  const srcDirRelativePaths = genrexConfig.getSrcDirPaths();
 
-  const srcDirPaths = relativePaths.map(resolvePath);
+  const srcDirPaths = srcDirRelativePaths.map(resolvePath);
 
   const reExports = await Promise.all(
     srcDirPaths.map(async (srcDirPath) => {
-      const srcFile = srcDirPath.includes('@types') ? 'index.types.ts' : 'index.ts';
+      const srcFileName = getSrcFileName(srcDirPath);
 
-      const srcFilePath = path.resolve(srcDirPath, srcFile);
+      const srcFilePath = resolvePaths(srcDirPath, srcFileName);
 
       const statements = await getStatements(srcDirPath);
 
@@ -22,9 +26,7 @@ const generateReExports = async () => {
     })
   );
 
-  reExports.forEach(({ srcFilePath, statements }) => {
-    fs.writeFile(srcFilePath, statements.join('\n'));
-  });
+  writeReExportFiles(reExports);
 };
 
 decorAsyncFunc(generateReExports)();
