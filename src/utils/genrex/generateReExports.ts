@@ -1,32 +1,11 @@
-import {
-  getStatements,
-  ReExport,
-  decorAsyncFunc,
-  resolvePath,
-  resolvePaths,
-  getSrcFileName,
-  writeReExportFiles,
-  genrexConfig,
-} from '@utils';
+import { decorAsyncFunc, writeReExportFile, getSrcDirPaths, generateReExportData } from '@utils';
 
 const generateReExports = async () => {
-  const srcDirRelativePaths = genrexConfig.getSrcDirPaths();
+  const srcDirPaths = getSrcDirPaths();
 
-  const srcDirPaths = srcDirRelativePaths.map(resolvePath);
+  const reExports = await Promise.all(srcDirPaths.map(generateReExportData));
 
-  const reExports = await Promise.all(
-    srcDirPaths.map(async (srcDirPath) => {
-      const srcFileName = getSrcFileName(srcDirPath);
-
-      const srcFilePath = resolvePaths(srcDirPath, srcFileName);
-
-      const statements = await getStatements(srcDirPath);
-
-      return new ReExport(srcFilePath, statements);
-    })
-  );
-
-  writeReExportFiles(reExports);
+  reExports.forEach(writeReExportFile);
 };
 
 decorAsyncFunc(generateReExports)();
