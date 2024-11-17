@@ -5,7 +5,7 @@ const generateReExports = async () => {
 
   const reExports = await Promise.all(srcDirPaths.map(generateReExportData));
 
-  reExports.forEach(writeReExportFile);
+  // reExports.forEach(writeReExportFile);
 };
 
 decorAsyncFunc(generateReExports)();

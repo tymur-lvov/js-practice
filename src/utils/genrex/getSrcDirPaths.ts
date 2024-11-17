@@ -1,7 +1,9 @@
-import { genrexConfig, resolvePath } from '@utils';
+import genrexConfig from '@config';
+
+import { resolvePath } from '@utils';
 
 const getSrcDirPaths = (): string[] => {
-  const srcDirRelativePaths = genrexConfig.getSrcDirPaths();
+  const srcDirRelativePaths = genrexConfig.srcDirPaths;
 
   return srcDirRelativePaths.map(resolvePath);
 };
