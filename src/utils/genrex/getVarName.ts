@@ -6,9 +6,9 @@ import { transformToTypeVarName, composeFuncs } from '@utils';
 const sanitizeBasename = (filePath: string): string => {
   const basename = path.basename(filePath);
 
-  const invalidCharRegex = /[^a-zA-Z0-9_$]/g;
+  const invalidCharsRegex = /[^a-zA-Z0-9_$]/g;
 
-  return basename.replace(invalidCharRegex, '_');
+  return basename.replace(invalidCharsRegex, '_');
 };
 
 const transformToVarName = (basename: string): string => {
