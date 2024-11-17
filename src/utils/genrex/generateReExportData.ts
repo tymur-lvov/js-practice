@@ -1,11 +1,9 @@
-import { decorAsyncFunc, getSrcFileName, getStatements, ReExport, resolvePaths } from '@utils';
+import { decorAsyncFunc, generateStatements, ReExport, getSrcFilePath } from '@utils';
 
 const generateReExportData = async (srcDirPath: string): Promise<ReExport> => {
-  const srcFileName = getSrcFileName(srcDirPath);
+  const srcFilePath = getSrcFilePath(srcDirPath);
 
-  const srcFilePath = resolvePaths(srcDirPath, srcFileName);
-
-  const statements = await getStatements(srcDirPath);
+  const statements = await generateStatements(srcDirPath);
 
   return new ReExport(srcFilePath, statements);
 };
