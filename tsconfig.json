@@ -20,13 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
-
-    /* Paths */
-    // "paths": {
-    //   "@types": ["./@types/index.types.ts"],
-    //   "@utils": ["./src/utils/index.ts"],
-    //   "@config": ["./genrex.json"]
-    // }
-  }
-  // "include": ["./src"]
+  },
+  "include": ["./src"]
 }
