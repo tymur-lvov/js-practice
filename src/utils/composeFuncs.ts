@@ -1,10 +1,8 @@
-import { IFunc } from '@types';
-
-const composeFuncs = <T extends any[], R>(...constituentFuncs: T): IFunc => {
-  return (args: T): R => {
+const composeFuncs = (...constituentFuncs: any[]): any => {
+  return (arg: any): any => {
     return constituentFuncs.reduce((prevResult, currentFunc) => {
       return currentFunc(prevResult);
-    }, args);
+    }, arg);
   };
 };
 
