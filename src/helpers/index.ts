@@ -1,1 +1,2 @@
-export { readConfig } from './miscHelpers';
+export { getConfigProp } from './miscHelpers';
+export { transformPathToAbsolute } from './pathHelpers';
