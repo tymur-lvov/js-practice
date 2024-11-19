@@ -1,3 +1,3 @@
-export { getConfigProp } from './miscHelpers';
+export { getConfigProperty } from './miscHelpers';
 export { getDirEntities } from './fileHelpers';
 export { transformPathToAbsolute } from './pathHelpers';

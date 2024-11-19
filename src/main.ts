@@ -1,7 +1,7 @@
-import { getConfigProp, getDirEntities, transformPathToAbsolute } from '@helpers';
+import { getConfigProperty, getDirEntities, transformPathToAbsolute } from '@helpers';
 
 const main = async () => {
-  const targetDirRelativePaths = getConfigProp('targetDirPaths');
+  const targetDirRelativePaths = getConfigProperty('targetDirPaths');
   //   console.log(targetDirPaths);
 
   const targetDirPaths = targetDirRelativePaths.map(transformPathToAbsolute);
