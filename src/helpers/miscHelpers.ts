@@ -2,8 +2,8 @@ import config from '@config';
 
 import { Config } from '@types';
 
-export const getConfigProp = <K extends keyof Config>(property: K): Config[K] => {
-  const typedConfig: Config = config;
+const typedConfig: Config = config;
 
+export const getConfigProp = <K extends keyof Config>(property: K): Config[K] => {
   return typedConfig[property];
 };
