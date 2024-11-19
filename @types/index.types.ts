@@ -1,1 +1,1 @@
-export type { Config } from './utils/configUtils.types';
+export type { Config } from './helpers/miscHelpers.types';
