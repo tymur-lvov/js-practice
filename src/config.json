@@ -1,0 +1,8 @@
+{
+  "targetDirPaths": [
+    "./test/assets/icons",
+    "./test/assets/images",
+    "./test/components",
+    "./test/utils"
+  ]
+}
