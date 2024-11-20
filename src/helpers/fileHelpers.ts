@@ -2,7 +2,7 @@ import * as fs from 'fs/promises';
 
 import { Dirent } from 'fs';
 
-export const getDirEntities = (
+export const getDirEnts = (
   path: string,
   recursive: string | boolean = false
 ): Promise<Dirent[]> => {
