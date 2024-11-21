@@ -1,27 +1,25 @@
 import {
   getConfigProp,
-  getDirEnts,
-  getAbsolutePaths,
+  getDirEntsRecurs,
+  getAbsolutePath,
   filterFiles,
   filterFilesToInclude,
-  getEntPaths,
+  getDirEntPath,
   getFileData,
 } from '@helpers';
 
 const main = async () => {
   const targetDirRelPaths = getConfigProp('targetDirPaths');
 
-  const targetDirPaths = getAbsolutePaths(targetDirRelPaths);
+  const targetDirPaths = targetDirRelPaths.map(getAbsolutePath);
 
-  const targetDirsEnts = await Promise.all(
-    targetDirPaths.map((dirPath) => getDirEnts(dirPath, 'recursive'))
-  );
+  const targetDirsEnts = await Promise.all(targetDirPaths.map(getDirEntsRecurs));
 
-  const nestedFiles = targetDirsEnts.map((dirEnts) => filterFiles(dirEnts));
+  const nestedFiles = targetDirsEnts.map(filterFiles);
 
-  const filesToInclude = nestedFiles.map((files) => filterFilesToInclude(files));
+  const filesToInclude = nestedFiles.map(filterFilesToInclude);
 
-  const dirsFilePaths = filesToInclude.map((files) => getEntPaths(files));
+  const dirsFilePaths = filesToInclude.map(getDirEntPath);
 
   const filesData = await Promise.all(dirsFilePaths.map(getFileData));
   console.log(filesData);
