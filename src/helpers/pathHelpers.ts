@@ -1,10 +1,13 @@
-import { Dirent } from 'fs';
 import * as path from 'path';
 
-export const getAbsolutePaths = (absolutePaths: string[]): string[] => {
-  return absolutePaths.map((absolutePath) => path.resolve(absolutePath));
-};
+import { mapDecor } from '@helpers';
 
-export const getEntPaths = (dirEnts: Dirent[]): string[] => {
-  return dirEnts.map(({ parentPath, name }) => path.resolve(parentPath, name));
-};
+import type { Dirent } from 'fs';
+
+export const getAbsolutePath = mapDecor((absolutePath: string): string => {
+  return path.resolve(absolutePath);
+});
+
+export const getDirEntPath = mapDecor(({ parentPath, name }: Dirent): string => {
+  return path.resolve(parentPath, name);
+});
