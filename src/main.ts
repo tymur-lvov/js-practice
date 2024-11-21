@@ -1,16 +1,16 @@
-import { getConfigProp, getDirEnts, getAbsolutePath } from '@helpers';
+import { getConfigProp, getDirEnts, getAbsolutePath, filterFiles } from '@helpers';
 
 const main = async () => {
   const targetDirRelPaths = getConfigProp('targetDirPaths');
-  //   console.log(targetDirPaths);
 
   const targetDirPaths = targetDirRelPaths.map((relPath) => getAbsolutePath(relPath));
-  //   console.log(targetDirPaths);
 
   const targetDirsEnts = await Promise.all(
     targetDirPaths.map((dirPath) => getDirEnts(dirPath, 'recursive'))
   );
-  console.log(targetDirsEnts);
+
+  const files = targetDirsEnts.map((dirEnts) => filterFiles(dirEnts));
+  console.log(files);
 };
 
 main();
