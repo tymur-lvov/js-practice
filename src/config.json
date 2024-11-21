@@ -4,5 +4,6 @@
     "./test/assets/images",
     "./test/components",
     "./test/utils"
-  ]
+  ],
+  "filesToExclude": ["main.ts", "index.ts", "index.types.ts", "DS_Store"]
 }
