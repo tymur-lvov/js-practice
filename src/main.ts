@@ -5,6 +5,7 @@ import {
   filterFiles,
   filterFilesToInclude,
   getEntPaths,
+  getFileData,
 } from '@helpers';
 
 const main = async () => {
@@ -20,7 +21,10 @@ const main = async () => {
 
   const filesToInclude = nestedFiles.map((files) => filterFilesToInclude(files));
 
-  const filePaths = filesToInclude.map((files) => getEntPaths(files));
+  const dirsFilePaths = filesToInclude.map((files) => getEntPaths(files));
+
+  const filesData = await Promise.all(dirsFilePaths.map(getFileData));
+  console.log(filesData);
 };
 
 main();
