@@ -1,4 +1,10 @@
-import { getConfigProp, getDirEnts, getAbsolutePath, filterFiles } from '@helpers';
+import {
+  getConfigProp,
+  getDirEnts,
+  getAbsolutePath,
+  filterFiles,
+  filterFilesToInclude,
+} from '@helpers';
 
 const main = async () => {
   const targetDirRelPaths = getConfigProp('targetDirPaths');
@@ -9,8 +15,9 @@ const main = async () => {
     targetDirPaths.map((dirPath) => getDirEnts(dirPath, 'recursive'))
   );
 
-  const files = targetDirsEnts.map((dirEnts) => filterFiles(dirEnts));
-  console.log(files);
+  const nestedFiles = targetDirsEnts.map((dirEnts) => filterFiles(dirEnts));
+
+  const filesToInclude = nestedFiles.map((files) => filterFilesToInclude(files));
 };
 
 main();
