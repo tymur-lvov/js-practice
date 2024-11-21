@@ -1,7 +1,7 @@
 import {
   getConfigProp,
   getDirEnts,
-  getAbsolutePath,
+  getAbsolutePaths,
   filterFiles,
   filterFilesToInclude,
   getEntPaths,
@@ -10,7 +10,7 @@ import {
 const main = async () => {
   const targetDirRelPaths = getConfigProp('targetDirPaths');
 
-  const targetDirPaths = targetDirRelPaths.map((relPath) => getAbsolutePath(relPath));
+  const targetDirPaths = getAbsolutePaths(targetDirRelPaths);
 
   const targetDirsEnts = await Promise.all(
     targetDirPaths.map((dirPath) => getDirEnts(dirPath, 'recursive'))
