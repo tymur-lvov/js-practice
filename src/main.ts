@@ -4,6 +4,7 @@ import {
   getAbsolutePath,
   filterFiles,
   filterFilesToInclude,
+  getEntPaths,
 } from '@helpers';
 
 const main = async () => {
@@ -18,6 +19,8 @@ const main = async () => {
   const nestedFiles = targetDirsEnts.map((dirEnts) => filterFiles(dirEnts));
 
   const filesToInclude = nestedFiles.map((files) => filterFilesToInclude(files));
+
+  const filePaths = filesToInclude.map((files) => getEntPaths(files));
 };
 
 main();

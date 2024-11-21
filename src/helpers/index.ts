@@ -3,3 +3,4 @@ export { getDirEnts } from './fileHelpers';
 export { getAbsolutePath } from './pathHelpers';
 export { filterFiles } from './filterHelpers';
 export { filterFilesToInclude } from './filterHelpers';
+export { getEntPaths } from './pathHelpers';
