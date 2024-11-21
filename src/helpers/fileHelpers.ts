@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises';
 
-import { Dirent } from 'fs';
+import type { Dirent } from 'fs';
 
 export const getDirEnts = (
   path: string,

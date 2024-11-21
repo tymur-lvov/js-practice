@@ -1,6 +1,6 @@
 import config from '@config';
 
-import { Config } from '@types';
+import type { Config } from '@types';
 
 const typedConfig: Config = config;
 
