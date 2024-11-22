@@ -1,4 +1,5 @@
 export { mapDecor } from './decorHelpers';
+export { composeFuncs } from './decorHelpers';
 export { getConfigProp } from './miscHelpers';
 export { getDirEntsRecurs } from './fileHelpers';
 export { getFileData } from './fileHelpers';
