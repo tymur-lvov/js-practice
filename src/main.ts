@@ -1,28 +1,33 @@
 import {
-  getConfigProp,
   getDirEntsRecurs,
   getAbsolutePath,
   filterFiles,
   filterFilesToInclude,
   getDirEntPath,
   getFileData,
+  composeFuncs,
 } from '@helpers';
 
-const main = async () => {
-  const targetDirRelPaths = getConfigProp('targetDirPaths');
-
-  const targetDirPaths = targetDirRelPaths.map(getAbsolutePath);
-
-  const targetDirsEnts = await Promise.all(targetDirPaths.map(getDirEntsRecurs));
-
-  const nestedFiles = targetDirsEnts.map(filterFiles);
-
-  const filesToInclude = nestedFiles.map(filterFilesToInclude);
-
-  const dirsFilePaths = filesToInclude.map(getDirEntPath);
-
-  const filesData = await Promise.all(dirsFilePaths.map(getFileData));
-  console.log(filesData);
+const fileNameProcessor = (fileName: any) => {
+  return { fileName };
 };
 
-main();
+const filePathsProccessor = async (prevResult: any) => {
+  const values = Object.values(prevResult);
+  const lastValue = Object.values(prevResult)[values.length - 1];
+
+  return {
+    ...prevResult,
+    filePaths: await composeFuncs(
+      'async',
+      getAbsolutePath,
+      getDirEntsRecurs,
+      filterFiles,
+      filterFilesToInclude,
+      getDirEntPath,
+      getFileData
+    )(lastValue),
+  };
+};
+
+console.log(await filePathsProccessor(fileNameProcessor('./test/utils')));
