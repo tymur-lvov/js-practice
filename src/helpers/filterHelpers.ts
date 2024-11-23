@@ -4,10 +4,10 @@ import type { Dirent } from 'fs';
 
 const filesToExclude = new Set(getConfigOption('filesToExclude'));
 
-export const filterFiles = (entities: Dirent[]): Dirent[] => {
-  return entities.filter((entity) => entity.isFile());
+export const filterFiles = (dirEnts: Dirent[]): Dirent[] => {
+  return dirEnts.filter((dirEnt) => dirEnt.isFile());
 };
 
 export const filterFilesToInclude = (files: Dirent[]): Dirent[] => {
-  return files.filter((file) => !filesToExclude.has(file.name));
+  return files.filter(({ name }) => !filesToExclude.has(name));
 };

@@ -6,6 +6,6 @@ export const getAbsolutePath = (absolutePath: string): string => {
   return path.resolve(absolutePath);
 };
 
-export const getDirEntityPath = ({ parentPath, name }: Dirent): string => {
+export const getDirEntPath = ({ parentPath, name }: Dirent): string => {
   return path.resolve(parentPath, name);
 };

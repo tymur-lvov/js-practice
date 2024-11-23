@@ -1,7 +1,7 @@
 export { getConfigOption } from './miscHelpers';
-export { getDirEntities } from './fileHelpers';
+export { getDirEnts } from './fileHelpers';
 export { getAbsolutePath } from './pathHelpers';
 export { filterFiles } from './filterHelpers';
 export { filterFilesToInclude } from './filterHelpers';
-export { getDirEntityPath } from './pathHelpers';
+export { getDirEntPath } from './pathHelpers';
 export { getFileData } from './fileHelpers';
