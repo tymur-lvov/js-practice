@@ -1,7 +1,7 @@
-export { getConfigOption } from './miscHelpers';
-export { getDirEntsRecurs } from './fileHelpers';
-export { getAbsolutePath } from './pathHelpers';
-export { filterFiles } from './filterHelpers';
-export { filterFilesToInclude } from './filterHelpers';
-export { getDirEntPath } from './pathHelpers';
-export { getFileData } from './fileHelpers';
+export { getConfigOption } from './misc';
+export { getDirEntsRecurs } from './files';
+export { getAbsolutePath } from './paths';
+export { filterFiles } from './filters';
+export { filterFilesToInclude } from './filters';
+export { getDirEntPath } from './paths';
+export { getFileData } from './files';
