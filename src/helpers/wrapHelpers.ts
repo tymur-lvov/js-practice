@@ -1,13 +1,13 @@
-const composeWrap = (...funcs: any[]): any => {
-  return (arg: any): any => {
+const composeWrap = (...funcs: ((arg: any) => any)[]): ((arg: any) => any) => {
+  return (arg) => {
     return funcs.reduce((result, func) => {
       return func(result);
     }, arg);
   };
 };
 
-const composeWrapAsync = (...funcs: any[]): any => {
-  return async (arg: any): Promise<any> => {
+const composeWrapAsync = (...funcs: ((arg: any) => any)[]): ((arg: any) => Promise<any>) => {
+  return async (arg) => {
     let result = await arg;
 
     for (const func of funcs) {
