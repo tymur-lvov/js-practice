@@ -1,5 +1,5 @@
 export { getConfigOption } from './miscHelpers';
-export { getDirEnts } from './fileHelpers';
+export { getDirEntsRecurs } from './fileHelpers';
 export { getAbsolutePath } from './pathHelpers';
 export { filterFiles } from './filterHelpers';
 export { filterFilesToInclude } from './filterHelpers';
