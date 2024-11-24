@@ -1,5 +1,4 @@
 export { mapDecor } from './decorators';
-export { asyncMapDecor } from './decorators';
 export { compose } from './composers';
 export { asyncCompose } from './composers';
 export { getConfigOption } from './misc';
@@ -8,4 +7,5 @@ export { getAbsolutePath } from './paths';
 export { filterFiles } from './filters';
 export { filterFilesToInclude } from './filters';
 export { getDirEntPath } from './paths';
+export { filterModules } from './filters';
 export { getFileData } from './files';
