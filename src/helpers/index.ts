@@ -1,3 +1,6 @@
+export { mapDecor } from './decorators';
+export { compose } from './composers';
+export { asyncCompose } from './composers';
 export { getConfigOption } from './misc';
 export { getDirEntsRecurs } from './files';
 export { getAbsolutePath } from './paths';
