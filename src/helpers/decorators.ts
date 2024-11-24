@@ -1,23 +1,22 @@
-export const mapDecor = (func: (arg: any) => any) => {
-  const funcRecurs = (arg: any[]): any[] => {
-    if (Array.isArray(arg)) {
-      return arg.map(funcRecurs);
-    } else {
+export const mapDecor = (...args: any[]): any => {
+  const isAsync = args[0] === 'async';
+  const isFirstCall = args.length === 1;
+
+  if (isAsync && isFirstCall) {
+    return mapDecor.bind(null, 'async');
+  }
+
+  const funcs = args.slice(1);
+
+  const [func] = funcs;
+
+  const funcRecurs = (arg: any): any => {
+    if (!Array.isArray(arg)) {
       return func(arg);
     }
+
+    return isAsync ? Promise.all(arg.map(funcRecurs)) : arg.map(funcRecurs);
   };
 
-  return funcRecurs;
-};
-
-export const asyncMapDecor = (func: (arg: any) => any) => {
-  const funcRecurs = async (arg: any[]): Promise<any[]> => {
-    if (Array.isArray(arg)) {
-      return Promise.all(arg.map(funcRecurs));
-    } else {
-      return func(arg);
-    }
-  };
-
-  return funcRecurs;
+  return funcs.length === 1 ? funcRecurs : funcs.map(funcRecurs);
 };
