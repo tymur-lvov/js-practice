@@ -1,4 +1,5 @@
 export { mapDecor } from './decorators';
+export { asyncMapDecor } from './decorators';
 export { compose } from './composers';
 export { asyncCompose } from './composers';
 export { getConfigOption } from './misc';
