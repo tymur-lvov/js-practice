@@ -17,7 +17,7 @@ const processFilePaths = async (arg: any): Promise<any> => {
     getDirEntsRecurs,
     filterFiles,
     filterFilesToInclude,
-    mapDecor('async')(getDirEntPath)
+    mapDecor(getDirEntPath)
   )(arg);
 
   return { filePaths };
