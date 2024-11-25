@@ -1,19 +1,13 @@
-export const compose = (...funcs: ((arg: any) => any)[]) => {
-  return (arg: any): any => {
-    return funcs.reduce((result, func) => {
-      return func(result);
-    }, arg);
+import type { IComposer, IFunc } from '@types';
+
+const createComposer =
+  (mode: 'async' | 'sync'): IComposer =>
+  (...funcs: IFunc[]): IFunc =>
+  (arg: any): Promise<any> | any => {
+    return mode === 'async'
+      ? funcs.reduce(async (result, func) => func(await result), arg)
+      : funcs.reduce((result, func) => func(result), arg);
   };
-};
 
-export const asyncCompose = (...funcs: ((arg: any) => any)[]) => {
-  return async (arg: any | Promise<any>): Promise<any> => {
-    let result = await arg;
-
-    for (const func of funcs) {
-      result = await func(result);
-    }
-
-    return result;
-  };
-};
+export const compose = createComposer('sync');
+export const asyncCompose = createComposer('async');
