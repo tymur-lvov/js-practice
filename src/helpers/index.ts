@@ -1,7 +1,7 @@
 export { compose } from './composers';
 export { asyncCompose } from './composers';
 export { mapDecor } from './decorators';
-export { getIConfigOption } from './misc';
+export { getConfigOption } from './misc';
 export { getDirEntsRecurs } from './files';
 export { getAbsolutePath } from './paths';
 export { filterFiles } from './filters';

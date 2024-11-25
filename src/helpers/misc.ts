@@ -4,6 +4,6 @@ import type { IConfig } from '@types';
 
 const typedIConfig: IConfig = config;
 
-export const getIConfigOption = <K extends keyof IConfig>(key: K): IConfig[K] => {
+export const getConfigOption = <K extends keyof IConfig>(key: K): IConfig[K] => {
   return typedIConfig[key];
 };

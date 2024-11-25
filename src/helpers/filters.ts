@@ -1,8 +1,8 @@
-import { getIConfigOption } from '@helpers';
+import { getConfigOption } from '@helpers';
 
 import type { Dirent } from 'fs';
 
-const filesToExclude = new Set(getIConfigOption('filesToExclude'));
+const filesToExclude = new Set(getConfigOption('filesToExclude'));
 
 export const filterFiles = (dirEnts: Dirent[]): Dirent[] => {
   return dirEnts.filter((dirEnt) => dirEnt.isFile());
