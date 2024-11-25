@@ -4,7 +4,7 @@ import {
   filterFilesToInclude,
   filterModules,
   getAbsolutePath,
-  getConfigOption,
+  getIConfigOption,
   getDirEntPath,
   getDirEntsRecurs,
   getFileData,
@@ -30,7 +30,7 @@ const processModulePaths = async (arg: any): Promise<any> => {
 const finalComposition = async () => {
   const composition = asyncCompose(processFilePaths, processModulePaths);
 
-  return Promise.all(getConfigOption('targetDirPaths').map(composition));
+  return Promise.all(getIConfigOption('targetDirPaths').map(composition));
 };
 
 console.log(await processFilePaths('./src/helpers'));

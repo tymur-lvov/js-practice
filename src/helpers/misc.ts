@@ -1,9 +1,9 @@
 import config from '@config';
 
-import type { Config } from '@types';
+import type { IConfig } from '@types';
 
-const typedConfig: Config = config;
+const typedIConfig: IConfig = config;
 
-export const getConfigOption = <K extends keyof Config>(key: K): Config[K] => {
-  return typedConfig[key];
+export const getIConfigOption = <K extends keyof IConfig>(key: K): IConfig[K] => {
+  return typedIConfig[key];
 };

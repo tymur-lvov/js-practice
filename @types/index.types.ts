@@ -1,1 +1,3 @@
-export type { Config } from './helpers/miscHelpers.types';
+export type { IConfig } from './config.types';
+export type { IFunc } from './helpers/helpers.types';
+export type { IComposer } from './helpers/helpers.types';
