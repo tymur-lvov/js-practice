@@ -11,19 +11,19 @@ import {
   mapDecor,
 } from '@helpers';
 
-const processFilePaths = async (arg: any): Promise<any> => {
+const processFilePaths = async (data: any): Promise<any> => {
   const filePaths = await asyncCompose(
     getAbsolutePath,
     getDirEntsRecurs,
     filterFiles,
     filterFilesToInclude,
-    mapDecor(getDirEntPath)
-  )(arg);
+    getDirEntPath
+  )(data);
 
   return { filePaths };
 };
 
-const processModulePaths = async (arg: any): Promise<any> => {
+const processModulePaths = async (data: any): Promise<any> => {
   //   const modulePaths = await asyncCompose(filterModules)(arg);
 };
 
