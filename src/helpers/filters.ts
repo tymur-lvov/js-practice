@@ -12,6 +12,6 @@ export const filterFilesToInclude = (files: Dirent[]): Dirent[] => {
   return files.filter(({ name }) => !filesToExclude.has(name));
 };
 
-export const filterModules = (filePaths: string[]): string[] => {
+export const filterPotentialModules = (filePaths: string[]): string[] => {
   return filePaths.filter((filePath) => /\.(ts|tsx)$/.test(filePath));
 };

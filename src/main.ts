@@ -2,29 +2,32 @@ import {
   asyncCompose,
   filterFiles,
   filterFilesToInclude,
-  filterModules,
+  filterPotentialModules,
   getAbsolutePath,
   getConfigOption,
   getDirEntPath,
   getDirEntsRecurs,
   getFileData,
-  mapDecor,
 } from '@helpers';
 
-const processFilePaths = async (data: any): Promise<any> => {
+const processFilePaths = async (prevRes: any): Promise<any> => {
   const filePaths = await asyncCompose(
     getAbsolutePath,
     getDirEntsRecurs,
     filterFiles,
     filterFilesToInclude,
     getDirEntPath
-  )(data);
+  )(prevRes);
 
   return { filePaths };
 };
 
-const processModulePaths = async (data: any): Promise<any> => {
-  //   const modulePaths = await asyncCompose(filterModules)(arg);
+const processModulePaths = async (prevRes: any): Promise<any> => {
+  const { filePaths } = prevRes;
+
+  const modulePaths = await asyncCompose(filterPotentialModules, getFileData)(filePaths);
+
+  console.log(modulePaths);
 };
 
 const finalComposition = async () => {
@@ -33,6 +36,4 @@ const finalComposition = async () => {
   return Promise.all(getConfigOption('targetDirPaths').map(composition));
 };
 
-console.log(await processFilePaths('./src/helpers'));
-
-// finalComposition();
+finalComposition();
