@@ -1,7 +1,7 @@
-import type { IFunc } from '@types';
+import type { IFunc, IDecorator } from '@types';
 
 const mapDecorCreator =
-  (mode: 'async' | 'sync'): IFunc =>
+  (mode: 'async' | 'sync'): IDecorator =>
   (func: IFunc): IFunc => {
     const funcRecurs = (arg: any): any => {
       if (!Array.isArray(arg)) {

@@ -2,6 +2,7 @@ import {
   asyncCompose,
   filterFiles,
   filterFilesToInclude,
+  filterModules,
   filterPotentialModules,
   getAbsolutePath,
   getConfigOption,
@@ -25,7 +26,11 @@ const processFilePaths = async (prevRes: any): Promise<any> => {
 const processModulePaths = async (prevRes: any): Promise<any> => {
   const { filePaths } = prevRes;
 
-  const modulePaths = await asyncCompose(filterPotentialModules, getFileData)(filePaths);
+  const modulePaths = await asyncCompose(
+    filterPotentialModules,
+    getFileData,
+    filterModules
+  )(filePaths);
 
   console.log(modulePaths);
 };
