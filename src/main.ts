@@ -1,33 +1,20 @@
-import * as path from 'path';
+import { getConfigOption, getDirEntPath, getDirEntsRecurs, getFileData } from '@helpers';
 
-import { asyncCompose, filterFiles, getConfigOption, getDirEntsRecurs } from '@helpers';
-
-import type { Dirent } from 'fs';
-
-const main = async () => {
-  const reExportFiles = await createReExportFiles();
-  console.log(reExportFiles);
-};
-
-const createReExportFiles = async () => {
-  const targetDirPaths = getConfigOption('targetDirPaths');
-
-  const files = await getFiles(targetDirPaths);
-
-  return files.map((files, idx) => ({
-    srcPath: createSrcPath(targetDirPaths[idx]),
-    fileData: files.map(getFileData),
+const getFilePaths = (dirEnts: any) => {
+  return dirEnts.map((dirEnt: any) => ({
+    filePath: getDirEntPath(dirEnt),
   }));
 };
 
-const getFiles = async (dirPaths: string[]) => {
-  return Promise.all(dirPaths.map(asyncCompose(getDirEntsRecurs, filterFiles)));
+const getFilesData = (files: any) => {
+  return Promise.all(
+    files.map(async ({ filePath }: any) => ({
+      filePath,
+      fileData: await getFileData(filePath),
+    }))
+  );
 };
 
-const createSrcPath = (dirPath: string) => {
-  return `${path.resolve(dirPath)}/index.ts`;
-};
-
-const getFileData = (file: Dirent) => {};
-
-main();
+console.log(
+  await getFilesData(getFilePaths(await getDirEntsRecurs(getConfigOption('targetDirPaths')[3])))
+);
