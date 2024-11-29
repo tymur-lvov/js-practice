@@ -1,20 +1,49 @@
-import { getConfigOption, getDirEntPath, getDirEntsRecurs, getFileData } from '@helpers';
+import {
+  asyncCompose,
+  filterFiles,
+  filterFilesToInclude,
+  getConfigOption,
+  getDirEntPath,
+  getDirEntsRecurs,
+  getVarName,
+} from '@helpers';
 
-const getFilePaths = (dirEnts: any) => {
-  return dirEnts.map((dirEnt: any) => ({
-    filePath: getDirEntPath(dirEnt),
-  }));
+import type { Dirent } from 'fs';
+
+const main = async () => {
+  asyncCompose(getConfigOption, createIndexFiles)('targetDirPaths');
 };
 
-const getFilesData = (files: any) => {
+const createIndexFiles = async (targetDirPaths: string[]) => {
   return Promise.all(
-    files.map(async ({ filePath }: any) => ({
-      filePath,
-      fileData: await getFileData(filePath),
-    }))
+    targetDirPaths.map(async (targetDirPath) => {
+      const targetDirFiles = await getTargetDirFiles(targetDirPath);
+
+      // console.log();
+      await Promise.all(
+        targetDirFiles.map((file) => ({
+          filePath: getIndexFilePath(targetDirPath),
+          fileData: getIndexFileData(targetDirPath, file),
+        }))
+      );
+    })
   );
 };
 
-console.log(
-  await getFilesData(getFilePaths(await getDirEntsRecurs(getConfigOption('targetDirPaths')[3])))
-);
+const getIndexFileData = (targetDirPath: string, file: Dirent) => {
+  const filePath = getDirEntPath(file);
+  const varName = getVarName(filePath);
+  // console.log(varName);
+
+  return 'File data...';
+};
+
+const getIndexFilePath = (targetDirPath: string): string => {
+  return `${targetDirPath}/index.ts`;
+};
+
+const getTargetDirFiles = async (targetDirPath: string): Promise<Dirent[]> => {
+  return asyncCompose(getDirEntsRecurs, filterFiles, filterFilesToInclude)(targetDirPath);
+};
+
+main();

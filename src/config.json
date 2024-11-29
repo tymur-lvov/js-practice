@@ -1,5 +1,6 @@
 {
   "targetDirPaths": [
+    "./@types",
     "./test/assets/icons",
     "./test/assets/images",
     "./test/components",
