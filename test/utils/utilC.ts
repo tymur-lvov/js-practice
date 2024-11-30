@@ -1,1 +1,1 @@
-const utilC = () => {};
+export const utilC = () => {};
