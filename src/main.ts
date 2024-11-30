@@ -33,7 +33,7 @@ const createIndexFiles = async (targetDirPaths: string[]) => {
 const getIndexFileData = (targetDirPath: string, file: Dirent) => {
   const filePath = getDirEntPath(file);
   const varName = getVarName(filePath);
-  // console.log(varName);
+  console.log(varName);
 
   return 'File data...';
 };
