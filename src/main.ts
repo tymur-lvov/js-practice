@@ -1,7 +1,10 @@
+import { getConfigOption } from '@helpers';
 import { createReExportFiles } from '@builders';
 
 const main = () => {
-  const reExportFiles = createReExportFiles();
+  const targetDirPaths = getConfigOption('targetDirPaths');
+
+  const reExportFiles = createReExportFiles(targetDirPaths);
 };
 
 main();

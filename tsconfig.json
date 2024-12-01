@@ -23,10 +23,10 @@
 
     /* Paths */
     "paths": {
-      // "@types": ["./@types/index.types.ts"],
-      // "@config": ["./src/config.json"],
-      "@builders": ["./src/builders/index.ts"]
-      // "@helpers": ["./src/helpers/index.ts"]
+      "@types": ["./@types/index.types.ts"],
+      "@config": ["./src/config.json"],
+      "@builders": ["./src/builders/index.ts"],
+      "@helpers": ["./src/helpers/index.ts"]
     }
   },
   "include": ["./src"]
