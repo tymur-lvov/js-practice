@@ -19,14 +19,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
 
     /* Paths */
-    // "paths": {
-    //   "@types": ["./@types/index.types.ts"],
-    //   "@config": ["./src/config.json"],
-    //   "@helpers": ["./src/helpers/index.ts"]
-    // }
+    "paths": {
+      // "@types": ["./@types/index.types.ts"],
+      // "@config": ["./src/config.json"],
+      "@builders": ["./src/builders/index.ts"]
+      // "@helpers": ["./src/helpers/index.ts"]
+    }
   },
   "include": ["./src"]
 }
