@@ -7,8 +7,7 @@ export const createReExportFiles: ICreateReExportFiles = (targetDirPaths) => {
 };
 
 export const createReExportFile: ICreateReExportFile = (targetDirPath) => {
-  const filePath = processFilePath(targetDirPath);
-  const fileData = processFileData(targetDirPath);
+  processFileData(targetDirPath);
 
-  return { filePath, fileData: '' };
+  return { filePath: processFilePath(targetDirPath), fileData: '' };
 };

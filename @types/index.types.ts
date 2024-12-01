@@ -1,4 +1,5 @@
 export type { IConfig } from './helpers.types';
+export type { IGetTargetDirPaths } from './helpers.types';
 export type { IGetConfigOption } from './helpers.types';
 export type { IReExportFile } from './builders.types';
 export type { ICreateReExportFiles } from './builders.types';
