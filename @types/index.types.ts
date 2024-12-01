@@ -6,5 +6,6 @@ export type { ICreateReExportFiles } from './builders.types';
 export type { ICreateReExportFile } from './builders.types';
 export type { IProcessFilePath } from './processors.types';
 export type { IProcessFileData } from './processors.types';
-export type { IGetNestedFilePathsRecurs } from './processors.types';
+export type { IGetAllNestedFilePaths } from './processors.types';
 export type { IIsExcludedItem } from './helpers.types';
+export type { IFilterModules } from './helpers.types';

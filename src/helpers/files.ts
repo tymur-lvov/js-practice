@@ -3,9 +3,9 @@ import * as path from 'path';
 
 import { isExcludedItem } from '@helpers';
 
-import type { IGetNestedFilePathsRecurs } from '@types';
+import type { IGetAllNestedFilePaths } from '@types';
 
-export const getNestedFilePathsRecurs: IGetNestedFilePathsRecurs = async (dirPath) => {
+export const getAllNestedFilePaths: IGetAllNestedFilePaths = async (dirPath) => {
   const dirItems = await fs.readdir(dirPath);
 
   return dirItems.reduce(async (filePathsAccPromise: Promise<string[]>, dirItem) => {
@@ -22,7 +22,7 @@ export const getNestedFilePathsRecurs: IGetNestedFilePathsRecurs = async (dirPat
     if (itemType.isFile()) {
       filePathsAcc.push(itemPath);
     } else {
-      filePathsAcc.push(...(await getNestedFilePathsRecurs(itemPath)));
+      filePathsAcc.push(...(await getAllNestedFilePaths(itemPath)));
     }
 
     return filePathsAcc;
