@@ -26,6 +26,7 @@
       "@types": ["./@types/index.types.ts"],
       "@config": ["./src/config.json"],
       "@builders": ["./src/builders/index.ts"],
+      "@processors": ["./src/processors/index.ts"],
       "@helpers": ["./src/helpers/index.ts"]
     }
   },

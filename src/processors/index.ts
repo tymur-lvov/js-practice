@@ -1,0 +1,1 @@
+export { processFilePath } from './files';
