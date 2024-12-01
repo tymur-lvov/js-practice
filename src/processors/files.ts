@@ -1,4 +1,4 @@
-import { extendWithFileData, getAllNestedFilePaths } from '@helpers';
+import { extendWithFileData, filterModules, getFilePathsRecurs } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
@@ -10,13 +10,15 @@ export const processFilePath: IProcessFilePath = (dirPath) => {
   return `${dirPath}/index.ts`;
 };
 
+// Restructure for consistency
+
 export const processFileData: IProcessFileData = async (dirPath) => {
-  const filePaths = await getAllNestedFilePaths(dirPath);
+  const filePaths = await getFilePathsRecurs(dirPath);
 
   const filePathsWithData = await extendWithFileData(filePaths);
-  console.log(filePathsWithData);
 
-  // const modules = await filterModules(filePaths);
+  const modules = filterModules(filePathsWithData);
+  console.log(modules);
 
   return '';
 };

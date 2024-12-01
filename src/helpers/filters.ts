@@ -1,7 +1,11 @@
-import * as fs from 'fs/promises';
-
 import type { IFilterModules } from '@types';
 
-export const filterModules: IFilterModules = async (filePaths) => {
-  return filePaths.filter((filePath) => {});
+export const filterModules: IFilterModules = (files) => {
+  return files.filter(({ filePath, fileData }) => {
+    if (/\.(ts|tsx)$/.test(filePath)) {
+      return fileData.includes('export');
+    }
+
+    return true;
+  });
 };

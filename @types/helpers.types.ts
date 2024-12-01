@@ -16,4 +16,4 @@ export type IIsExcludedItem = (itemPath: string) => boolean;
 
 export type IExtendWithFileData = (filePaths: string[]) => Promise<IFile[]>;
 
-export type IFilterModules = (filePaths: string[]) => string[];
+export type IFilterModules = (files: IFile[]) => IFile[];
