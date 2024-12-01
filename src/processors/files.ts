@@ -1,4 +1,4 @@
-import { getAllNestedFilePaths } from '@helpers';
+import { extendWithFileData, getAllNestedFilePaths } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
@@ -13,7 +13,10 @@ export const processFilePath: IProcessFilePath = (dirPath) => {
 export const processFileData: IProcessFileData = async (dirPath) => {
   const filePaths = await getAllNestedFilePaths(dirPath);
 
-  const modules = await filterModules(filePaths);
+  const filePathsWithData = await extendWithFileData(filePaths);
+  console.log(filePathsWithData);
+
+  // const modules = await filterModules(filePaths);
 
   return '';
 };

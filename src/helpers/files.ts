@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import { isExcludedItem } from '@helpers';
 
-import type { IGetAllNestedFilePaths } from '@types';
+import type { IExtendWithFileData, IGetAllNestedFilePaths } from '@types';
 
 export const getAllNestedFilePaths: IGetAllNestedFilePaths = async (dirPath) => {
   const dirItems = await fs.readdir(dirPath);
@@ -27,4 +27,14 @@ export const getAllNestedFilePaths: IGetAllNestedFilePaths = async (dirPath) => 
 
     return filePathsAcc;
   }, Promise.resolve([]));
+};
+
+export const extendWithFileData: IExtendWithFileData = async (filePaths) => {
+  return Promise.all(
+    filePaths.map(async (filePath) => {
+      const fileData = await fs.readFile(filePath, 'utf-8');
+
+      return { filePath, fileData };
+    })
+  );
 };
