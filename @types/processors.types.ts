@@ -1,3 +1,7 @@
-export type IProcessFilePath = (dirPath: string) => string;
+import type { Dirent } from 'fs';
 
-export type IProcessFileData = (targetDirPath: string) => string;
+export type IProcessFilePath = (rawDirPath: string) => string;
+
+export type IProcessFileData = (rawDirPath: string) => Promise<string>;
+
+export type IGetNestedFilesRecurs = (dirPath: string) => Dirent[];

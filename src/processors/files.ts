@@ -1,17 +1,23 @@
-import path from 'path';
+import * as path from 'path';
+
+import { getNestedFilesRecurs } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
-export const processFilePath: IProcessFilePath = (dirPath) => {
-  const absolutePath = path.resolve(dirPath);
+export const processFilePath: IProcessFilePath = (rawDirPath) => {
+  const dirPath = path.resolve(rawDirPath);
 
-  if (absolutePath.includes('@types')) {
-    return `${absolutePath}/index.types.ts`;
+  if (dirPath.includes('@types')) {
+    return `${dirPath}/index.types.ts`;
   }
 
-  return `${absolutePath}/index.ts`;
+  return `${dirPath}/index.ts`;
 };
 
-export const processFileData: IProcessFileData = (targetDirPath) => {
+export const processFileData: IProcessFileData = async (rawDirPath) => {
+  const dirPath = path.resolve(rawDirPath);
+
+  const files = getNestedFilesRecurs(dirPath);
+
   return '';
 };

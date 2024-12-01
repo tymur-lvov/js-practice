@@ -1,7 +1,6 @@
 export interface IConfig {
   targetDirPaths: string[];
-  dirsToExclude: string[];
-  filesToExclude: string[];
+  itemsToExclude: string[];
 }
 
 export type IGetConfigOption = (key: keyof IConfig) => IConfig[keyof IConfig];

@@ -6,6 +6,5 @@
     "./test/components",
     "./test/utils"
   ],
-  "dirsToExclude": ["public"],
-  "filesToExclude": ["main.ts", "index.ts", "index.types.ts", "DS_Store"]
+  "itemsToExclude": ["public", "main.ts", "index.ts", "index.types.ts", "DS_Store"]
 }
