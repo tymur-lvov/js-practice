@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { getNestedFilesRecurs } from '@helpers';
+import { getNestedFilePathsRecurs } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
@@ -17,7 +17,8 @@ export const processFilePath: IProcessFilePath = (rawDirPath) => {
 export const processFileData: IProcessFileData = async (rawDirPath) => {
   const dirPath = path.resolve(rawDirPath);
 
-  const files = getNestedFilesRecurs(dirPath);
+  const filePaths = await getNestedFilePathsRecurs(dirPath);
+  console.log(filePaths);
 
   return '';
 };

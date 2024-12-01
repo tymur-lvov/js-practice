@@ -1,2 +1,3 @@
 export { getConfigOption } from './misc';
-export { getNestedFilesRecurs } from './files';
+export { getNestedFilePathsRecurs } from './files';
+export { isFileEligibleForReExport } from './predicates';

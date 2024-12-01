@@ -4,4 +4,4 @@ export type IProcessFilePath = (rawDirPath: string) => string;
 
 export type IProcessFileData = (rawDirPath: string) => Promise<string>;
 
-export type IGetNestedFilesRecurs = (dirPath: string) => Dirent[];
+export type IGetNestedFilePathsRecurs = (dirPath: string) => Promise<string[]>;

@@ -5,4 +5,5 @@ export type { ICreateReExportFiles } from './builders.types';
 export type { ICreateReExportFile } from './builders.types';
 export type { IProcessFilePath } from './processors.types';
 export type { IProcessFileData } from './processors.types';
-export type { IGetNestedFilesRecurs } from './processors.types';
+export type { IGetNestedFilePathsRecurs } from './processors.types';
+export type { IIsFileEligibleForReExport } from './helpers.types';
