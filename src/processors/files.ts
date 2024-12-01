@@ -1,6 +1,6 @@
 import path from 'path';
 
-import type { IProcessFilePath } from '@types';
+import type { IProcessFileData, IProcessFilePath } from '@types';
 
 export const processFilePath: IProcessFilePath = (dirPath) => {
   const absolutePath = path.resolve(dirPath);
@@ -10,4 +10,8 @@ export const processFilePath: IProcessFilePath = (dirPath) => {
   }
 
   return `${absolutePath}/index.ts`;
+};
+
+export const processFileData: IProcessFileData = (targetDirPath) => {
+  return '';
 };

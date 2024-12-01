@@ -1,4 +1,4 @@
-import { processFilePath } from '@processors';
+import { processFileData, processFilePath } from '@processors';
 
 import type { ICreateReExportFile, ICreateReExportFiles } from '@types';
 
@@ -8,7 +8,7 @@ export const createReExportFiles: ICreateReExportFiles = (targetDirPaths) => {
 
 export const createReExportFile: ICreateReExportFile = (targetDirPath) => {
   const filePath = processFilePath(targetDirPath);
-  console.log(filePath);
+  const fileData = processFileData(targetDirPath);
 
-  return { filePath: '', fileData: '' };
+  return { filePath, fileData: '' };
 };
