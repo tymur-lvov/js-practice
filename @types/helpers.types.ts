@@ -7,4 +7,4 @@ export type IGetTargetDirPaths = () => string[];
 
 export type IGetConfigOption = (key: keyof IConfig) => IConfig[keyof IConfig];
 
-export type IIsFileEligibleForReExport = (itemPath: string) => boolean;
+export type IIsExcludedItem = (itemPath: string) => boolean;

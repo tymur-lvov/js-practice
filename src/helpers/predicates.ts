@@ -1,9 +1,9 @@
 import { getConfigOption } from '@helpers';
 
-import type { IIsFileEligibleForReExport } from '@types';
+import type { IIsExcludedItem } from '@types';
 
-export const isFileEligibleForReExport: IIsFileEligibleForReExport = (itemPath) => {
+export const isExcludedItem: IIsExcludedItem = (itemPath) => {
   const itemsToExclude = getConfigOption('itemsToExclude');
 
-  return itemsToExclude.every((itemToExclude) => !itemPath.includes(itemToExclude));
+  return itemsToExclude.some((itemToExclude) => itemPath.includes(itemToExclude));
 };
