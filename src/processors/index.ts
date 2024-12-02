@@ -1,2 +1,3 @@
-export { processFilePath } from './files';
-export { processFileData } from './files';
+export { processFilePaths } from './processFilePaths';
+export { processFilePath } from './processFilePath';
+export { processFileData } from './processFileData';

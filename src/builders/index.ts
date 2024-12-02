@@ -1,2 +1,1 @@
-export { createReExportFiles } from './files';
-export { createReExportFile } from './files';
+export { createComposer } from './composer/composer';
