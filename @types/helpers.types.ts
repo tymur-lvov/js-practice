@@ -12,6 +12,6 @@ export type IGetTargetDirPaths = () => string[];
 
 export type IGetConfigOption = (key: keyof IConfig) => IConfig[keyof IConfig];
 
-export type IIsExcludedItem = (itemPath: string) => boolean;
+export type IIsItemToExclude = (itemPath: string) => boolean;
 
-export type IFilterModules = (files: IFile[]) => IFile[];
+export type IIsFileAModule = (filePath: string, fileData: string) => boolean;

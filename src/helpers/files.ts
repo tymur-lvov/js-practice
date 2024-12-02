@@ -1,16 +1,16 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-import { isExcludedItem } from '@helpers';
+import { isItemToExclude } from '@helpers';
 
 import type { Dirent } from 'fs';
-import type { IGetFileEntsRecurs } from '@types';
+import type { IGetFileEnts } from '@types';
 
-export const getFileEntsRecurs: IGetFileEntsRecurs = async (dirPath) => {
+export const getFileEnts: IGetFileEnts = async (dirPath) => {
   const dirEnts = await fs.readdir(dirPath, { withFileTypes: true });
 
   return dirEnts.reduce(async (filesAccPromise: Promise<Dirent[]>, dirEnt) => {
-    if (isExcludedItem(dirEnt.name)) {
+    if (isItemToExclude(dirEnt.name)) {
       return filesAccPromise;
     }
 
@@ -21,7 +21,7 @@ export const getFileEntsRecurs: IGetFileEntsRecurs = async (dirPath) => {
     } else {
       const dirPath = path.resolve(dirEnt.parentPath, dirEnt.name);
 
-      filesAcc.push(...(await getFileEntsRecurs(dirPath)));
+      filesAcc.push(...(await getFileEnts(dirPath)));
     }
 
     return filesAcc;

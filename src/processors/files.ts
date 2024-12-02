@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs/promises';
 
-import { filterModules, getFileEntsRecurs } from '@helpers';
+import { isFileAModule, getFileEnts } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
@@ -14,18 +14,38 @@ export const processFilePath: IProcessFilePath = (dirPath) => {
 };
 
 export const processFileData: IProcessFileData = async (dirPath) => {
-  const fileEnts = await getFileEntsRecurs(dirPath);
+  const assignFilePaths = (fileEnts) => {
+    return fileEnts.map(({ parentPath, name }) => ({ filePath: path.resolve(parentPath, name) }));
+  };
 
-  const files = await Promise.all(
-    fileEnts.map(async ({ parentPath, name }) => {
-      const filePath = path.resolve(parentPath, name);
-      const fileData = await fs.readFile(filePath, 'utf-8');
+  const assignFilesData = (files) => {
+    return Promise.all(
+      files.map(async ({ filePath }) => ({
+        filePath,
+        fileData: await fs.readFile(filePath, 'utf-8'),
+      }))
+    );
+  };
 
-      return { filePath, fileData };
-    })
-  );
+  const filterModules = (files) => {
+    return files.filter(({ filePath, fileData }) => isFileAModule(filePath, fileData));
+  };
 
-  const modules = filterModules(files);
+  const res = await asyncCompose(getFileEnts, assignFilePaths, assignFilesData)(dirPath);
+
+  console.log(res);
 
   return '';
 };
+
+const createComposer =
+  (mode: 'async' | 'sync') =>
+  (...funcs: any[]) =>
+  (arg: any) => {
+    return mode === 'async'
+      ? funcs.reduce(async (result, func) => func(await result), arg)
+      : funcs.reduce((result, func) => func(result), arg);
+  };
+
+export const compose = createComposer('sync');
+export const asyncCompose = createComposer('async');

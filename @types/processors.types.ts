@@ -4,4 +4,4 @@ export type IProcessFilePath = (dirPath: string) => string;
 
 export type IProcessFileData = (dirPath: string) => Promise<string>;
 
-export type IGetFileEntsRecurs = (dirPath: string) => Promise<Dirent[]>;
+export type IGetFileEnts = (dirPath: string) => Promise<Dirent[]>;
