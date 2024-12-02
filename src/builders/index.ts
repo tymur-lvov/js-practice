@@ -1,1 +1,1 @@
-export { createComposer } from './composer/composer';
+export { createComposer } from './composer/createComposer';
