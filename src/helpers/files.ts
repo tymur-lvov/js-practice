@@ -3,38 +3,27 @@ import * as path from 'path';
 
 import { isExcludedItem } from '@helpers';
 
-import type { IExtendWithFileData, IGetFilePathsRecurs } from '@types';
+import type { Dirent } from 'fs';
+import type { IGetFileEntsRecurs } from '@types';
 
-export const getFilePathsRecurs: IGetFilePathsRecurs = async (dirPath) => {
-  const dirItems = await fs.readdir(dirPath);
+export const getFileEntsRecurs: IGetFileEntsRecurs = async (dirPath) => {
+  const dirEnts = await fs.readdir(dirPath, { withFileTypes: true });
 
-  return dirItems.reduce(async (filePathsAccPromise: Promise<string[]>, dirItem) => {
-    const itemPath = path.resolve(dirPath, dirItem);
-
-    if (isExcludedItem(itemPath)) {
-      return filePathsAccPromise;
+  return dirEnts.reduce(async (filesAccPromise: Promise<Dirent[]>, dirEnt) => {
+    if (isExcludedItem(dirEnt.name)) {
+      return filesAccPromise;
     }
 
-    const itemType = await fs.lstat(itemPath);
+    const filesAcc = await filesAccPromise;
 
-    const filePathsAcc = await filePathsAccPromise;
-
-    if (itemType.isFile()) {
-      filePathsAcc.push(itemPath);
+    if (dirEnt.isFile()) {
+      filesAcc.push(dirEnt);
     } else {
-      filePathsAcc.push(...(await getFilePathsRecurs(itemPath)));
+      const dirPath = path.resolve(dirEnt.parentPath, dirEnt.name);
+
+      filesAcc.push(...(await getFileEntsRecurs(dirPath)));
     }
 
-    return filePathsAcc;
+    return filesAcc;
   }, Promise.resolve([]));
-};
-
-export const extendWithFileData: IExtendWithFileData = async (filePaths) => {
-  return Promise.all(
-    filePaths.map(async (filePath) => {
-      const fileData = await fs.readFile(filePath, 'utf-8');
-
-      return { filePath, fileData };
-    })
-  );
 };

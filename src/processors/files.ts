@@ -1,4 +1,7 @@
-import { extendWithFileData, filterModules, getFilePathsRecurs } from '@helpers';
+import * as path from 'path';
+import * as fs from 'fs/promises';
+
+import { filterModules, getFileEntsRecurs } from '@helpers';
 
 import type { IProcessFileData, IProcessFilePath } from '@types';
 
@@ -10,15 +13,19 @@ export const processFilePath: IProcessFilePath = (dirPath) => {
   return `${dirPath}/index.ts`;
 };
 
-// Restructure for consistency
-
 export const processFileData: IProcessFileData = async (dirPath) => {
-  const filePaths = await getFilePathsRecurs(dirPath);
+  const fileEnts = await getFileEntsRecurs(dirPath);
 
-  const filePathsWithData = await extendWithFileData(filePaths);
+  const files = await Promise.all(
+    fileEnts.map(async ({ parentPath, name }) => {
+      const filePath = path.resolve(parentPath, name);
+      const fileData = await fs.readFile(filePath, 'utf-8');
 
-  const modules = filterModules(filePathsWithData);
-  console.log(modules);
+      return { filePath, fileData };
+    })
+  );
+
+  const modules = filterModules(files);
 
   return '';
 };
