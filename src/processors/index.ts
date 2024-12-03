@@ -1,3 +1,3 @@
-export { processFilePaths } from './processFilePaths';
-export { processFilePath } from './processFilePath';
-export { processFileData } from './processFileData';
+export { processIndexFiles } from './processIndexFiles';
+export { assignIndexFilePaths } from './assignIndexFilePaths';
+export { assignIndexFilesData } from './assignIndexFilesData';

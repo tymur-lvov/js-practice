@@ -1,7 +1,7 @@
 import config from '@config';
 
-const typedConfig = config;
+import type { GetConfigOptionType } from '@types';
 
-export const getConfigOption = (key) => {
-  return typedConfig[key];
+export const getConfigOption: GetConfigOptionType = (key) => {
+  return config[key];
 };
