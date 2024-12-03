@@ -1,6 +1,6 @@
-import { asyncCompose, getConfigOption } from '@helpers';
-import { processIndexFiles } from '@processors';
+const main = () => {
+  const targetDirPaths = getConfigOption('targetDirPaths');
+  const indexFiles = processIndexFiles(targetDirPaths);
+};
 
-(async () => {
-  asyncCompose(processIndexFiles)(getConfigOption('targetDirPaths'));
-})();
+main();
