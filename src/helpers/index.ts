@@ -1,2 +1,11 @@
+export { getTargetDirPaths } from './paths';
 export { getConfigOption } from './misc';
 export { createIndexFiles } from './builders';
+export { produceIndexFilePath } from './paths';
+export { produceIndexFileData } from './files';
+export { createTargetFiles } from './builders';
+export { getFiles } from './files';
+export { getDirItems } from './files';
+export { filterFiles } from './filters';
+export { filterFilesToInclude } from './filters';
+export { getFilesToExclude } from './misc';
