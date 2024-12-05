@@ -1,25 +1,20 @@
 import * as fs from 'fs/promises';
 
-import { createTargetFiles, filterFiles } from '@helpers';
+import { processTargetFiles } from '@helpers';
 
 import type {
   AssignFilesDataType,
   GetDirItemsType,
   GetFileDataType,
-  GetFilesType,
   ProduceIndexFileDataType,
 } from '@types';
 
 export const produceIndexFileData: ProduceIndexFileDataType = async (dirPath) => {
-  const targetFiles = await createTargetFiles(dirPath);
+  const targetFiles = await processTargetFiles(dirPath);
+
+  console.log(targetFiles);
 
   return '';
-};
-
-export const getFiles: GetFilesType = async (dirPath) => {
-  const dirItems = await getDirItems(dirPath);
-
-  return filterFiles(dirItems);
 };
 
 export const getDirItems: GetDirItemsType = async (dirPath) => {

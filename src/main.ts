@@ -1,8 +1,7 @@
-import { getTargetDirPaths, createIndexFiles } from '@helpers';
+import { targetDirPaths } from '@constants';
+import { createIndexFiles } from '@helpers';
 
 const main = () => {
-  const targetDirPaths = getTargetDirPaths();
-
   const indexFiles = createIndexFiles(targetDirPaths);
 };
 

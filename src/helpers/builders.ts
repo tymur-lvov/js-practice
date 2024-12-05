@@ -1,15 +1,6 @@
-import {
-  assignFilePaths,
-  assignFilesData,
-  filterFilesToInclude,
-  filterModules,
-  getFiles,
-  getFilesToExclude,
-  produceIndexFileData,
-  produceIndexFilePath,
-} from '@helpers';
+import { produceIndexFileData, produceIndexFilePath } from '@helpers';
 
-import type { CreateIndexFilesType, CreateTargetFilesType } from '@types';
+import type { CreateIndexFilesType } from '@types';
 
 export const createIndexFiles: CreateIndexFilesType = async (dirPaths) => {
   return Promise.all(
@@ -20,20 +11,4 @@ export const createIndexFiles: CreateIndexFilesType = async (dirPaths) => {
       };
     })
   );
-};
-
-export const createTargetFiles: CreateTargetFilesType = async (dirPath) => {
-  const files = await getFiles(dirPath);
-
-  const filesWithPaths = assignFilePaths(files);
-
-  const filesToInclude = filterFilesToInclude(filesWithPaths);
-
-  const filesWithData = await assignFilesData(filesToInclude);
-
-  const modules = filterModules(filesWithData);
-
-  console.log(modules);
-
-  return [{ filePath: '', fileData: '' }];
 };
