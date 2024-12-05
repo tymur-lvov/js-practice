@@ -1,5 +1,8 @@
 import {
+  assignFilePaths,
+  assignFilesData,
   filterFilesToInclude,
+  filterModules,
   getFiles,
   getFilesToExclude,
   produceIndexFileData,
@@ -22,10 +25,15 @@ export const createIndexFiles: CreateIndexFilesType = async (dirPaths) => {
 export const createTargetFiles: CreateTargetFilesType = async (dirPath) => {
   const files = await getFiles(dirPath);
 
-  const itemsToExclude = getFilesToExclude();
-  const targetFiles = filterFilesToInclude(files, itemsToExclude);
+  const filesWithPaths = assignFilePaths(files);
 
-  console.log(targetFiles);
+  const filesToInclude = filterFilesToInclude(filesWithPaths);
+
+  const filesWithData = await assignFilesData(filesToInclude);
+
+  const modules = filterModules(filesWithData);
+
+  console.log(modules);
 
   return [{ filePath: '', fileData: '' }];
 };

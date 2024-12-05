@@ -7,7 +7,7 @@ export interface ConfigInterface {
 
 export interface FileInterface {
   filePath: string;
-  fileData: string;
+  fileData?: string;
 }
 export type GetTargetDirPathsType = () => string[];
 
@@ -27,6 +27,24 @@ export type GetDirItemsType = (dirPath: string) => Promise<Dirent[]>;
 
 export type FilterFilesType = (dirItems: Dirent[]) => Dirent[];
 
-export type FilterFilesToIncludeType = (files: Dirent[], itemsToExclude: string[]) => Dirent[];
+export type FilterFilesToIncludeType = (files: FileInterface[]) => FileInterface[];
 
 export type GetFilesToExcludeType = () => ReturnType<GetConfigOptionType>;
+
+export type AssignFilePathsType = (files: Dirent[]) => FileInterface[];
+
+export type GetFilePathType = (file: Dirent) => string;
+
+export type AssignFilesDataType = (file: FileInterface[]) => Promise<FileInterface[]>;
+
+export type GetFileDataType = (filePath: string) => Promise<string>;
+
+export type FilterModulesType = (files: FileInterface[]) => FileInterface[];
+
+export type IsFileToIncludeType = (filePath: string) => boolean;
+
+export type IsEndsWithModuleExtensionType = (filePath: string) => boolean;
+
+export type IsIncludesExportType = (fileData: string) => boolean;
+
+export type IsModuleType = (filePath: string, fileData: string) => boolean;

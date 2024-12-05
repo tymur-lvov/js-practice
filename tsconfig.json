@@ -15,7 +15,7 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    // "strict": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -25,9 +25,8 @@
     "paths": {
       "@types": ["./@types/index.types.ts"],
       "@config": ["./src/config.json"],
-      "@builders": ["./src/builders/index.ts"],
-      "@processors": ["./src/processors/index.ts"],
-      "@helpers": ["./src/helpers/index.ts"]
+      "@helpers": ["./src/helpers/index.ts"],
+      "@constants": ["./src/constants/index.ts"]
     }
   },
   "include": ["./src"]
