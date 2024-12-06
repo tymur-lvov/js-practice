@@ -21,13 +21,15 @@ export type FilterFilesToIncludeType = (files: FileInterface[]) => FileInterface
 
 export type AssignFilePathsType = (files: Dirent[]) => FileInterface[];
 
-export type GetFilePathType = (file: Dirent) => string;
+export type GetFilePathType = (fileParentPath: string, fileName: string) => string;
 
 export type AssignFilesDataType = (file: FileInterface[]) => Promise<FileInterface[]>;
 
 export type GetFileDataType = (filePath: string) => Promise<string>;
 
 export type FilterModulesType = (files: FileInterface[]) => FileInterface[];
+
+export type IsIcludesSubStringType = (string: string, subString: string) => boolean;
 
 export type IsFileType = (dirItem: Dirent) => boolean;
 

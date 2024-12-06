@@ -17,6 +17,7 @@ export const produceIndexFileData: ProduceIndexFileDataType = async (dirPath) =>
   return '';
 };
 
+// Analyze
 export const getDirItems: GetDirItemsType = async (dirPath) => {
   return fs.readdir(dirPath, { withFileTypes: true, recursive: true });
 };

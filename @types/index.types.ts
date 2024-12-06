@@ -11,6 +11,7 @@ export type { GetFilePathType } from './helpers.types';
 export type { AssignFilesDataType } from './helpers.types';
 export type { GetFileDataType } from './helpers.types';
 export type { FilterModulesType } from './helpers.types';
+export type { IsIcludesSubStringType } from './helpers.types';
 export type { IsFileType } from './helpers.types';
 export type { IsFileToIncludeType } from './helpers.types';
 export type { IsEndsWithModuleExtensionType } from './helpers.types';

@@ -4,9 +4,14 @@ import type {
   IsEndsWithModuleExtensionType,
   IsFileToIncludeType,
   IsFileType,
+  IsIcludesSubStringType,
   IsIncludesExportType,
   IsModuleType,
 } from '@types';
+
+export const isIcludesSubString: IsIcludesSubStringType = (string, subString) => {
+  return string.includes(subString);
+};
 
 export const isFile: IsFileType = (dirItem) => {
   return dirItem.isFile();

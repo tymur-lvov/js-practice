@@ -8,6 +8,7 @@ export { filterFilesToInclude } from './filters';
 export { assignFilePaths } from './paths';
 export { assignFilesData } from './files';
 export { filterModules } from './filters';
+export { isIcludesSubString } from './predicates';
 export { isFile } from './predicates';
 export { isFileToInclude } from './predicates';
 export { isEndsWithModuleExtension } from './predicates';
