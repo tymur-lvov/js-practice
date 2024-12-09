@@ -1,11 +1,8 @@
-import { getDirEnts } from './helpers/files';
 import { targetDirPaths } from './helpers/constants';
-import { processExportFiles } from './helpers/processors';
+import { createIndexFile } from './helpers/creators';
 
 const main = async () => {
-  const files = await Promise.all(targetDirPaths.map(getDirEnts));
-
-  const exportFiles = await Promise.all(files.map(processExportFiles));
+  const indexFiles = await Promise.all(targetDirPaths.map(createIndexFile));
 };
 
 main();
