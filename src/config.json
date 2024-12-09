@@ -1,0 +1,4 @@
+{
+  "targetDirPaths": ["./test/assets/images", "./test/assets/icons", "./test/utils"],
+  "itemsToExclude": ["index.ts", "DS_Store"]
+}
