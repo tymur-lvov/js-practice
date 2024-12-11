@@ -1,59 +1,57 @@
-import { readdir } from 'fs/promises';
+import {
+  assignChildFiles,
+  assignDirItems,
+  assignFilePath,
+  assignIndexFileData,
+  assignIndexFilePath,
+} from './assigners';
 import { asyncCompose } from './composers';
-import { resolve } from 'path';
-import { itemsToExclude } from './constants';
-import { readFile } from 'fs/promises';
+import { filterFiles, filterItemsToInclude } from './filters';
+import { basename, extname } from 'path';
+
+export const processIndexFile = async (dirPath) => {
+  return asyncCompose(assignIndexFilePath, assignIndexFileData)(dirPath);
+};
+
+export const processChildFile = async (dirEnt) => {
+  return asyncCompose(assignFilePath)(dirEnt);
+};
+
+export const processTargetFiles = async (dirPath) => {
+  return asyncCompose(assignDirItems, filterItemsToInclude, filterFiles, assignChildFiles)(dirPath);
+};
 
 export const processIndexFileData = async (dirPath) => {
-  const files = await asyncCompose(
-    assignDirItems,
-    filterItemsToInclude,
-    filterFiles,
-    assignChildFiles
-  )(dirPath);
-  console.log(files);
+  return asyncCompose(processTargetFiles, createIndexFileData)(dirPath);
 };
 
-export const assignDirItems = async (dirPath) => {
-  return {
-    parentDirPath: dirPath,
-    dirEnts: await readdir(dirPath, { withFileTypes: true, recursive: true }),
-  };
-};
+export const createIndexFileData = ({ parentPath, childFiles }) => {
+  const res = childFiles.reduce((data, { filePath }) => {
+    const getRelativePath = (parentPath, childPath) => {
+      const parentPathElements = parentPath.split('/');
+      const parentPathLastElement = parentPathElements[parentPathElements.length - 1];
 
-const setOfItemsToExclude = new Set(itemsToExclude);
+      const childPathElements = childPath.split('/');
+      const parentDirIndex = childPathElements.indexOf(parentPathLastElement);
 
-export const filterItemsToInclude = ({ dirEnts, ...context }) => {
-  return {
-    ...context,
-    dirEnts: dirEnts.filter(({ name }) => !setOfItemsToExclude.has(name)),
-  };
-};
+      const relativePath = `./${childPathElements.slice(parentDirIndex + 1).join('/')}`;
+      const lastDotIndex = relativePath.lastIndexOf('.');
 
-export const filterFiles = ({ dirEnts, ...context }) => {
-  return {
-    ...context,
-    dirEnts: dirEnts.filter((dirEnt) => dirEnt.isFile()),
-  };
-};
+      return relativePath.slice(0, lastDotIndex);
+    };
 
-export const assignChildFiles = async ({ dirEnts, ...context }) => {
-  return {
-    ...context,
-    childFiles: await createChildFiles(dirEnts),
-  };
-};
+    const relativePath = getRelativePath(parentPath, filePath);
 
-export const createChildFiles = async (dirEnts) => {
-  return asyncCompose(assignFilePaths, assignFilesData)(dirEnts);
-};
+    if (!/\.(ts|tsx)$/.test(filePath)) {
+      const varName = basename(filePath, extname(filePath)).replace(/[^a-zA-Z0-9$_]/g, '');
 
-export const assignFilePaths = (dirEnts) => {
-  return dirEnts.map(({ parentPath, name }) => ({ filePath: resolve(parentPath, name) }));
-};
+      return data.concat(`export { default as ${varName} } from '${relativePath}';\n`);
+    }
 
-export const assignFilesData = (files) => {
-  return Promise.all(
-    files.map(async ({ filePath }) => ({ filePath, fileData: await readFile(filePath, 'utf-8') }))
-  );
+    return data.concat(
+      `export ${filePath.includes('@types') ? 'type ' : ''}* from '${relativePath}';\n`
+    );
+  }, '');
+
+  console.log(res);
 };
