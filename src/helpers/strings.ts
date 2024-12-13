@@ -1,4 +1,5 @@
 import { basename, extname } from 'path';
+import { processExportStatement } from './processors';
 
 export const produceVarName = (filePath) => {
   if (/\.(ts|tsx)$/.test(filePath)) {
@@ -22,4 +23,11 @@ export const produceStatement = ({ condition, relativePath, varName }) => {
       return `export { default as ${varName} } from '${relativePath}';\n`;
     }
   }
+};
+
+export const produceFileData = ({ childFiles }) => {
+  return childFiles.reduce(
+    (fileData, childFile) => fileData.concat(processExportStatement(childFile)),
+    ''
+  );
 };
