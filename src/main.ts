@@ -1,9 +1,10 @@
-import { targetDirPaths } from './helpers/constants';
-import { processIndexFile } from './helpers/processors';
+import config from '@config';
+import { processIndexFile } from './processors/processIndexFile';
 
 const main = async () => {
-  const indexFiles = await Promise.all(targetDirPaths.map(processIndexFile));
-  console.log(indexFiles);
+  const { targetDirPaths } = config;
+
+  targetDirPaths.map((dirPath) => processIndexFile({ dirPath }));
 };
 
 main();
