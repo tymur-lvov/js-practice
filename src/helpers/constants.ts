@@ -4,7 +4,7 @@ export const targetDirPaths = config.targetDirPaths;
 
 export const itemsToExclude = config.itemsToExclude;
 
-export const typesDirName = '@types';
+export const typeDirName = '@types';
 
 export const indexFileName = 'index.ts';
 

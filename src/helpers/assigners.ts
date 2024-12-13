@@ -1,13 +1,13 @@
 import { resolve } from 'path';
 import { readdir } from 'fs/promises';
-import { indexFilePathConditions } from './conditions';
+import { findIndexFilePathCondition } from './conditions';
 import { processChildFile, processIndexFileData, processRelativePath } from './processors';
 import { produceVarName } from './strings';
 import { compose } from './composers';
 import { removeExtension, sliceFromParentDir, transformToPathString } from './paths';
 
 export const assignIndexFilePath = (dirPath) => {
-  const filePath = indexFilePathConditions.find(({ condition }) => condition(dirPath));
+  const filePath = findIndexFilePathCondition(dirPath);
 
   return { dirPath, filePath };
 };
@@ -24,36 +24,28 @@ export const assignDirItems = async (dirPath) => {
   return { parentPath: dirPath, dirEnts };
 };
 
-export const assignChildFiles = async ({ dirEnts, ...context }) => {
-  const childFiles = await Promise.all(dirEnts.map(processChildFile));
+export const assignChildFiles = async ({ parentPath, dirEnts }) => {
+  const childFiles = await Promise.all(
+    dirEnts.map((dirEnt) => processChildFile({ parentPath, dirEnt }))
+  );
 
-  return { ...context, childFiles };
+  return { parentPath, childFiles };
 };
 
-export const assignFilePath = ({ parentPath, name }) => {
+export const assignFilePath = ({ dirEnt: { parentPath, name }, ...context }) => {
   const filePath = resolve(parentPath, name);
 
-  return { filePath };
+  return { ...context, filePath };
 };
 
-export const assignVarNames = ({ childFiles, ...context }) => {
-  return {
-    ...context,
-    childFiles: childFiles.map(({ filePath }) => {
-      const varName = produceVarName(filePath);
+export const assignVarNames = ({ filePath, ...context }) => {
+  const varName = produceVarName(filePath);
 
-      return { filePath, varName };
-    }),
-  };
+  return { ...context, filePath, varName };
 };
 
-export const assignRelativePaths = ({ parentPath, childFiles }) => {
-  return {
-    parentPath,
-    childFiles: childFiles.map(({ filePath, ...context }) => {
-      const relativePath = processRelativePath({ parentPath, filePath });
+export const assignRelativePaths = ({ parentPath, filePath, ...context }) => {
+  const relativePath = processRelativePath({ parentPath, filePath });
 
-      return { ...context, filePath, relativePath };
-    }),
-  };
+  return { ...context, relativePath };
 };

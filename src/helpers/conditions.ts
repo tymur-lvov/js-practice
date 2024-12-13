@@ -1,19 +1,24 @@
 import { resolve } from 'path';
-import { indexFileName, typesDirName, typesIndexFileName } from './constants';
+import { indexFileName, typeDirName, typesIndexFileName } from './constants';
 
-export const indexFilePathConditions = [
-  {
-    condition: (dirPath) => {
-      if (!dirPath.includes(typesDirName)) {
-        return resolve(dirPath, indexFileName);
-      }
-    },
-  },
-  {
-    condition: (dirPath) => {
-      if (dirPath.includes(typesDirName)) {
-        return resolve(dirPath, typesIndexFileName);
-      }
-    },
-  },
-];
+export const findIndexFilePathCondition = (dirPath) => {
+  if (!dirPath.includes(typeDirName)) {
+    return resolve(dirPath, indexFileName);
+  }
+
+  return resolve(dirPath, typesIndexFileName);
+};
+
+export const findStatementCondition = (context) => {
+  const { relativePath, varName } = context;
+
+  if (!varName) {
+    if (!relativePath.includes(typeDirName)) {
+      return { ...context, condition: 'namedExport' };
+    }
+
+    return { ...context, condition: 'typeNamedExport' };
+  }
+
+  return { ...context, condition: 'defaultExport' };
+};

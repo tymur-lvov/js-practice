@@ -7,3 +7,19 @@ export const produceVarName = (filePath) => {
 
   return basename(filePath, extname(filePath)).replace(/[^a-zA-Z0-9$_]/g, '');
 };
+
+export const produceStatement = ({ condition, relativePath, varName }) => {
+  switch (condition) {
+    case 'namedExport': {
+      return `export * from '${relativePath}';\n`;
+    }
+
+    case 'typeNamedExport': {
+      return `export type * from '${relativePath}';\n`;
+    }
+
+    case 'defaultExport': {
+      return `export { default as ${varName} } from '${relativePath}';\n`;
+    }
+  }
+};
