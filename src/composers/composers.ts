@@ -3,11 +3,13 @@ const createComposer =
   (...funcs) =>
   (arg) => {
     switch (mode) {
-      case 'sync':
+      case 'sync': {
         return funcs.reduce((res, func) => func(res), arg);
+      }
 
-      case 'async':
+      case 'async': {
         return funcs.reduce(async (res, func) => func(await res), Promise.resolve(arg));
+      }
     }
   };
 

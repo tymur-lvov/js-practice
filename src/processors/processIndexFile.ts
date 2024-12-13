@@ -1,16 +1,13 @@
-import { asyncCompose } from '../composers/composerModes';
-
-export const assignIndexFileData = () => {};
-export const assignIndexFilePath = () => {};
+import { assignIndexFileData } from '../assigners/assignIndexFileData';
+import { assignIndexFilePath } from '../assigners/assignIndexFilePath';
+import { asyncCompose } from '../composers/composers';
 
 const createIndexFileProcessor = (deps) => async (context) => {
-  const { asyncCompose, assignIndexFileData, assignIndexFilePath } = deps;
+  const { asyncCompose, assignIndexFilePath, assignIndexFileData } = deps;
 
   return asyncCompose(assignIndexFilePath, assignIndexFileData)(context);
 };
 
-export const processIndexFile = createIndexFileProcessor({
-  asyncCompose,
-  assignIndexFileData,
-  assignIndexFilePath,
-});
+const deps = { asyncCompose, assignIndexFilePath, assignIndexFileData };
+
+export const processIndexFile = createIndexFileProcessor(deps);
