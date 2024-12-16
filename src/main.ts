@@ -5,8 +5,6 @@ const main = async () => {
   const { parentPaths } = config;
 
   const indexFiles = await processIndexFiles(parentPaths);
-
-  console.log(indexFiles);
 };
 
 main();
