@@ -1,4 +1,4 @@
-import { processIndexFileData } from '../processors/processIndexFiles';
+import { processIndexFileData } from '../processors';
 import { getDirEnts } from './files';
 import { filterFiles } from './filters';
 import { getIndexFilePath } from './paths';

@@ -1,5 +1,5 @@
 import config from './config.json';
-import { processIndexFiles } from './processors/processIndexFiles';
+import { processIndexFiles } from './processors';
 
 const main = async () => {
   const { parentPaths } = config;
