@@ -1,3 +1,1 @@
-const utilB = () => {};
-
-export default utilB;
+export const utilB = () => {};
