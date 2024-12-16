@@ -1,3 +1,3 @@
 export const filterFiles = (dirEnts) => {
-  return dirEnts.filter((dirEnt) => dirEnt.isFile()); // makePredicate
+  return dirEnts.filter((dirEnt) => dirEnt.isFile());
 };
