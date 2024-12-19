@@ -21,7 +21,7 @@ export const assignDirEnts = async ({ parentPath }) => {
   return { parentPath, dirEnts };
 };
 
-export const assignFiles = ({ dirEnts, ...context }) => {
+export const assignFilteredFiles = ({ dirEnts, ...context }) => {
   const files = filterFiles(dirEnts);
 
   return { ...context, files };

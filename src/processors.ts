@@ -1,7 +1,7 @@
 import { asyncCompose } from './helpers/composers';
 import {
   assignDirEnts,
-  assignFiles,
+  assignFilteredFiles,
   assignIndexFileData,
   assignIndexFilePath,
 } from './helpers/assigners';
@@ -13,7 +13,7 @@ export const processIndexFiles = async (parentPaths) => {
 };
 
 export const processIndexFileData = async (parentPath) => {
-  const indexFileDataProcessor = asyncCompose(assignDirEnts, assignFiles);
+  const indexFileDataProcessor = asyncCompose(assignDirEnts, assignFilteredFiles);
 
   return indexFileDataProcessor({ parentPath });
 };
