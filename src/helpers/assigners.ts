@@ -26,3 +26,5 @@ export const assignFilteredFiles = ({ dirEnts, ...context }) => {
 
   return { ...context, files };
 };
+
+export const assignVarNames = () => {};
