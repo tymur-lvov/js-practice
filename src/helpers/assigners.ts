@@ -1,7 +1,7 @@
 import { processIndexFileData } from '../processors';
 import { getDirEnts } from './files';
-import { filterFiles } from './filters';
-import { getIndexFilePath } from './paths';
+import { filterFilePathsToInclude, filterFiles } from './filters';
+import { getFilePaths, getIndexFilePath } from './paths';
 
 export const assignIndexFilePath = ({ parentPath }) => {
   const filePath = getIndexFilePath(parentPath);
@@ -27,4 +27,14 @@ export const assignFilteredFiles = ({ dirEnts, ...context }) => {
   return { ...context, files };
 };
 
-export const assignVarNames = () => {};
+export const assignFilePaths = ({ files, ...context }) => {
+  const filePaths = getFilePaths(files);
+
+  return { ...context, filePaths };
+};
+
+export const assignFilteredFilePaths = ({ filePaths: rawFilePaths, ...context }) => {
+  const filePaths = filterFilePathsToInclude(rawFilePaths);
+
+  return { ...context, filePaths };
+};
