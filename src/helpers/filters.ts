@@ -1,12 +1,9 @@
-import { getItemsToExclude } from './misc';
-import { isEntityFile } from './predicates';
+import { isEntityAFile, isFileToInclude } from './predicates';
 
 export const filterFiles = (dirEnts) => {
-  return dirEnts.filter((dirEnt) => isEntityFile(dirEnt));
+  return dirEnts.filter(isEntityAFile);
 };
 
-export const filterFilePathsToInclude = (filePaths) => {
-  const itemsToExclude = getItemsToExclude();
-
-  return filePaths.filter((filePath) => !itemsToExclude.some((item) => filePath.includes(item)));
+export const filterFilesToInclude = (files) => {
+  return files.filter(isFileToInclude);
 };

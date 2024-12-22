@@ -1,8 +1,8 @@
-import config from './config.json';
+import { getParentPaths } from './helpers/misc';
 import { processIndexFiles } from './processors';
 
 const main = async () => {
-  const { parentPaths } = config;
+  const parentPaths = getParentPaths();
 
   const indexFiles = await processIndexFiles(parentPaths);
 };

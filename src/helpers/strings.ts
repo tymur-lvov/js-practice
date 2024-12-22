@@ -1,16 +1,23 @@
-export const getExportStatement = (parentPath, filePath) => {
-  return 'exportStatement...';
+import { compose } from './composers';
+import { getDirEnts } from './files';
+import { filterFiles, filterFilesToInclude } from './filters';
+import { getFilePaths } from './paths';
+
+export const createIndexFileData = (parentPath, modulePaths) => {
+  console.log(parentPath);
+  console.log(modulePaths);
 };
 
-export const concatExportStatement = (fileData, parentPath, filePath) => {
-  const exportStatement = getExportStatement(parentPath, filePath);
+export const getIndexFileData = async (parentPath) => {
+  const modulePaths = await getModulePaths(parentPath);
 
-  return fileData.concat(exportStatement);
+  return createIndexFileData(parentPath, modulePaths);
 };
 
-export const reduceToIndexFileData = ({ parentPath, filePaths }) => {
-  return filePaths.reduce(
-    (fileData, filePath) => concatExportStatement(fileData, parentPath, filePath),
-    ''
-  );
+export const getModulePaths = async (parentPath) => {
+  const dirEnts = await getDirEnts(parentPath);
+
+  const files = compose(filterFiles, filterFilesToInclude)(dirEnts);
+
+  return getFilePaths(files);
 };
