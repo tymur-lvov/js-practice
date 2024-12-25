@@ -1,79 +1,34 @@
-import { basename } from 'path';
-import { getDirEnts } from './files';
-import { compose } from './composers';
-import { filterFiles, filterFilesToInclude } from './filters';
-import { getFilePaths } from './paths';
-
-export const getBasename = (filePath) => {
-  return basename(filePath);
-};
-
-export const sterilizeBasename = (basename) => {
-  return basename.replace(/[^a-zA-Z0-9$_]/g, '');
-};
-
-export const getVarName = (filePath) => {
-  const filePathBasename = getBasename(filePath);
-
-  const basenameWithoutExt = removeExtension(filePathBasename);
-
-  return sterilizeBasename(basenameWithoutExt);
-};
+import { findExportStatement } from './finders';
+import { getBasename, sterilizeBasename } from './paths';
 
 export const removeExtension = (filePath) => {
   return filePath.slice(0, filePath.lastIndexOf('.'));
 };
 
-export const sliceFilePathFromParentDir = (parentPath, filePath) => {
-  const parentPathParts = parentPath.split('/');
-  const filePathParts = filePath.split('/');
+export const getVarName = (filePath) => {
+  const filePathBasename = getBasename(filePath);
 
-  const parentDir = parentPathParts[parentPathParts.length - 1];
-  const parentDirIndex = filePathParts.indexOf(parentDir);
+  const basenameWithoutExtension = removeExtension(filePathBasename);
 
-  return filePathParts.slice(parentDirIndex + 1).join('/');
+  return sterilizeBasename(basenameWithoutExtension);
 };
 
-export const transformToRelativePath = (filePath) => {
-  return `./${filePath}`;
+export const getNamedExportStatement = (realtivePath) => {
+  return `export * from ${removeExtension(realtivePath)};\n`;
 };
 
-export const getRelativePath = (parentPath, filePath) => {
-  const slicedFilePath = sliceFilePathFromParentDir(parentPath, filePath);
+export const getNamedTypeExportStatement = (realtivePath) => {
+  return `export type * from ${removeExtension(realtivePath)};\n`;
+};
 
-  return transformToRelativePath(slicedFilePath);
+export const getDefaultExportStatement = (varName, realtivePath) => {
+  return `export { default as ${varName} } from ${removeExtension(realtivePath)};\n`;
 };
 
 export const getExportStatement = (varName, realtivePath) => {
-  if (/\.(ts|tsx)$/.test(realtivePath)) {
-    return `export * from ${realtivePath};\n`;
-  }
-
-  return `export { default as ${varName} } from ${realtivePath};\n`;
+  return findExportStatement(varName, realtivePath);
 };
 
-export const createIndexFileData = (parentPath, modulePaths) => {
-  return modulePaths.reduce((fileData, modulePath) => {
-    const varName = getVarName(modulePath);
-
-    const realtivePath = getRelativePath(parentPath, modulePath);
-
-    const exportStatement = getExportStatement(varName, realtivePath);
-
-    console.log(exportStatement);
-  }, '');
-};
-
-export const getIndexFileData = async (parentPath) => {
-  const modulePaths = await getModulePaths(parentPath);
-
-  return createIndexFileData(parentPath, modulePaths);
-};
-
-export const getModulePaths = async (parentPath) => {
-  const dirEnts = await getDirEnts(parentPath);
-
-  const files = compose(filterFiles, filterFilesToInclude)(dirEnts);
-
-  return getFilePaths(files);
+export const concatExportStatement = (fileData, exportStatement) => {
+  return fileData.concat(exportStatement);
 };

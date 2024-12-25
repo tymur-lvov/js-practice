@@ -1,9 +1,40 @@
-import { indexFileName, typesDirName, typesIndexFileName } from '../constants';
+import { getIndexFileName, getTypesIndexFileName } from './files';
+import { isDefaultModule, isModule, isTypeModule, isTypesPath } from './predicates';
+import {
+  getDefaultExportStatement,
+  getNamedExportStatement,
+  getNamedTypeExportStatement,
+} from './strings';
 
 export const getIndexFileNameConditions = (parentPath) => {
   return [
-    { condition: () => !parentPath.includes(typesDirName), result: indexFileName },
+    {
+      condition: () => !isTypesPath(parentPath),
+      result: () => getIndexFileName(),
+    },
 
-    { condition: () => parentPath.includes(typesDirName), result: typesIndexFileName },
+    {
+      condition: () => isTypesPath(parentPath),
+      result: () => getTypesIndexFileName(),
+    },
+  ];
+};
+
+export const getExportStatementCondition = (varName, realtivePath) => {
+  return [
+    {
+      condition: () => isModule(realtivePath),
+      result: () => getNamedExportStatement(realtivePath),
+    },
+
+    {
+      condition: () => isTypeModule(realtivePath),
+      result: () => getNamedTypeExportStatement(realtivePath),
+    },
+
+    {
+      condition: () => isDefaultModule(realtivePath),
+      result: () => getDefaultExportStatement(varName, realtivePath),
+    },
   ];
 };

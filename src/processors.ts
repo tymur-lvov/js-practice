@@ -1,4 +1,4 @@
-import { getIndexFileData } from './helpers/strings';
+import { getIndexFileData } from './helpers/files';
 import { getIndexFilePath } from './helpers/paths';
 
 export const processIndexFiles = async (parentPaths) => {
