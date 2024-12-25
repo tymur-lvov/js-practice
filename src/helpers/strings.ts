@@ -1,11 +1,11 @@
-import { basename, extname } from 'path';
+import { basename } from 'path';
 import { getDirEnts } from './files';
 import { compose } from './composers';
 import { filterFiles, filterFilesToInclude } from './filters';
 import { getFilePaths } from './paths';
 
-export const getBasenameWithoutExtension = (filePath) => {
-  return basename(filePath, extname(filePath));
+export const getBasename = (filePath) => {
+  return basename(filePath);
 };
 
 export const sterilizeBasename = (basename) => {
@@ -13,9 +13,11 @@ export const sterilizeBasename = (basename) => {
 };
 
 export const getVarName = (filePath) => {
-  const filePathBasename = getBasenameWithoutExtension(filePath);
+  const filePathBasename = getBasename(filePath);
 
-  return sterilizeBasename(filePathBasename);
+  const basenameWithoutExt = removeExtension(filePathBasename);
+
+  return sterilizeBasename(basenameWithoutExt);
 };
 
 export const removeExtension = (filePath) => {
@@ -29,19 +31,25 @@ export const sliceFilePathFromParentDir = (parentPath, filePath) => {
   const parentDir = parentPathParts[parentPathParts.length - 1];
   const parentDirIndex = filePathParts.indexOf(parentDir);
 
-  return filePathParts.slice(parentDirIndex).join('/');
+  return filePathParts.slice(parentDirIndex + 1).join('/');
 };
 
 export const transformToRelativePath = (filePath) => {
   return `./${filePath}`;
 };
 
-export const getRelativePath = (parentPath, rawFilePath) => {
-  const filePath = removeExtension(rawFilePath);
-
+export const getRelativePath = (parentPath, filePath) => {
   const slicedFilePath = sliceFilePathFromParentDir(parentPath, filePath);
 
   return transformToRelativePath(slicedFilePath);
+};
+
+export const getExportStatement = (varName, realtivePath) => {
+  if (/\.(ts|tsx)$/.test(realtivePath)) {
+    return `export * from ${realtivePath};\n`;
+  }
+
+  return `export { default as ${varName} } from ${realtivePath};\n`;
 };
 
 export const createIndexFileData = (parentPath, modulePaths) => {
@@ -50,8 +58,9 @@ export const createIndexFileData = (parentPath, modulePaths) => {
 
     const realtivePath = getRelativePath(parentPath, modulePath);
 
-    console.log(varName);
-    console.log(realtivePath);
+    const exportStatement = getExportStatement(varName, realtivePath);
+
+    console.log(exportStatement);
   }, '');
 };
 
