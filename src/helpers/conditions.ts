@@ -1,4 +1,4 @@
-import { getIndexFileName, getTypesIndexFileName } from './files';
+import { getIndexFileName, getTypesIndexFileName } from './misc';
 import { isDefaultModule, isModule, isTypeModule, isTypesPath } from './predicates';
 import {
   getDefaultExportStatement,

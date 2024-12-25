@@ -3,6 +3,7 @@ import { findIndexFileName } from './finders';
 import { getDirEntsRecurs } from './files';
 import { compose } from './composers';
 import { filterFiles, filterFilesToInclude } from './filters';
+import { getParentDirIndex, splitStringsToParts } from './strings';
 
 export const getPath = (parentPath, name) => {
   return resolve(parentPath, name);
@@ -17,11 +18,9 @@ export const sterilizeBasename = (basename) => {
 };
 
 export const sliceFilePathFromParentDir = (parentPath, filePath) => {
-  const parentPathParts = parentPath.split('/');
-  const filePathParts = filePath.split('/');
+  const [parentPathParts, filePathParts] = splitStringsToParts('/', parentPath, filePath);
 
-  const parentDir = parentPathParts[parentPathParts.length - 1];
-  const parentDirIndex = filePathParts.indexOf(parentDir);
+  const parentDirIndex = getParentDirIndex(parentPathParts, filePathParts);
 
   return filePathParts.slice(parentDirIndex + 1).join('/');
 };
@@ -41,7 +40,7 @@ export const getFilePaths = async (parentPath) => {
 
   const files = compose(filterFiles, filterFilesToInclude)(dirEnts);
 
-  return files.map(getPath);
+  return files.map(({ parentPath, name }) => getPath(parentPath, name));
 };
 
 export const getIndexFilePath = (parentPath) => {
