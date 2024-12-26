@@ -9,13 +9,13 @@ import {
 export const getIndexFileNameConditions = (parentPath) => {
   return [
     {
-      condition: () => !isTypesPath(parentPath),
-      result: () => getIndexFileName(),
+      checkCondition: () => !isTypesPath(parentPath),
+      getResult: () => getIndexFileName(),
     },
 
     {
-      condition: () => isTypesPath(parentPath),
-      result: () => getTypesIndexFileName(),
+      checkCondition: () => isTypesPath(parentPath),
+      getResult: () => getTypesIndexFileName(),
     },
   ];
 };
@@ -23,18 +23,18 @@ export const getIndexFileNameConditions = (parentPath) => {
 export const getExportStatementCondition = (varName, realtivePath) => {
   return [
     {
-      condition: () => isModule(realtivePath),
-      result: () => getNamedExportStatement(realtivePath),
+      checkCondition: () => isModule(realtivePath),
+      getResult: () => getNamedExportStatement(realtivePath),
     },
 
     {
-      condition: () => isTypeModule(realtivePath),
-      result: () => getNamedTypeExportStatement(realtivePath),
+      checkCondition: () => isTypeModule(realtivePath),
+      getResult: () => getNamedTypeExportStatement(realtivePath),
     },
 
     {
-      condition: () => isDefaultModule(realtivePath),
-      result: () => getDefaultExportStatement(varName, realtivePath),
+      checkCondition: () => isDefaultModule(realtivePath),
+      getResult: () => getDefaultExportStatement(varName, realtivePath),
     },
   ];
 };

@@ -1,5 +1,5 @@
 import { findExportStatement } from './finders';
-import { getBasename, getFilePaths, getRelativePath, sterilizeBasename } from './paths';
+import { getBasename, sterilizeBasename } from './paths';
 
 export const removeExtension = (filePath) => {
   return filePath.slice(0, filePath.lastIndexOf('.'));
@@ -41,22 +41,4 @@ export const getExportStatement = (varName, realtivePath) => {
 
 export const concatExportStatement = (fileData, exportStatement) => {
   return fileData.concat(exportStatement);
-};
-
-export const createIndexFileData = (parentPath, modulePaths) => {
-  return modulePaths.reduce((fileData, modulePath) => {
-    const varName = getVarName(modulePath);
-
-    const realtivePath = getRelativePath(parentPath, modulePath);
-
-    const exportStatement = getExportStatement(varName, realtivePath);
-
-    return concatExportStatement(fileData, exportStatement);
-  }, '');
-};
-
-export const getIndexFileData = async (parentPath) => {
-  const filePaths = await getFilePaths(parentPath);
-
-  return createIndexFileData(parentPath, filePaths);
 };

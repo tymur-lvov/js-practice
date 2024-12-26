@@ -3,11 +3,11 @@ import { getExportStatementCondition, getIndexFileNameConditions } from './condi
 export const findIndexFileName = (parentPath) => {
   const conditions = getIndexFileNameConditions(parentPath);
 
-  return conditions.find(({ condition }) => condition()).result();
+  return conditions.find(({ checkCondition }) => checkCondition()).getResult();
 };
 
 export const findExportStatement = (varName, realtivePath) => {
   const exportStatementCondition = getExportStatementCondition(varName, realtivePath);
 
-  return exportStatementCondition.find(({ condition }) => condition()).result();
+  return exportStatementCondition.find(({ checkCondition }) => checkCondition()).getResult();
 };

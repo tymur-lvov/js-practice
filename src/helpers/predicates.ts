@@ -5,7 +5,7 @@ export const isEntityAFile = (dirEnt) => {
   return dirEnt.isFile();
 };
 
-export const isFileToInclude = ({ parentPath, name }) => {
+export const isFileToBeIncluded = ({ parentPath, name }) => {
   const itemsToExclude = getItemsToExclude();
 
   return !itemsToExclude.some((item) => parentPath.includes(item) || name === item);
