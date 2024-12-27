@@ -1,9 +1,10 @@
 import { basename, resolve } from 'path';
 import { findIndexFileName } from './finders';
 import { getDirEntsRecurs } from './files';
-import { compose } from './composers';
-import { filterFiles, filterFilesToInclude } from './filters';
-import { getParentDirIndex, splitStringsToParts } from './strings';
+import { applyFilters } from './composers';
+import { getParentDirIndex, splitToParts } from './strings';
+import { isEntityAFile, isFileToBeIncluded } from './predicates';
+import { invalidSymbolsRegExp } from '../constants';
 
 export const getPath = (parentPath, name) => {
   return resolve(parentPath, name);
@@ -14,37 +15,29 @@ export const getBasename = (filePath) => {
 };
 
 export const sterilizeBasename = (basename) => {
-  return basename.replace(/[^a-zA-Z0-9$_]/g, '');
+  return basename.replace(invalidSymbolsRegExp, '');
 };
 
-export const sliceFilePathFromParentDir = (parentPath, filePath) => {
-  const [parentPathParts, filePathParts] = splitStringsToParts('/', parentPath, filePath);
+export const sliceFromParentDir = (parentPath, filePath) => {
+  const [parentPathParts, filePathParts] = splitToParts('/', parentPath, filePath);
 
-  const parentDirIndex = getParentDirIndex(parentPathParts, filePathParts);
-
-  return filePathParts.slice(parentDirIndex + 1).join('/');
+  return filePathParts.slice(getParentDirIndex(parentPathParts, filePathParts) + 1).join('/');
 };
 
-export const transformToRelativePath = (filePath) => {
+export const appendDotAndSlash = (filePath) => {
   return `./${filePath}`;
 };
 
 export const getRelativePath = (parentPath, filePath) => {
-  const slicedFilePath = sliceFilePathFromParentDir(parentPath, filePath);
-
-  return transformToRelativePath(slicedFilePath);
+  return appendDotAndSlash(sliceFromParentDir(parentPath, filePath));
 };
 
 export const getFilePaths = async (parentPath) => {
-  const dirEnts = await getDirEntsRecurs(parentPath);
-
-  const files = compose(filterFiles, filterFilesToInclude)(dirEnts);
+  const files = applyFilters(isEntityAFile, isFileToBeIncluded)(await getDirEntsRecurs(parentPath));
 
   return files.map(({ parentPath, name }) => getPath(parentPath, name));
 };
 
 export const getIndexFilePath = (parentPath) => {
-  const indexFileName = findIndexFileName(parentPath);
-
-  return getPath(parentPath, indexFileName);
+  return getPath(parentPath, findIndexFileName(parentPath));
 };
