@@ -7,21 +7,20 @@ export const getDirEntsRecurs = async (parentPath) => {
 };
 
 export const createIndexFileData = (parentPath, modulePaths) => {
-  return modulePaths.reduce((fileData, modulePath) => {
-    const varName = getVarName(modulePath);
-
-    const realtivePath = getRelativePath(parentPath, modulePath);
-
-    const exportStatement = getExportStatement(varName, realtivePath);
-
-    return concatExportStatement(fileData, exportStatement);
-  }, '');
+  return modulePaths.reduce(
+    (accFileData, modulePath) =>
+      concatExportStatement(
+        accFileData,
+        getExportStatement(getVarName(modulePath), getRelativePath(parentPath, modulePath))
+      ),
+    ''
+  );
 };
 
 export const getIndexFileData = async (parentPath) => {
-  const filePaths = await getFilePaths(parentPath);
-
-  return createIndexFileData(parentPath, filePaths);
+  return createIndexFileData(parentPath, await getFilePaths(parentPath));
 };
 
-export const writeIndexFiles = (indexFiles) => {};
+export const writeIndexFiles = (indexFiles) => {
+  console.log(indexFiles);
+};
