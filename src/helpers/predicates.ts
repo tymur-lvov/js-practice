@@ -1,12 +1,20 @@
-import { tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '../constants';
+import { exportDirective, tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '../constants';
 import { getItemsToExclude } from './misc';
 
 export const isEntityAFile = (dirEnt) => {
   return dirEnt.isFile();
 };
 
+export const isModule = (fileData) => {
+  return fileData.includes(exportDirective);
+};
+
 export const isItemToBeExcluded = (parentPath, name, item) => {
   return parentPath.includes(item) || name === item;
+};
+
+export const isFileAModule = (fileName, fileData) => {
+  return isDefaultModule(fileName) || isModule(fileData);
 };
 
 export const isTypesPath = (path) => {
@@ -21,7 +29,7 @@ export const isDefaultModule = (filePath) => {
   return !isEndsWithTsOrTsxExtension(filePath);
 };
 
-export const isModule = (filePath) => {
+export const isNamedModule = (filePath) => {
   return isEndsWithTsOrTsxExtension(filePath) && !isTypesPath(filePath);
 };
 
