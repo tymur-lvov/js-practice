@@ -1,5 +1,5 @@
 import { getIndexFileName, getTypesIndexFileName } from './misc';
-import { isDefaultModule, isModule, isTypeModule, isTypesPath } from './predicates';
+import { isDefaultModule, isNamedModule, isTypeModule, isTypesPath } from './predicates';
 import {
   getDefaultExportStatement,
   getNamedExportStatement,
@@ -12,7 +12,6 @@ export const getIndexFileNameConditions = (parentPath) => {
       checkCondition: () => !isTypesPath(parentPath),
       getResult: () => getIndexFileName(),
     },
-
     {
       checkCondition: () => isTypesPath(parentPath),
       getResult: () => getTypesIndexFileName(),
@@ -20,18 +19,16 @@ export const getIndexFileNameConditions = (parentPath) => {
   ];
 };
 
-export const getExportStatementCondition = (varName, realtivePath) => {
+export const getExportStatementConditions = (varName, realtivePath) => {
   return [
     {
-      checkCondition: () => isModule(realtivePath),
+      checkCondition: () => isNamedModule(realtivePath),
       getResult: () => getNamedExportStatement(realtivePath),
     },
-
     {
       checkCondition: () => isTypeModule(realtivePath),
       getResult: () => getNamedTypeExportStatement(realtivePath),
     },
-
     {
       checkCondition: () => isDefaultModule(realtivePath),
       getResult: () => getDefaultExportStatement(varName, realtivePath),
