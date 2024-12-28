@@ -1,13 +1,13 @@
-import { getExportStatementCondition, getIndexFileNameConditions } from './conditions';
+import { getExportStatementConditions, getIndexFileNameConditions } from './conditions';
 
 export const findIndexFileName = (parentPath) => {
-  return getIndexFileNameConditions(parentPath)
-    .find(({ checkCondition }) => checkCondition())
-    .getResult();
+  const conditions = getIndexFileNameConditions(parentPath);
+
+  return conditions.find(({ checkCondition }) => checkCondition()).getResult();
 };
 
 export const findExportStatement = (varName, realtivePath) => {
-  return getExportStatementCondition(varName, realtivePath)
-    .find(({ checkCondition }) => checkCondition())
-    .getResult();
+  const conditions = getExportStatementConditions(varName, realtivePath);
+
+  return conditions.find(({ checkCondition }) => checkCondition()).getResult();
 };
