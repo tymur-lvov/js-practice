@@ -1,7 +1,9 @@
 import { getDirEntData, getIndexFileData } from '../helpers/files';
 import { getIndexFilePath } from '../helpers/paths';
 
-export const createIndexFiles = async (parentPaths) => {
+import type { AssignDirEntDataType, CreateIndexFilesType } from '../../@types/helpers.types';
+
+export const createIndexFiles: CreateIndexFilesType = async (parentPaths) => {
   return Promise.all(
     parentPaths.map(async (parentPath) => ({
       indexFilePath: getIndexFilePath(parentPath),
@@ -10,7 +12,7 @@ export const createIndexFiles = async (parentPaths) => {
   );
 };
 
-export const assignDirEntData = (dirEnts) => {
+export const assignDirEntData: AssignDirEntDataType = (dirEnts) => {
   return Promise.all(
     dirEnts.map(async (dirEnt) => ({
       dirEntInfo: dirEnt,
