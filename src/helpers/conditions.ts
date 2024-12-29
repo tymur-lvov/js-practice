@@ -1,12 +1,37 @@
+import type {
+  GetDirEntDataConditionsType,
+  GetExportStatementConditionsType,
+  GetIndexFileNameConditionsType,
+} from '../../@types/helpers.types';
+import { readFileData } from './files';
 import { getIndexFileName, getTypesIndexFileName } from './misc';
-import { isDefaultModule, isNamedModule, isTypeModule, isTypesPath } from './predicates';
+import {
+  isDefaultModule,
+  isEntityAFile,
+  isNamedModule,
+  isTypeModule,
+  isTypesPath,
+} from './predicates';
 import {
   getDefaultExportStatement,
   getNamedExportStatement,
   getNamedTypeExportStatement,
 } from './strings';
 
-export const getIndexFileNameConditions = (parentPath) => {
+export const getDirEntDataConditions: GetDirEntDataConditionsType = (dirEnt, dirEntPath) => {
+  return [
+    {
+      checkCondition: () => isEntityAFile(dirEnt),
+      getResult: async () => await readFileData(dirEntPath),
+    },
+    {
+      checkCondition: () => !isEntityAFile(dirEnt),
+      getResult: () => null,
+    },
+  ];
+};
+
+export const getIndexFileNameConditions: GetIndexFileNameConditionsType = (parentPath) => {
   return [
     {
       checkCondition: () => !isTypesPath(parentPath),
@@ -19,7 +44,10 @@ export const getIndexFileNameConditions = (parentPath) => {
   ];
 };
 
-export const getExportStatementConditions = (varName, realtivePath) => {
+export const getExportStatementConditions: GetExportStatementConditionsType = (
+  varName,
+  realtivePath
+) => {
   return [
     {
       checkCondition: () => isNamedModule(realtivePath),

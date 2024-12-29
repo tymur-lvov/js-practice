@@ -1,7 +1,7 @@
 import { readdir, readFile, writeFile } from 'fs/promises';
-import { concatExportStatement, getExportStatement, getVarName } from './strings';
-import { getFilePaths, getPath, getRelativePath } from './paths';
-import { isEntityAFile } from './predicates';
+import { concatExportStatement, getExportStatement } from './strings';
+import { getFilePaths, getPath } from './paths';
+import { getDirEntDataConditions } from './conditions';
 
 export const readFileData = async (filePath) => {
   return readFile(filePath, 'utf-8');
@@ -21,10 +21,12 @@ export const writeIndexFiles = (indexFiles) => {
   );
 };
 
-export const getDirEntData = (dirEnt) => {
-  const dirEntPath = getPath(dirEnt.parentPath, dirEnt.name);
+export const createIndexFileData = (parentPath, modulePaths) => {
+  return modulePaths.reduce((accFileData, modulePath) => {
+    const exportStatement = getExportStatement(parentPath, modulePath);
 
-  return isEntityAFile(dirEnt) ? readFileData(dirEntPath) : null;
+    return concatExportStatement(accFileData, exportStatement);
+  }, '');
 };
 
 export const getIndexFileData = async (parentPath) => {
@@ -33,10 +35,9 @@ export const getIndexFileData = async (parentPath) => {
   return createIndexFileData(parentPath, filePaths);
 };
 
-export const createIndexFileData = (parentPath, modulePaths) => {
-  return modulePaths.reduce((accFileData, modulePath) => {
-    const exportStatement = getExportStatement(parentPath, modulePath);
+export const getDirEntData = (dirEnt) => {
+  const dirEntPath = getPath(dirEnt.parentPath, dirEnt.name);
+  const conditions = getDirEntDataConditions(dirEnt, dirEntPath);
 
-    return concatExportStatement(accFileData, exportStatement);
-  }, '');
+  return conditions.find(({ checkCondition }) => checkCondition()).getResult();
 };
