@@ -1,24 +1,24 @@
 import type {
-  GetIndexFileNameType,
-  GetItemsToExcludeType,
-  GetParentPathsType,
-  GetTypesIndexFileNameType,
+  IGetIndexFileName,
+  IGetItemsToExclude,
+  IGetParentPaths,
+  IGetTypesIndexFileName,
 } from '../../@types/helpers.types';
 import config from '../config.json';
 import { indexFileName, typesIndexFileName } from '../constants';
 
-export const getParentPaths: GetParentPathsType = () => {
+export const getParentPaths: IGetParentPaths = () => {
   return config.parentPaths;
 };
 
-export const getItemsToExclude: GetItemsToExcludeType = () => {
+export const getItemsToExclude: IGetItemsToExclude = () => {
   return config.itemsToExclude;
 };
 
-export const getIndexFileName: GetIndexFileNameType = () => {
+export const getIndexFileName: IGetIndexFileName = () => {
   return indexFileName;
 };
 
-export const getTypesIndexFileName: GetTypesIndexFileNameType = () => {
+export const getTypesIndexFileName: IGetTypesIndexFileName = () => {
   return typesIndexFileName;
 };

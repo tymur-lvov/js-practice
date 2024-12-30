@@ -1,7 +1,7 @@
 import type {
-  FindDirEntDataType,
-  FindExportStatementType,
-  FindIndexFileNameType,
+  IFindDirEntData,
+  IFindExportStatement,
+  IFindIndexFileName,
 } from '../../@types/helpers.types';
 import {
   getDirEntDataConditions,
@@ -9,7 +9,7 @@ import {
   getIndexFileNameConditions,
 } from './conditions';
 
-export const findIndexFileName: FindIndexFileNameType = (parentPath) => {
+export const findIndexFileName: IFindIndexFileName = (parentPath) => {
   const conditions = getIndexFileNameConditions(parentPath);
   const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
@@ -20,7 +20,7 @@ export const findIndexFileName: FindIndexFileNameType = (parentPath) => {
   return result;
 };
 
-export const findExportStatement: FindExportStatementType = (varName, realtivePath) => {
+export const findExportStatement: IFindExportStatement = (varName, realtivePath) => {
   const conditions = getExportStatementConditions(varName, realtivePath);
   const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
@@ -31,7 +31,7 @@ export const findExportStatement: FindExportStatementType = (varName, realtivePa
   return result;
 };
 
-export const findDirEntData: FindDirEntDataType = (dirEnt, dirEntPath) => {
+export const findDirEntData: IFindDirEntData = (dirEnt, dirEntPath) => {
   const conditions = getDirEntDataConditions(dirEnt, dirEntPath);
   const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
