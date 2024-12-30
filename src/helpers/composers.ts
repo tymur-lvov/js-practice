@@ -1,12 +1,12 @@
-import type { AsyncComposeType, ComposeType } from '../../@types/helpers.types';
+import type { IAsyncCompose, ICompose } from '../../@types/helpers.types';
 
-export const compose: ComposeType =
+export const compose: ICompose =
   (...funcs) =>
   (arg) => {
     return funcs.reduce((res, func) => func(res), arg);
   };
 
-export const asyncCompose: AsyncComposeType =
+export const asyncCompose: IAsyncCompose =
   (...funcs) =>
   async (arg) => {
     return funcs.reduce(async (res, func) => func(await res), Promise.resolve(arg));

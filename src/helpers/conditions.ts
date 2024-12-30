@@ -1,7 +1,7 @@
 import type {
-  GetDirEntDataConditionsType,
-  GetExportStatementConditionsType,
-  GetIndexFileNameConditionsType,
+  IGetDirEntDataConditions,
+  IGetExportStatementConditions,
+  IGetIndexFileNameConditions,
 } from '../../@types/helpers.types';
 import { readFileData } from './files';
 import { getIndexFileName, getTypesIndexFileName } from './misc';
@@ -18,7 +18,7 @@ import {
   getNamedTypeExportStatement,
 } from './strings';
 
-export const getDirEntDataConditions: GetDirEntDataConditionsType = (dirEnt, dirEntPath) => {
+export const getDirEntDataConditions: IGetDirEntDataConditions = (dirEnt, dirEntPath) => {
   return [
     {
       checkCondition: () => isEntityAFile(dirEnt),
@@ -26,12 +26,12 @@ export const getDirEntDataConditions: GetDirEntDataConditionsType = (dirEnt, dir
     },
     {
       checkCondition: () => !isEntityAFile(dirEnt),
-      getResult: () => null,
+      getResult: () => Promise.resolve(''),
     },
   ];
 };
 
-export const getIndexFileNameConditions: GetIndexFileNameConditionsType = (parentPath) => {
+export const getIndexFileNameConditions: IGetIndexFileNameConditions = (parentPath) => {
   return [
     {
       checkCondition: () => !isTypesPath(parentPath),
@@ -44,7 +44,7 @@ export const getIndexFileNameConditions: GetIndexFileNameConditionsType = (paren
   ];
 };
 
-export const getExportStatementConditions: GetExportStatementConditionsType = (
+export const getExportStatementConditions: IGetExportStatementConditions = (
   varName,
   realtivePath
 ) => {
