@@ -1,18 +1,18 @@
 import type {
-  FilterFilesToIncludeType,
-  FilterFilesType,
-  FilterModulesType,
+  IFilterFilesToInclude,
+  IFilterFiles,
+  IFilterModules,
 } from '../../@types/helpers.types';
 import { isEntityAFile, isFileAModule, isFileToBeIncluded } from './predicates';
 
-export const filterFiles: FilterFilesType = (dirEnts) => {
+export const filterFiles: IFilterFiles = (dirEnts) => {
   return dirEnts.filter(({ dirEntInfo }) => isEntityAFile(dirEntInfo));
 };
 
-export const filterFilesToInclude: FilterFilesToIncludeType = (dirEnts) => {
+export const filterFilesToInclude: IFilterFilesToInclude = (dirEnts) => {
   return dirEnts.filter(({ dirEntInfo }) => isFileToBeIncluded(dirEntInfo));
 };
 
-export const filterModules: FilterModulesType = (dirEnts) => {
+export const filterModules: IFilterModules = (dirEnts) => {
   return dirEnts.filter(({ dirEntInfo, dirEntData }) => isFileAModule(dirEntInfo.name, dirEntData));
 };
