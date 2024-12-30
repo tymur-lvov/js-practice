@@ -1,54 +1,64 @@
 import { basename, resolve } from 'path';
 import { findIndexFileName } from './finders';
-import { getDirEntsRecurs, readFileData } from './files';
-import { applyFilters, asyncCompose, compose } from './composers';
+import { getDirEntsRecurs } from './files';
+import { asyncCompose, compose } from './composers';
 import { getParentDirIndex, splitToParts } from './strings';
-import { isEntityAFile, isFileAModule, isFileToBeIncluded } from './predicates';
-import { exportDirective, invalidSymbolsRegExp, tsOrTsxExtensionRegExp } from '../constants';
+import { invalidSymbolsRegExp } from '../constants';
 import { filterFiles, filterFilesToInclude, filterModules } from './filters';
 import { assignDirEntData } from './builders';
+import type {
+  AppendDotAndSlashType,
+  GetBasenameType,
+  GetFilePathsType,
+  GetIndexFilePathType,
+  GetPathType,
+  GetRelativePathType,
+  GetTargetFilesType,
+  SliceFromParentDirType,
+  SterilizeBasenameType,
+} from '../../@types/helpers.types';
 
-export const appendDotAndSlash = (filePath) => {
+export const appendDotAndSlash: AppendDotAndSlashType = (filePath) => {
   return `./${filePath}`;
 };
 
-export const getPath = (parentPath, name) => {
+export const getPath: GetPathType = (parentPath, name) => {
   return resolve(parentPath, name);
 };
 
-export const getBasename = (filePath) => {
+export const getBasename: GetBasenameType = (filePath) => {
   return basename(filePath);
 };
 
-export const sterilizeBasename = (basename) => {
+export const sterilizeBasename: SterilizeBasenameType = (basename) => {
   return basename.replace(invalidSymbolsRegExp, '');
 };
 
-export const getIndexFilePath = (parentPath) => {
+export const getIndexFilePath: GetIndexFilePathType = (parentPath) => {
   const indexFileName = findIndexFileName(parentPath);
 
   return getPath(parentPath, indexFileName);
 };
 
-export const getRelativePath = (parentPath, filePath) => {
+export const getRelativePath: GetRelativePathType = (parentPath, filePath) => {
   const pathFromParentDir = sliceFromParentDir(parentPath, filePath);
 
   return appendDotAndSlash(pathFromParentDir);
 };
 
-export const getTargetFiles = async (parentPath) => {
+export const getTargetFiles: GetTargetFilesType = async (parentPath) => {
   const dirEnts = await asyncCompose(getDirEntsRecurs, assignDirEntData)(parentPath);
 
   return compose(filterFiles, filterFilesToInclude, filterModules)(dirEnts);
 };
 
-export const getFilePaths = async (parentPath) => {
+export const getFilePaths: GetFilePathsType = async (parentPath) => {
   const targetFiles = await getTargetFiles(parentPath);
 
   return targetFiles.map(({ dirEntInfo: { parentPath, name } }) => getPath(parentPath, name));
 };
 
-export const sliceFromParentDir = (parentPath, filePath) => {
+export const sliceFromParentDir: SliceFromParentDirType = (parentPath, filePath) => {
   const [parentPathParts, filePathParts] = splitToParts('/', parentPath, filePath);
   const parentDirIndex = getParentDirIndex(parentPathParts, filePathParts);
 
