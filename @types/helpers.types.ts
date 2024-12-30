@@ -1,127 +1,157 @@
 import type { Dirent } from 'fs';
 
-export interface ConfigInt {
+export interface IConfig {
   parentPaths: string[];
   itemsToExclude: string[];
 }
 
-export interface IndexFileInt {
+export interface IIndexFile {
   indexFilePath: string;
   indexFileData: string;
 }
 
-export interface DirEntInt {
+export interface IDirEnt {
   dirEntInfo: Dirent;
-  dirEntData: string | null;
+  dirEntData: string;
 }
 
-export interface DirEntDataConditionInt {
+export interface IDirEntDataCondition {
   checkCondition: () => boolean;
-  getResult: () => ReturnType<ReadFileDataType> | null;
+  getResult: () => ReturnType<IReadFileData>;
 }
 
-export interface IndexFileNameConditionInt {
+export interface IIndexFileNameCondition {
   checkCondition: () => boolean;
-  getResult: () => ReturnType<GetIndexFileNameType> | ReturnType<GetTypesIndexFileNameType>;
+  getResult: () => ReturnType<IGetIndexFileName> | ReturnType<IGetTypesIndexFileName>;
 }
 
-export interface ExportStatementConditionInt {
+export interface IExportStatementCondition {
   checkCondition: () => boolean;
   getResult: () =>
-    | ReturnType<GetNamedExportStatementType>
-    | ReturnType<GetNamedTypeExportStatementType>
-    | ReturnType<GetDefaultExportStatementType>;
+    | ReturnType<IGetNamedExportStatement>
+    | ReturnType<IGetNamedTypeExportStatement>
+    | ReturnType<IGetDefaultExportStatement>;
 }
 
-export type GetDefaultExportStatementType = (varName: any, realtivePath: any) => string;
+export type IMain = () => Promise<void>;
 
-export type GetNamedTypeExportStatementType = (realtivePath: string) => string;
+export type IReadFileData = (filePath: string) => Promise<string>;
 
-export type GetNamedExportStatementType = (realtivePath: string) => string;
+export type IWriteFileData = (filePath: string, fileData: string) => Promise<void>;
 
-export type ReadFileDataType = (filePath: string) => Promise<string>;
+export type IWriteIndexFiles = (indexFiles: IIndexFile[]) => void;
 
-export type WriteFileDataType = (filePath: string, fileData: string) => Promise<void>;
+export type ICreateIndexFileData = (parentPath: string, modulePaths: string[]) => string;
 
-export type WriteIndexFilesType = (indexFiles: IndexFileInt[]) => void;
+export type IGetIndexFileData = (parentPath: string) => Promise<ReturnType<ICreateIndexFileData>>;
 
-export type CreateIndexFileDataType = (parentPath: string, modulePaths: string[]) => string;
+export type IGetDirEntsRecurs = (parentPath: string) => Promise<Dirent[]>;
 
-export type GetIndexFileDataType = (
-  parentPath: string
-) => Promise<ReturnType<CreateIndexFileDataType>>;
+export type IGetDirEntData = (dirEnt: Dirent) => ReturnType<IFindDirEntData>;
 
-export type GetDirEntsRecursType = (parentPath: string) => Promise<Dirent[]>;
-
-export type GetDirEntDataType = (dirEnt: Dirent) => ReturnType<FindDirEntDataType>;
-
-export type FindDirEntDataType = (
+export type IFindDirEntData = (
   dirEnt: Dirent,
   dirEntPath: string
-) => ReturnType<DirEntDataConditionInt['getResult']>;
+) => ReturnType<IDirEntDataCondition['getResult']>;
 
-export type FindIndexFileNameType = (
+export type IFindIndexFileName = (
   parentPath: string
-) => ReturnType<IndexFileNameConditionInt['getResult']>;
+) => ReturnType<IIndexFileNameCondition['getResult']>;
 
-export type FindExportStatementType = (
+export type IFindExportStatement = (
   varName: string,
   parentPath: string
-) => ReturnType<ExportStatementConditionInt['getResult']>;
+) => ReturnType<IExportStatementCondition['getResult']>;
 
-export type ComposeType = (...funcs: ((arg: any) => any)[]) => (arg: any) => any;
+export type ICompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => any;
 
-export type AsyncComposeType = (...funcs: ((arg: any) => any)[]) => (arg: any) => Promise<any>;
+export type IAsyncCompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => Promise<any>;
 
-export type CreateIndexFilesType = (parentPaths: string[]) => Promise<IndexFileInt[]>;
+export type ICreateIndexFiles = (parentPaths: string[]) => Promise<IIndexFile[]>;
 
-export type AssignDirEntDataType = (dirEnts: Dirent[]) => Promise<DirEntInt[]>;
+export type IAssignDirEntData = (dirEnts: Dirent[]) => Promise<IDirEnt[]>;
 
-export type GetIndexFileNameConditionsType = (parentPath: string) => IndexFileNameConditionInt[];
+export type IGetIndexFileNameConditions = (parentPath: string) => IIndexFileNameCondition[];
 
-export type GetParentPathsType = () => ConfigInt['parentPaths'];
+export type IGetParentPaths = () => IConfig['parentPaths'];
 
-export type GetItemsToExcludeType = () => ConfigInt['itemsToExclude'];
+export type IGetItemsToExclude = () => IConfig['itemsToExclude'];
 
-export type GetIndexFileNameType = () => string;
+export type IGetIndexFileName = () => string;
 
-export type GetTypesIndexFileNameType = () => string;
+export type IGetTypesIndexFileName = () => string;
 
-export type GetDirEntDataConditionsType = (
+export type IGetDirEntDataConditions = (
   dirEnt: Dirent,
   dirEntPath: string
-) => DirEntDataConditionInt[];
+) => IDirEntDataCondition[];
 
-export type GetExportStatementConditionsType = (
+export type IGetExportStatementConditions = (
   varName: string,
   realtivePath: string
-) => ExportStatementConditionInt[];
+) => IExportStatementCondition[];
 
-export type FilterFilesType = (dirEnts: DirEntInt[]) => DirEntInt[];
+export type IFilterFiles = (dirEnts: IDirEnt[]) => IDirEnt[];
 
-export type FilterFilesToIncludeType = (dirEnts: DirEntInt[]) => DirEntInt[];
+export type IFilterFilesToInclude = (dirEnts: IDirEnt[]) => IDirEnt[];
 
-export type FilterModulesType = (dirEnts: DirEntInt[]) => DirEntInt[];
+export type IFilterModules = (dirEnts: IDirEnt[]) => IDirEnt[];
 
-export type IsFileAModuleType = (fileName: string, fileData: string) => boolean;
+export type IAppendDotAndSlash = (filePath: string) => string;
 
-export type AppendDotAndSlashType = (filePath: string) => string;
+export type IGetPath = (parentPath: string, name: string) => string;
 
-export type GetPathType = (parentPath: string, name: string) => string;
+export type IGetBasename = (filePath: string) => string;
 
-export type GetBasenameType = (filePath: string) => string;
+export type ISterilizeBasename = (basename: string) => string;
 
-export type SterilizeBasenameType = (basename: string) => string;
-
-export type GetIndexFilePathType = (parentPath: string) => ReturnType<GetPathType>;
+export type IGetIndexFilePath = (parentPath: string) => ReturnType<IGetPath>;
 
 export type GetRelativePathType = (
   parentPath: string,
   filePath: string
-) => ReturnType<AppendDotAndSlashType>;
+) => ReturnType<IAppendDotAndSlash>;
 
-export type GetTargetFilesType = (parentPath: string) => Promise<ReturnType<FilterModulesType>>;
+export type IGetTargetFiles = (parentPath: string) => Promise<ReturnType<IFilterModules>>;
 
-export type GetFilePathsType = (parentPath: string) => Promise<ReturnType<GetPathType>[]>;
+export type IGetFilePaths = (parentPath: string) => Promise<ReturnType<IGetPath>[]>;
 
-export type SliceFromParentDirType = (parentPath: string, filePath: string) => string;
+export type ISliceFromParentDir = (parentPath: string, filePath: string) => string;
+
+export type IIsEntityAFile = (dirEnt: Dirent) => boolean;
+
+export type IIsModule = (fileData: string) => boolean;
+
+export type IIsItemToBeExcluded = (parentPath: string, name: string, item: string) => boolean;
+
+export type IIsFileAModule = (fileName: string, fileData: string) => boolean;
+
+export type IIsTypesPath = (path: string) => boolean;
+
+export type IIsEndsWithTsOrTsxExtension = (path: string) => boolean;
+
+export type IIsDefaultModule = (filePath: string) => boolean;
+
+export type IIsNamedModule = (filePath: string) => boolean;
+
+export type IIsTypeModule = (filePath: string) => boolean;
+
+export type IIsFileToBeIncluded = ({ parentPath, name }: Dirent) => boolean;
+
+export type IGetNamedExportStatement = (realtivePath: string) => string;
+
+export type IGetNamedTypeExportStatement = (realtivePath: string) => string;
+
+export type IGetDefaultExportStatement = (varName: any, realtivePath: any) => string;
+
+export type IConcatExportStatement = (fileData: string, exportStatement: string) => string;
+
+export type IDeleteExtension = (filePath: string) => string;
+
+export type ISplitToParts = (div: string, ...strings: string[]) => string[][];
+
+export type IGetVarName = (filePath: string) => string;
+
+export type IGetParentDirIndex = (parentPathParts: string[], filePathParts: string[]) => number;
+
+export type IGetExportStatement = (parentPath: string, modulePath: string) => string;
