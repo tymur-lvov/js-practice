@@ -1,17 +1,22 @@
+import {
+  compose,
+  getBasename,
+  getRelativePath,
+  sterilizeBasename,
+  findExportStatement,
+} from '@helpers';
+
 import type {
-  IConcatExportStatement,
-  IDeleteExtension,
-  IGetDefaultExportStatement,
-  IGetExportStatement,
-  IGetNamedExportStatement,
-  IGetNamedTypeExportStatement,
-  IGetParentDirIndex,
   IGetVarName,
   ISplitToParts,
-} from '../../@types/helpers.types';
-import { compose } from './composers';
-import { findExportStatement } from './finders';
-import { getBasename, getRelativePath, sterilizeBasename } from './paths';
+  IDeleteExtension,
+  IGetParentDirIndex,
+  IGetExportStatement,
+  IConcatExportStatement,
+  IGetNamedExportStatement,
+  IGetDefaultExportStatement,
+  IGetNamedTypeExportStatement,
+} from '@types';
 
 export const getNamedExportStatement: IGetNamedExportStatement = (realtivePath) => {
   return `export * from '${deleteExtension(realtivePath)}';\n`;

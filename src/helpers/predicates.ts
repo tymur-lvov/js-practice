@@ -1,17 +1,22 @@
+import { exportDirective, tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '@constants';
+
+import { getConfigOption } from '@helpers';
+
 import type {
-  IIsDefaultModule,
-  IIsEndsWithTsOrTsxExtension,
+  IIsModule,
+  IIsTypesPath,
+  IIsTypeModule,
+  IIsNamedModule,
   IIsEntityAFile,
   IIsFileAModule,
+  IIsDefaultModule,
   IIsFileToBeIncluded,
   IIsItemToBeExcluded,
-  IIsModule,
-  IIsNamedModule,
-  IIsTypeModule,
-  IIsTypesPath,
-} from '../../@types/helpers.types';
-import { exportDirective, tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '../constants';
-import { getItemsToExclude } from './misc';
+  IIsFindDirEntDataError,
+  IIsFindIndexFileNameError,
+  IIsFindExportStatementError,
+  IIsEndsWithTsOrTsxExtension,
+} from '@types';
 
 export const isEntityAFile: IIsEntityAFile = (dirEnt) => {
   return dirEnt.isFile();
@@ -19,6 +24,18 @@ export const isEntityAFile: IIsEntityAFile = (dirEnt) => {
 
 export const isModule: IIsModule = (fileData) => {
   return fileData.includes(exportDirective);
+};
+
+export const isFindIndexFileNameError: IIsFindIndexFileNameError = (reason) => {
+  return reason === '!findIndexFileName';
+};
+
+export const isFindExportStatementError: IIsFindExportStatementError = (reason) => {
+  return reason === '!findExportStatement';
+};
+
+export const isFindDirEntDataError: IIsFindDirEntDataError = (reason) => {
+  return reason === '!findDirEntData';
 };
 
 export const isItemToBeExcluded: IIsItemToBeExcluded = (parentPath, name, item) => {
@@ -50,5 +67,7 @@ export const isTypeModule: IIsTypeModule = (filePath) => {
 };
 
 export const isFileToBeIncluded: IIsFileToBeIncluded = ({ parentPath, name }) => {
-  return !getItemsToExclude().some((item) => isItemToBeExcluded(parentPath, name, item));
+  const itemsToExclude = getConfigOption('itemsToExclude');
+
+  return !itemsToExclude.some((item) => isItemToBeExcluded(parentPath, name, item));
 };
