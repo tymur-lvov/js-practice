@@ -1,16 +1,22 @@
 import { readdir, readFile, writeFile } from 'fs/promises';
-import { concatExportStatement, getExportStatement } from './strings';
-import { getFilePaths, getPath } from './paths';
+
+import {
+  getPath,
+  getFilePaths,
+  findDirEntData,
+  getExportStatement,
+  concatExportStatement,
+} from '@helpers';
+
 import type {
-  ICreateIndexFileData,
-  IGetDirEntData,
-  IGetDirEntsRecurs,
-  IGetIndexFileData,
   IReadFileData,
+  IGetDirEntData,
   IWriteFileData,
   IWriteIndexFiles,
-} from '../../@types/helpers.types';
-import { findDirEntData } from './finders';
+  IGetDirEntsRecurs,
+  IGetIndexFileData,
+  ICreateIndexFileData,
+} from '@types';
 
 export const readFileData: IReadFileData = async (filePath) => {
   return readFile(filePath, 'utf-8');
@@ -44,7 +50,7 @@ export const getIndexFileData: IGetIndexFileData = async (parentPath) => {
   return createIndexFileData(parentPath, filePaths);
 };
 
-export const getDirEntData: IGetDirEntData = (dirEnt) => {
+export const getDirEntData: IGetDirEntData = async (dirEnt) => {
   const dirEntPath = getPath(dirEnt.parentPath, dirEnt.name);
 
   return findDirEntData(dirEnt, dirEntPath);

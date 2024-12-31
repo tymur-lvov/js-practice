@@ -1,32 +1,57 @@
+import {
+  isTypesPath,
+  isTypeModule,
+  readFileData,
+  isNamedModule,
+  isEntityAFile,
+  isDefaultModule,
+  getIndexFileName,
+  getEmptyStringPromise,
+  getTypesIndexFileName,
+  isFindDirEntDataError,
+  getNamedExportStatement,
+  isFindIndexFileNameError,
+  getDefaultExportStatement,
+  getDirEntDataErrorMessage,
+  isFindExportStatementError,
+  getNamedTypeExportStatement,
+  getIndexFileNameErrorMessage,
+  getExportStatementErrorMessage,
+} from '@helpers';
+
 import type {
   IGetDirEntDataConditions,
-  IGetExportStatementConditions,
+  IGetErrorMessageConditions,
   IGetIndexFileNameConditions,
-} from '../../@types/helpers.types';
-import { readFileData } from './files';
-import { getIndexFileName, getTypesIndexFileName } from './misc';
-import {
-  isDefaultModule,
-  isEntityAFile,
-  isNamedModule,
-  isTypeModule,
-  isTypesPath,
-} from './predicates';
-import {
-  getDefaultExportStatement,
-  getNamedExportStatement,
-  getNamedTypeExportStatement,
-} from './strings';
+  IGetExportStatementConditions,
+} from '@types';
+
+export const getErrorMessageConditions: IGetErrorMessageConditions = (reason) => {
+  return [
+    {
+      checkCondition: () => isFindIndexFileNameError(reason),
+      getResult: () => getIndexFileNameErrorMessage(),
+    },
+    {
+      checkCondition: () => isFindExportStatementError(reason),
+      getResult: () => getExportStatementErrorMessage(),
+    },
+    {
+      checkCondition: () => isFindDirEntDataError(reason),
+      getResult: () => getDirEntDataErrorMessage(),
+    },
+  ];
+};
 
 export const getDirEntDataConditions: IGetDirEntDataConditions = (dirEnt, dirEntPath) => {
   return [
     {
       checkCondition: () => isEntityAFile(dirEnt),
-      getResult: async () => await readFileData(dirEntPath),
+      getResult: () => readFileData(dirEntPath),
     },
     {
       checkCondition: () => !isEntityAFile(dirEnt),
-      getResult: () => Promise.resolve(''),
+      getResult: () => getEmptyStringPromise(),
     },
   ];
 };
