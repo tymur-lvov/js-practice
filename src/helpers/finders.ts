@@ -1,20 +1,35 @@
+import {
+  createError,
+  getDirEntDataConditions,
+  getErrorMessageConditions,
+  getIndexFileNameConditions,
+  getExportStatementConditions,
+} from '@helpers';
+
 import type {
   IFindDirEntData,
-  IFindExportStatement,
+  IFindErrorMessage,
   IFindIndexFileName,
-} from '../../@types/helpers.types';
-import {
-  getDirEntDataConditions,
-  getExportStatementConditions,
-  getIndexFileNameConditions,
-} from './conditions';
+  IFindExportStatement,
+} from '@types';
+
+export const findErrorMessage: IFindErrorMessage = (reason: string) => {
+  const conditions = getErrorMessageConditions(reason);
+  const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
+
+  if (!result) {
+    throw new Error('Error message condition result not found');
+  }
+
+  return result;
+};
 
 export const findIndexFileName: IFindIndexFileName = (parentPath) => {
   const conditions = getIndexFileNameConditions(parentPath);
   const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
   if (!result) {
-    throw new Error('Index file name condition result not found');
+    throw createError('!findIndexFileName');
   }
 
   return result;
@@ -25,18 +40,18 @@ export const findExportStatement: IFindExportStatement = (varName, realtivePath)
   const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
   if (!result) {
-    throw new Error('Export condition result not found');
+    throw createError('!findExportStatement');
   }
 
   return result;
 };
 
-export const findDirEntData: IFindDirEntData = (dirEnt, dirEntPath) => {
+export const findDirEntData: IFindDirEntData = async (dirEnt, dirEntPath) => {
   const conditions = getDirEntDataConditions(dirEnt, dirEntPath);
-  const result = conditions.find(({ checkCondition }) => checkCondition())?.getResult();
+  const result = await conditions.find(({ checkCondition }) => checkCondition())?.getResult();
 
   if (result === undefined) {
-    throw new Error('DirEnt data condition result not found');
+    throw createError('!findDirEntData');
   }
 
   return result;

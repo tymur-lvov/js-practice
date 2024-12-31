@@ -1,9 +1,6 @@
-import type {
-  IFilterFilesToInclude,
-  IFilterFiles,
-  IFilterModules,
-} from '../../@types/helpers.types';
-import { isEntityAFile, isFileAModule, isFileToBeIncluded } from './predicates';
+import { isEntityAFile, isFileAModule, isFileToBeIncluded } from '@helpers';
+
+import type { IFilterFilesToInclude, IFilterFiles, IFilterModules } from '@types';
 
 export const filterFiles: IFilterFiles = (dirEnts) => {
   return dirEnts.filter(({ dirEntInfo }) => isEntityAFile(dirEntInfo));
