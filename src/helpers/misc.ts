@@ -1,18 +1,19 @@
+import config from '@config';
+
+import { indexFileName, typesIndexFileName } from '@constants';
+
+import { findErrorMessage } from '@helpers';
+
 import type {
+  ICreateError,
+  IGetConfigOption,
   IGetIndexFileName,
-  IGetItemsToExclude,
-  IGetParentPaths,
+  IGetEmptyStringPromise,
   IGetTypesIndexFileName,
-} from '../../@types/helpers.types';
-import config from '../config.json';
-import { indexFileName, typesIndexFileName } from '../constants';
+} from '@types';
 
-export const getParentPaths: IGetParentPaths = () => {
-  return config.parentPaths;
-};
-
-export const getItemsToExclude: IGetItemsToExclude = () => {
-  return config.itemsToExclude;
+export const getConfigOption: IGetConfigOption = (option) => {
+  return config[option];
 };
 
 export const getIndexFileName: IGetIndexFileName = () => {
@@ -21,4 +22,14 @@ export const getIndexFileName: IGetIndexFileName = () => {
 
 export const getTypesIndexFileName: IGetTypesIndexFileName = () => {
   return typesIndexFileName;
+};
+
+export const getEmptyStringPromise: IGetEmptyStringPromise = async () => {
+  return Promise.resolve('');
+};
+
+export const createError: ICreateError = (reason) => {
+  const message = findErrorMessage(reason);
+
+  return new Error(message);
 };

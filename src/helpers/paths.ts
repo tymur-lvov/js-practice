@@ -1,22 +1,31 @@
 import { basename, resolve } from 'path';
-import { findIndexFileName } from './finders';
-import { getDirEntsRecurs } from './files';
-import { asyncCompose, compose } from './composers';
-import { getParentDirIndex, splitToParts } from './strings';
-import { invalidSymbolsRegExp } from '../constants';
-import { filterFiles, filterFilesToInclude, filterModules } from './filters';
-import { assignDirEntData } from './builders';
+
+import { invalidSymbolsRegExp } from '@constants';
+
+import {
+  compose,
+  filterFiles,
+  splitToParts,
+  asyncCompose,
+  filterModules,
+  getDirEntsRecurs,
+  assignDirEntData,
+  getParentDirIndex,
+  findIndexFileName,
+  filterFilesToInclude,
+} from '@helpers';
+
 import type {
-  IAppendDotAndSlash,
+  IGetPath,
   IGetBasename,
   IGetFilePaths,
-  IGetIndexFilePath,
-  IGetPath,
-  GetRelativePathType,
   IGetTargetFiles,
-  ISliceFromParentDir,
+  IGetIndexFilePath,
   ISterilizeBasename,
-} from '../../@types/helpers.types';
+  IAppendDotAndSlash,
+  GetRelativePathType,
+  ISliceFromParentDir,
+} from '@types';
 
 export const appendDotAndSlash: IAppendDotAndSlash = (filePath) => {
   return `./${filePath}`;
