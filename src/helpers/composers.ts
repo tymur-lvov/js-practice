@@ -1,4 +1,4 @@
-import type { IAsyncCompose, ICompose } from '../../@types/helpers.types';
+import type { IAsyncCompose, ICompose } from '@types';
 
 export const compose: ICompose =
   (...funcs) =>

@@ -1,7 +1,6 @@
-import { getDirEntData, getIndexFileData } from '../helpers/files';
-import { getIndexFilePath } from '../helpers/paths';
+import { getDirEntData, getIndexFileData, getIndexFilePath } from '@helpers';
 
-import type { IAssignDirEntData, ICreateIndexFiles } from '../../@types/helpers.types';
+import type { IAssignDirEntData, ICreateIndexFiles } from '@types';
 
 export const createIndexFiles: ICreateIndexFiles = async (parentPaths) => {
   return Promise.all(
