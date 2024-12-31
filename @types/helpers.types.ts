@@ -33,7 +33,18 @@ export interface IExportStatementCondition {
     | ReturnType<IGetDefaultExportStatement>;
 }
 
+export interface IErrorMessageCondition {
+  checkCondition: () => boolean;
+  getResult: () => string;
+}
+
 export type IMain = () => Promise<void>;
+
+export type IGetErrorMessageConditions = (reason: string) => IErrorMessageCondition[];
+
+export type ICreateError = (reason: string) => Error;
+
+export type IGetConfigOption = (option: keyof IConfig) => IConfig[keyof IConfig];
 
 export type IReadFileData = (filePath: string) => Promise<string>;
 
@@ -63,6 +74,8 @@ export type IFindExportStatement = (
   parentPath: string
 ) => ReturnType<IExportStatementCondition['getResult']>;
 
+export type IFindErrorMessage = (reason: string) => ReturnType<IErrorMessageCondition['getResult']>;
+
 export type ICompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => any;
 
 export type IAsyncCompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => Promise<any>;
@@ -72,10 +85,6 @@ export type ICreateIndexFiles = (parentPaths: string[]) => Promise<IIndexFile[]>
 export type IAssignDirEntData = (dirEnts: Dirent[]) => Promise<IDirEnt[]>;
 
 export type IGetIndexFileNameConditions = (parentPath: string) => IIndexFileNameCondition[];
-
-export type IGetParentPaths = () => IConfig['parentPaths'];
-
-export type IGetItemsToExclude = () => IConfig['itemsToExclude'];
 
 export type IGetIndexFileName = () => string;
 
@@ -118,6 +127,12 @@ export type IGetFilePaths = (parentPath: string) => Promise<ReturnType<IGetPath>
 
 export type ISliceFromParentDir = (parentPath: string, filePath: string) => string;
 
+export type IIsFindIndexFileNameError = (reason: string) => boolean;
+
+export type IIsFindExportStatementError = (reason: string) => boolean;
+
+export type IIsFindDirEntDataError = (reason: string) => boolean;
+
 export type IIsEntityAFile = (dirEnt: Dirent) => boolean;
 
 export type IIsModule = (fileData: string) => boolean;
@@ -155,3 +170,11 @@ export type IGetVarName = (filePath: string) => string;
 export type IGetParentDirIndex = (parentPathParts: string[], filePathParts: string[]) => number;
 
 export type IGetExportStatement = (parentPath: string, modulePath: string) => string;
+
+export type IGetIndexFileNameErrorMessage = () => string;
+
+export type IGetExportStatementErrorMessage = () => string;
+
+export type IGetDirEntDataErrorMessage = () => string;
+
+export type IGetEmptyStringPromise = () => Promise<string>;
