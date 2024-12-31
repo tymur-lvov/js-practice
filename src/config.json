@@ -1,5 +1,10 @@
 {
-  "parentPaths": ["./test/assets/images", "./test/assets/icons", "./test/utils", "./@types"],
-
+  "parentPaths": [
+    "./@types",
+    "./test/assets/images",
+    "./test/assets/icons",
+    "./test/utils",
+    "./src/helpers"
+  ],
   "itemsToExclude": ["index.ts", "index.types.ts", "DS_Store"]
 }

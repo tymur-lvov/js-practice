@@ -25,8 +25,8 @@
     "paths": {
       "@types": ["./@types/index.types.ts"],
       "@config": ["./src/config.json"],
-      "@helpers": ["./src/helpers/index.ts"],
-      "@constants": ["./src/constants/index.ts"]
+      "@constants": ["./src/constants.ts"],
+      "@helpers": ["./src/helpers/index.ts"]
     }
   },
   "include": ["./src"]
