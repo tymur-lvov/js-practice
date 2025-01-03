@@ -7,9 +7,7 @@ import {
   filterFiles,
   splitToParts,
   asyncCompose,
-  filterModules,
   getDirEntsRecurs,
-  assignDirEntData,
   getParentDirIndex,
   findIndexFileName,
   filterFilesToInclude,
@@ -31,7 +29,7 @@ export const appendDotAndSlash: IAppendDotAndSlash = (filePath) => {
   return `./${filePath}`;
 };
 
-export const getPath: IGetPath = (parentPath, name) => {
+export const getPath: IGetPath = (parentPath, name = '') => {
   return resolve(parentPath, name);
 };
 
@@ -55,16 +53,17 @@ export const getRelativePath: GetRelativePathType = (parentPath, filePath) => {
   return appendDotAndSlash(pathFromParentDir);
 };
 
-export const getTargetFiles: IGetTargetFiles = async (parentPath) => {
-  const dirEnts = await asyncCompose(getDirEntsRecurs, assignDirEntData)(parentPath);
+export const getTargetFiles: IGetTargetFiles = async (rawParentPath) => {
+  const dirEnts = await asyncCompose(getPath, getDirEntsRecurs)(rawParentPath);
 
-  return compose(filterFiles, filterFilesToInclude, filterModules)(dirEnts);
+  return compose(filterFiles, filterFilesToInclude)(dirEnts);
 };
 
 export const getFilePaths: IGetFilePaths = async (parentPath) => {
   const targetFiles = await getTargetFiles(parentPath);
+  console.log(targetFiles.map(({ parentPath, name }) => getPath(parentPath, name)));
 
-  return targetFiles.map(({ dirEntInfo: { parentPath, name } }) => getPath(parentPath, name));
+  return targetFiles.map(({ parentPath, name }) => getPath(parentPath, name));
 };
 
 export const sliceFromParentDir: ISliceFromParentDir = (parentPath, filePath) => {

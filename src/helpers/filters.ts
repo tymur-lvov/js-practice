@@ -1,15 +1,11 @@
-import { isEntityAFile, isFileAModule, isFileToBeIncluded } from '@helpers';
+import { isEntityAFile, isFileToBeIncluded } from '@helpers';
 
-import type { IFilterFilesToInclude, IFilterFiles, IFilterModules } from '@types';
+import type { IFilterFilesToInclude, IFilterFiles } from '@types';
 
 export const filterFiles: IFilterFiles = (dirEnts) => {
-  return dirEnts.filter(({ dirEntInfo }) => isEntityAFile(dirEntInfo));
+  return dirEnts.filter((dirEnt) => isEntityAFile(dirEnt));
 };
 
 export const filterFilesToInclude: IFilterFilesToInclude = (dirEnts) => {
-  return dirEnts.filter(({ dirEntInfo }) => isFileToBeIncluded(dirEntInfo));
-};
-
-export const filterModules: IFilterModules = (dirEnts) => {
-  return dirEnts.filter(({ dirEntInfo, dirEntData }) => isFileAModule(dirEntInfo.name, dirEntData));
+  return dirEnts.filter((dirEnt) => isFileToBeIncluded(dirEnt));
 };

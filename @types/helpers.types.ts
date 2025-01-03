@@ -10,11 +10,6 @@ export interface IIndexFile {
   indexFileData: string;
 }
 
-export interface IDirEnt {
-  dirEntInfo: Dirent;
-  dirEntData: string;
-}
-
 export interface IDirEntDataCondition {
   checkCondition: () => boolean;
   getResult: () => ReturnType<IReadFileData>;
@@ -82,8 +77,6 @@ export type IAsyncCompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => P
 
 export type ICreateIndexFiles = (parentPaths: string[]) => Promise<IIndexFile[]>;
 
-export type IAssignDirEntData = (dirEnts: Dirent[]) => Promise<IDirEnt[]>;
-
 export type IGetIndexFileNameConditions = (parentPath: string) => IIndexFileNameCondition[];
 
 export type IGetIndexFileName = () => string;
@@ -100,15 +93,13 @@ export type IGetExportStatementConditions = (
   realtivePath: string
 ) => IExportStatementCondition[];
 
-export type IFilterFiles = (dirEnts: IDirEnt[]) => IDirEnt[];
+export type IFilterFiles = (dirEnts: Dirent[]) => Dirent[];
 
-export type IFilterFilesToInclude = (dirEnts: IDirEnt[]) => IDirEnt[];
-
-export type IFilterModules = (dirEnts: IDirEnt[]) => IDirEnt[];
+export type IFilterFilesToInclude = (dirEnts: Dirent[]) => Dirent[];
 
 export type IAppendDotAndSlash = (filePath: string) => string;
 
-export type IGetPath = (parentPath: string, name: string) => string;
+export type IGetPath = (parentPath: string, name?: string) => string;
 
 export type IGetBasename = (filePath: string) => string;
 
@@ -121,7 +112,7 @@ export type GetRelativePathType = (
   filePath: string
 ) => ReturnType<IAppendDotAndSlash>;
 
-export type IGetTargetFiles = (parentPath: string) => Promise<ReturnType<IFilterModules>>;
+export type IGetTargetFiles = (parentPath: string) => Promise<ReturnType<IFilterFilesToInclude>>;
 
 export type IGetFilePaths = (parentPath: string) => Promise<ReturnType<IGetPath>[]>;
 
@@ -135,11 +126,7 @@ export type IIsFindDirEntDataError = (reason: string) => boolean;
 
 export type IIsEntityAFile = (dirEnt: Dirent) => boolean;
 
-export type IIsModule = (fileData: string) => boolean;
-
 export type IIsItemToBeExcluded = (parentPath: string, name: string, item: string) => boolean;
-
-export type IIsFileAModule = (fileName: string, fileData: string) => boolean;
 
 export type IIsTypesPath = (path: string) => boolean;
 

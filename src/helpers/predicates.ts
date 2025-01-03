@@ -1,14 +1,12 @@
-import { exportDirective, tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '@constants';
+import { tsOrTsxExtensionRegExp, typesDirOrFileNameRegExp } from '@constants';
 
 import { getConfigOption } from '@helpers';
 
 import type {
-  IIsModule,
   IIsTypesPath,
   IIsTypeModule,
   IIsNamedModule,
   IIsEntityAFile,
-  IIsFileAModule,
   IIsDefaultModule,
   IIsFileToBeIncluded,
   IIsItemToBeExcluded,
@@ -20,10 +18,6 @@ import type {
 
 export const isEntityAFile: IIsEntityAFile = (dirEnt) => {
   return dirEnt.isFile();
-};
-
-export const isModule: IIsModule = (fileData) => {
-  return fileData.includes(exportDirective);
 };
 
 export const isFindIndexFileNameError: IIsFindIndexFileNameError = (reason) => {
@@ -40,10 +34,6 @@ export const isFindDirEntDataError: IIsFindDirEntDataError = (reason) => {
 
 export const isItemToBeExcluded: IIsItemToBeExcluded = (parentPath, name, item) => {
   return parentPath.includes(item) || name === item;
-};
-
-export const isFileAModule: IIsFileAModule = (fileName, fileData) => {
-  return isDefaultModule(fileName) || isModule(fileData);
 };
 
 export const isTypesPath: IIsTypesPath = (path) => {

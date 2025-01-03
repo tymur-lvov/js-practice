@@ -19,15 +19,15 @@ import type {
 } from '@types';
 
 export const getNamedExportStatement: IGetNamedExportStatement = (realtivePath) => {
-  return `export * from '${deleteExtension(realtivePath)}';\n`;
+  return `export * from '${realtivePath}';\n`;
 };
 
 export const getNamedTypeExportStatement: IGetNamedTypeExportStatement = (realtivePath) => {
-  return `export type * from '${deleteExtension(realtivePath)}';\n`;
+  return `export type * from '${realtivePath}';\n`;
 };
 
 export const getDefaultExportStatement: IGetDefaultExportStatement = (varName, realtivePath) => {
-  return `export { default as ${varName} } from '${deleteExtension(realtivePath)}';\n`;
+  return `export { default as ${varName} } from '${realtivePath}';\n`;
 };
 
 export const concatExportStatement: IConcatExportStatement = (fileData, exportStatement) => {
