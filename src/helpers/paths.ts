@@ -61,7 +61,6 @@ export const getTargetFiles: IGetTargetFiles = async (rawParentPath) => {
 
 export const getFilePaths: IGetFilePaths = async (parentPath) => {
   const targetFiles = await getTargetFiles(parentPath);
-  console.log(targetFiles.map(({ parentPath, name }) => getPath(parentPath, name)));
 
   return targetFiles.map(({ parentPath, name }) => getPath(parentPath, name));
 };

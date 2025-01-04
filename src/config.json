@@ -1,4 +1,0 @@
-{
-  "parentPaths": ["./test/assets/images"],
-  "itemsToExclude": ["node", "index.ts", "index.types.ts", ".DS_Store"]
-}
