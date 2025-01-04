@@ -20,17 +20,17 @@ export interface IIndexFileNameCondition {
   getResult: () => ReturnType<IGetIndexFileName> | ReturnType<IGetTypesIndexFileName>;
 }
 
+export interface IErrorMessageCondition {
+  checkCondition: () => boolean;
+  getResult: () => string;
+}
+
 export interface IExportStatementCondition {
   checkCondition: () => boolean;
   getResult: () =>
     | ReturnType<IGetNamedExportStatement>
     | ReturnType<IGetNamedTypeExportStatement>
     | ReturnType<IGetDefaultExportStatement>;
-}
-
-export interface IErrorMessageCondition {
-  checkCondition: () => boolean;
-  getResult: () => string;
 }
 
 export type IMain = () => Promise<void>;
@@ -55,20 +55,6 @@ export type IGetDirEntsRecurs = (parentPath: string) => Promise<Dirent[]>;
 
 export type IGetDirEntData = (dirEnt: Dirent) => ReturnType<IFindDirEntData>;
 
-export type IFindDirEntData = (
-  dirEnt: Dirent,
-  dirEntPath: string
-) => ReturnType<IDirEntDataCondition['getResult']>;
-
-export type IFindIndexFileName = (
-  parentPath: string
-) => ReturnType<IIndexFileNameCondition['getResult']>;
-
-export type IFindExportStatement = (
-  varName: string,
-  parentPath: string
-) => ReturnType<IExportStatementCondition['getResult']>;
-
 export type IFindErrorMessage = (reason: string) => ReturnType<IErrorMessageCondition['getResult']>;
 
 export type ICompose = (...funcs: ((arg: any) => any)[]) => (arg: any) => any;
@@ -83,16 +69,6 @@ export type IGetIndexFileName = () => string;
 
 export type IGetTypesIndexFileName = () => string;
 
-export type IGetDirEntDataConditions = (
-  dirEnt: Dirent,
-  dirEntPath: string
-) => IDirEntDataCondition[];
-
-export type IGetExportStatementConditions = (
-  varName: string,
-  realtivePath: string
-) => IExportStatementCondition[];
-
 export type IFilterFiles = (dirEnts: Dirent[]) => Dirent[];
 
 export type IFilterFilesToInclude = (dirEnts: Dirent[]) => Dirent[];
@@ -106,11 +82,6 @@ export type IGetBasename = (filePath: string) => string;
 export type ISterilizeBasename = (basename: string) => string;
 
 export type IGetIndexFilePath = (parentPath: string) => ReturnType<IGetPath>;
-
-export type GetRelativePathType = (
-  parentPath: string,
-  filePath: string
-) => ReturnType<IAppendDotAndSlash>;
 
 export type IGetTargetFiles = (parentPath: string) => Promise<ReturnType<IFilterFilesToInclude>>;
 
@@ -165,3 +136,32 @@ export type IGetExportStatementErrorMessage = () => string;
 export type IGetDirEntDataErrorMessage = () => string;
 
 export type IGetEmptyStringPromise = () => Promise<string>;
+
+export type IGetDirEntDataConditions = (
+  dirEnt: Dirent,
+  dirEntPath: string
+) => IDirEntDataCondition[];
+
+export type IGetExportStatementConditions = (
+  varName: string,
+  realtivePath: string
+) => IExportStatementCondition[];
+
+export type GetRelativePathType = (
+  parentPath: string,
+  filePath: string
+) => ReturnType<IAppendDotAndSlash>;
+
+export type IFindDirEntData = (
+  dirEnt: Dirent,
+  dirEntPath: string
+) => ReturnType<IDirEntDataCondition['getResult']>;
+
+export type IFindIndexFileName = (
+  parentPath: string
+) => ReturnType<IIndexFileNameCondition['getResult']>;
+
+export type IFindExportStatement = (
+  varName: string,
+  parentPath: string
+) => ReturnType<IExportStatementCondition['getResult']>;
